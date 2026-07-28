@@ -1,270 +1,515 @@
 <!DOCTYPE html>
 <html lang="en" class="scroll-smooth">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" content="Ansh • NaturaVista — Find Peace in Every Journey. Curated travel experiences connecting you with nature and yourself.">
-    <title>Ansh • NaturaVista — Find Peace in Every Journey</title>
-    
-    <!-- Google Fonts: Cormorant Garamond & Plus Jakarta Sans -->
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;0,700;1,400&family=Plus+Jakarta+Sans:wght@300;400;500;600;700&display=swap" rel="stylesheet">
-    
-    <!-- Tailwind CSS CDN -->
-    <script src="https://cdn.tailwindcss.com"></script>
-    <script>
-        tailwind.config = {
-            theme: {
-                extend: {
-                    fontFamily: {
-                        serif: ['"Cormorant Garamond"', 'Georgia', 'serif'],
-                        sans: ['"Plus Jakarta Sans"', 'sans-serif'],
-                    },
-                    keyframes: {
-                        scrollDot: {
-                            '0%': { transform: 'translateY(0)', opacity: '1' },
-                            '50%': { transform: 'translateY(8px)', opacity: '0.4' },
-                            '100%': { transform: 'translateY(0)', opacity: '1' },
-                        },
-                        fadeInUp: {
-                            '0%': { opacity: '0', transform: 'translateY(20px)' },
-                            '100%': { opacity: '1', transform: 'translateY(0)' },
-                        }
-                    },
-                    animation: {
-                        'scroll-dot': 'scrollDot 2s infinite',
-                        'fade-in-up': 'fadeInUp 0.8s cubic-bezier(0.16, 1, 0.3, 1) forwards',
-                    }
-                }
-            }
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="A speed date with Preetoshi — Implementation-ready design-system guidance & token-driven storefront UI.">
+  <title>A speed date with Preetoshi — Design System & Storefront Guidance</title>
+
+  <!-- FontAwesome Icons -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+
+  <!-- Tailwind CSS CDN -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            brandBlue: '#0000ee',
+            brandCharcoal: '#333333',
+            brandDark: '#000000',
+            brandMuted: '#141415',
+          },
+          fontFamily: {
+            sans: ['Arial', '"Helvetica Neue"', 'Helvetica', 'sans-serif'],
+          }
         }
-    </script>
-    <style>
-        .video-layer {
-            transition: opacity 2000ms ease-in-out;
-            will-change: opacity;
-        }
-    </style>
+      }
+    }
+  </script>
+
+  <style>
+    :root {
+      --color-text-primary: #0000ee;
+      --color-text-secondary: #333333;
+      --color-surface-base: #000000;
+      --color-surface-muted: #141415;
+      --space-1: 14.62px;
+      --space-2: 73.1px;
+    }
+
+    body {
+      background-color: var(--color-surface-base);
+      color: #ffffff;
+      font-family: Arial, "Helvetica Neue", Helvetica, sans-serif;
+      font-size: 14px;
+      line-height: 20px;
+      margin: 0;
+      padding: 0;
+      overflow-x: hidden;
+    }
+
+    /* WCAG 2.2 AA Focus-Visible Rules */
+    a:focus-visible, button:focus-visible, input:focus-visible, select:focus-visible, textarea:focus-visible {
+      outline: 3px solid #0000ee !important;
+      outline-offset: 3px !important;
+    }
+
+    .btn-token {
+      transition: all 0.15s ease-in-out;
+    }
+
+    .btn-token:hover {
+      opacity: 0.85;
+      transform: translateY(-1px);
+    }
+
+    .btn-token:active {
+      transform: translateY(0);
+    }
+  </style>
 </head>
-<body class="bg-stone-100 text-emerald-950 font-sans antialiased overflow-x-hidden min-h-screen flex flex-col justify-between relative">
+<body class="bg-[#000000] text-white font-sans antialiased min-h-screen flex flex-col justify-between">
 
-    <!-- DUAL VIDEO BACKGROUND ENGINE -->
-    <div class="absolute inset-0 z-0 overflow-hidden pointer-events-none">
-        <video id="video1" class="video-layer absolute inset-0 w-full h-full object-cover opacity-100" muted playsinline preload="auto"></video>
-        <video id="video2" class="video-layer absolute inset-0 w-full h-full object-cover opacity-0" muted playsinline preload="auto"></video>
+  <!-- TOP BRAND BANNER -->
+  <div class="bg-[#141415] border-b border-[#333333] py-3 px-6 flex justify-between items-center text-xs font-mono">
+    <div class="flex items-center gap-3">
+      <span class="w-2.5 h-2.5 rounded-full bg-[#0000ee] animate-pulse"></span>
+      <span class="text-white font-bold uppercase tracking-wider">A SPEED DATE WITH PREETOSHI</span>
+      <span class="text-[#333333] hidden sm:inline">&bull;</span>
+      <span class="text-[#757575] hidden sm:inline">TYPEUI.SH MANAGED DESIGN SYSTEM</span>
+    </div>
+    <div class="flex items-center gap-4">
+      <a href="https://preetoshi.com/" target="_blank" class="text-[#0000ee] hover:underline font-bold">preetoshi.com <i class="fa-solid fa-arrow-up-right-from-square text-[10px]"></i></a>
+      <a href="#qa-checklist" class="text-white/70 hover:text-white underline">QA Checklist</a>
+    </div>
+  </div>
+
+  <!-- HEADER NAVIGATION (Component Density: 6 Links) -->
+  <header class="sticky top-0 z-40 bg-[#000000]/90 backdrop-blur-md border-b border-[#333333] px-6 lg:px-12 py-4">
+    <div class="max-w-7xl mx-auto flex items-center justify-between">
+      
+      <!-- Brand Logo -->
+      <a href="#" class="flex items-center gap-2 text-white font-bold text-base hover:opacity-80 transition-opacity" aria-label="A speed date with Preetoshi Home">
+        <span class="w-3 h-3 bg-[#0000ee] inline-block"></span>
+        <span>A SPEED DATE WITH PREETOSHI</span>
+      </a>
+
+      <!-- 6 Primary Navigation Links -->
+      <nav class="hidden md:flex items-center space-x-6 text-[14px]" aria-label="Main Navigation">
+        <a href="#mission" class="text-[#0000ee] font-bold hover:underline">1. Mission</a>
+        <a href="#tokens" class="text-white/80 hover:text-white">2. Tokens</a>
+        <a href="#speed-date" class="text-white/80 hover:text-white">3. Speed Date Session</a>
+        <a href="#components" class="text-white/80 hover:text-white">4. Components (15)</a>
+        <a href="#accessibility" class="text-white/80 hover:text-white">5. Accessibility</a>
+        <a href="#qa-checklist" class="text-white/80 hover:text-white">6. QA Checklist</a>
+      </nav>
+
+      <!-- Action Button -->
+      <button id="start-date-btn" class="px-5 py-2 bg-[#0000ee] text-white text-[14px] font-bold rounded hover:bg-blue-700 transition-colors btn-token">
+        Start 3-Min Speed Date
+      </button>
+
+    </div>
+  </header>
+
+  <main class="flex-1">
+
+    <!-- HERO / MISSION SECTION -->
+    <section id="mission" class="py-16 px-6 lg:px-12 max-w-7xl mx-auto border-b border-[#333333]">
+      <div class="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
         
-        <!-- Background Overlay -->
-        <div class="absolute inset-0 bg-gradient-to-b from-white/50 via-white/20 to-transparent z-10"></div>
-    </div>
+        <div class="space-y-6">
+          <div class="inline-block px-3 py-1 bg-[#141415] border border-[#333333] text-[#0000ee] text-xs font-bold uppercase tracking-wider">
+            E-Commerce Storefront Surface &bull; WCAG 2.2 AA
+          </div>
 
-    <!-- 1. HEADER NAVIGATION BAR -->
-    <header class="relative z-20 w-full max-w-7xl mx-auto px-6 lg:px-12 py-6 flex items-center justify-between">
-        <!-- Left Logo -->
-        <a href="#" class="flex items-center gap-3 group">
-            <div class="w-10 h-10 rounded-full bg-emerald-950 flex items-center justify-center text-white shadow-md group-hover:scale-105 transition-transform duration-300">
-                <svg class="w-5 h-5 fill-current" viewBox="0 0 24 24">
-                    <path d="M14 6l-3.8 5.7 2.3 3.4L18 6l6 14H0l6-9 3.5 5.2L14 6z"/>
-                </svg>
-            </div>
-            <span class="font-serif text-2xl lg:text-3xl font-semibold tracking-wide text-emerald-950">Ansh &bull; NaturaVista</span>
-        </a>
+          <h1 class="text-3xl sm:text-4xl lg:text-5xl font-bold tracking-tight leading-tight text-white">
+            A speed date with <span class="text-[#0000ee]">Preetoshi</span>.
+          </h1>
 
-        <!-- Center Nav Links (Desktop) -->
-        <nav class="hidden md:flex items-center space-x-8 text-sm font-medium tracking-wide">
-            <a href="#home" class="relative py-1 text-emerald-950 font-semibold after:content-[''] after:absolute after:bottom-0 after:left-0 after:w-full after:h-[2px] after:bg-emerald-950">Home</a>
-            <a href="#destinations" class="text-emerald-900 hover:text-emerald-950 transition-colors">Destinations</a>
-            <a href="#experiences" class="text-emerald-900 hover:text-emerald-950 transition-colors">Experiences</a>
-            <a href="#sustainability" class="text-emerald-900 hover:text-emerald-950 transition-colors">Sustainability</a>
-            <a href="#about" class="text-emerald-900 hover:text-emerald-950 transition-colors">About Us</a>
-            <a href="#blog" class="text-emerald-900 hover:text-emerald-950 transition-colors">Blog</a>
-        </nav>
+          <p class="text-white/80 text-[14px] leading-[20px] max-w-xl">
+            Deliver implementation-ready design-system guidance for <strong>A speed date with Preetoshi</strong> optimized for consistency, accessibility, and high-velocity storefront delivery.
+          </p>
 
-        <!-- Right Action -->
-        <div class="flex items-center gap-4">
-            <a href="#destinations" class="hidden sm:inline-flex items-center justify-center px-6 py-2.5 rounded-full text-xs font-semibold uppercase tracking-wider text-emerald-950 border border-emerald-900/30 bg-white/50 hover:bg-emerald-950 hover:text-white backdrop-blur-md transition-all duration-300 shadow-sm">
-                Plan Your Escape
+          <div class="flex flex-wrap gap-4 pt-2">
+            <a href="#speed-date" class="px-6 py-3 bg-[#0000ee] text-white text-[14px] font-bold rounded hover:bg-blue-700 transition-colors btn-token inline-flex items-center gap-2">
+              Launch Speed Date Experience <i class="fa-solid fa-play text-xs"></i>
             </a>
-            <button id="mobile-menu-toggle" class="md:hidden text-emerald-950 focus:outline-none p-2 rounded-lg bg-white/40 backdrop-blur-md" aria-label="Toggle Mobile Menu">
-                <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"/>
-                </svg>
+            <a href="#tokens" class="px-6 py-3 bg-[#141415] text-white border border-[#333333] text-[14px] font-bold rounded hover:bg-[#333333] transition-colors">
+              Inspect Design Tokens
+            </a>
+          </div>
+        </div>
+
+        <!-- Live Speed Date Quick Card -->
+        <div class="bg-[#141415] border border-[#333333] p-8 rounded-lg space-y-6">
+          <div class="flex justify-between items-center border-b border-[#333333] pb-4">
+            <span class="text-xs font-bold uppercase tracking-wider text-[#0000ee]">SPEED DATE TIMER</span>
+            <span id="date-timer" class="font-mono text-xl font-bold text-white">03:00</span>
+          </div>
+
+          <div class="space-y-3">
+            <h3 class="text-lg font-bold text-white">Question 01 of 05:</h3>
+            <p id="prompt-question" class="text-white/80 text-[14px] leading-[20px]">
+              "What is Preetoshi's core approach to building accessible, token-driven e-commerce storefronts?"
+            </p>
+          </div>
+
+          <div class="flex gap-3 pt-2">
+            <button id="next-question-btn" class="px-4 py-2 bg-[#0000ee] text-white text-xs font-bold rounded hover:bg-blue-700 transition-colors btn-token">
+              Next Question &rarr;
             </button>
-        </div>
-    </header>
-
-    <!-- Mobile Drawer -->
-    <div id="mobile-drawer" class="hidden md:hidden fixed inset-x-0 top-20 z-30 p-6 bg-white/90 backdrop-blur-xl border-b border-emerald-900/10 shadow-2xl flex-col gap-4 text-center">
-        <a href="#home" class="text-emerald-950 font-bold py-2">Home</a>
-        <a href="#destinations" class="text-emerald-900 font-medium py-2">Destinations</a>
-        <a href="#experiences" class="text-emerald-900 font-medium py-2">Experiences</a>
-        <a href="#sustainability" class="text-emerald-900 font-medium py-2">Sustainability</a>
-        <a href="#about" class="text-emerald-900 font-medium py-2">About Us</a>
-        <a href="#destinations" class="mt-2 inline-flex justify-center px-6 py-3 rounded-full text-xs font-semibold uppercase tracking-wider text-white bg-emerald-950">Plan Your Escape</a>
-    </div>
-
-    <!-- 2. MAIN HERO CONTENT (Center Aligned) -->
-    <main class="relative z-20 w-full max-w-7xl mx-auto px-6 lg:px-12 my-auto py-12 flex flex-col items-center justify-center text-center">
-        <div class="max-w-3xl mx-auto space-y-6 flex flex-col items-center animate-fade-in-up">
-            
-            <!-- Sub-tagline -->
-            <div class="flex items-center justify-center gap-3">
-                <span class="w-2.5 h-2.5 rounded-full bg-emerald-700 animate-pulse"></span>
-                <span class="text-xs sm:text-sm font-bold tracking-[0.3em] uppercase text-emerald-900">Discover. Explore. Belong.</span>
-            </div>
-
-            <!-- Main Headline -->
-            <h1 class="font-serif text-5xl sm:text-6xl md:text-7xl lg:text-8xl font-medium leading-[1.05] tracking-tight text-emerald-950 text-center">
-                Find Peace in <br>
-                <span class="italic font-normal">Every Journey</span>
-            </h1>
-
-            <!-- Accent Line & Subtitle Paragraph -->
-            <div class="pt-2 flex flex-col items-center">
-                <div class="w-16 h-[1.5px] bg-emerald-900/30 mb-6 mx-auto"></div>
-                <p class="text-base sm:text-lg text-emerald-900/90 font-medium leading-relaxed max-w-xl text-center">
-                    Curated travel experiences by Ansh that connect you with nature, culture, and yourself.
-                </p>
-            </div>
-
-            <!-- Action Buttons -->
-            <div class="pt-4 flex flex-wrap items-center justify-center gap-4 sm:gap-6">
-                <!-- Primary CTA -->
-                <a href="#destinations" class="inline-flex items-center gap-3 px-7 py-3.5 rounded-full text-sm font-medium text-white bg-emerald-950 hover:bg-emerald-900 border border-emerald-800/50 shadow-xl transition-all duration-300 group">
-                    <span>Explore Destinations</span>
-                    <svg class="w-4 h-4 text-teal-300 group-hover:translate-x-1.5 transition-transform duration-300" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3"/>
-                    </svg>
-                </a>
-
-                <!-- Secondary CTA -->
-                <button id="open-video-modal-btn" class="inline-flex items-center gap-3 px-6 py-3.5 rounded-full text-sm font-medium text-emerald-950 bg-white/70 hover:bg-white border border-emerald-900/20 backdrop-blur-md shadow-md transition-all duration-300 hover:-translate-y-0.5 cursor-pointer">
-                    <span class="w-6 h-6 rounded-full bg-emerald-950 text-white flex items-center justify-center">
-                        <svg class="w-3 h-3 ml-0.5 fill-current" viewBox="0 0 24 24">
-                            <path d="M8 5v14l11-7z"/>
-                        </svg>
-                    </span>
-                    <span>Watch Video</span>
-                </button>
-            </div>
-        </div>
-    </main>
-
-    <!-- 3. BOTTOM SCROLL INDICATOR -->
-    <div class="relative z-20 w-full max-w-7xl mx-auto px-6 lg:px-12 pb-8 pt-4 flex flex-col items-center justify-center">
-        <span class="text-[10px] uppercase font-bold tracking-[0.25em] text-emerald-900">SCROLL TO EXPLORE</span>
-        <div class="w-[1px] h-4 bg-emerald-900/30 my-1"></div>
-        <div class="w-4 h-6 rounded-full border border-emerald-950/60 flex justify-center pt-1">
-            <div class="w-[2px] h-1.5 bg-emerald-950 rounded-full animate-scroll-dot"></div>
-        </div>
-    </div>
-
-    <!-- 4. INTERACTIVE FULLSCREEN VIDEO MODAL -->
-    <div id="video-modal" class="fixed inset-0 z-50 bg-slate-950/90 backdrop-blur-xl hidden items-center justify-center p-4 sm:p-8">
-        <div class="relative w-full max-w-5xl aspect-video bg-black rounded-2xl overflow-hidden shadow-2xl border border-white/10">
-            <button id="close-video-modal-btn" class="absolute top-4 right-4 z-10 w-10 h-10 rounded-full bg-black/60 hover:bg-black text-white flex items-center justify-center transition-colors text-lg cursor-pointer">
-                &times;
+            <button id="reset-timer-btn" class="px-4 py-2 bg-transparent text-white/70 border border-[#333333] text-xs font-bold rounded hover:text-white transition-colors">
+              Reset Timer
             </button>
-            <video id="modal-video-player" class="w-full h-full object-cover" controls>
-                <source src="https://strvid.nyc3.cdn.digitaloceanspaces.com/motionsite/nature_peace.mp4" type="video/mp4">
-            </video>
+          </div>
         </div>
+
+      </div>
+    </section>
+
+    <!-- DESIGN TOKENS & FOUNDATIONS SECTION -->
+    <section id="tokens" class="py-16 px-6 lg:px-12 max-w-7xl mx-auto border-b border-[#333333]">
+      <div class="mb-10 space-y-2">
+        <span class="text-xs font-bold tracking-widest text-[#0000ee] uppercase">STYLE FOUNDATIONS & SEMANTIC TOKENS</span>
+        <h2 class="text-2xl sm:text-3xl font-bold text-white">Design Tokens Specification</h2>
+        <p class="text-white/70 text-[14px]">Minimal, utility-first, accessibility-prioritized semantic token definitions.</p>
+      </div>
+
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+        
+        <!-- Color Tokens -->
+        <div class="bg-[#141415] border border-[#333333] p-6 rounded-lg space-y-4">
+          <h3 class="font-bold text-base text-white flex items-center gap-2">
+            <i class="fa-solid fa-palette text-[#0000ee]"></i> Color Palette Tokens
+          </h3>
+          <div class="space-y-2 text-xs font-mono">
+            <div class="flex justify-between items-center p-2 bg-[#000000] border border-[#333333] rounded">
+              <span class="text-[#0000ee] font-bold">color.text.primary</span>
+              <span class="text-white">#0000ee</span>
+            </div>
+            <div class="flex justify-between items-center p-2 bg-[#000000] border border-[#333333] rounded">
+              <span class="text-white font-bold">color.text.secondary</span>
+              <span class="text-white/70">#333333</span>
+            </div>
+            <div class="flex justify-between items-center p-2 bg-[#000000] border border-[#333333] rounded">
+              <span class="text-white font-bold">color.surface.base</span>
+              <span class="text-white/70">#000000</span>
+            </div>
+            <div class="flex justify-between items-center p-2 bg-[#000000] border border-[#333333] rounded">
+              <span class="text-white font-bold">color.surface.muted</span>
+              <span class="text-white/70">#141415</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Typography & Spacing -->
+        <div class="bg-[#141415] border border-[#333333] p-6 rounded-lg space-y-4">
+          <h3 class="font-bold text-base text-white flex items-center gap-2">
+            <i class="fa-solid fa-[#0000ee] fa-font"></i> Typography & Spacing
+          </h3>
+          <div class="space-y-2 text-xs font-mono">
+            <div class="p-2 bg-[#000000] border border-[#333333] rounded">
+              <span class="text-white/70 block">font.family.primary</span>
+              <span class="text-white font-bold">Arial, Helvetica Neue, sans-serif</span>
+            </div>
+            <div class="p-2 bg-[#000000] border border-[#333333] rounded">
+              <span class="text-white/70 block">space.1</span>
+              <span class="text-[#0000ee] font-bold">14.62px</span>
+            </div>
+            <div class="p-2 bg-[#000000] border border-[#333333] rounded">
+              <span class="text-white/70 block">space.2</span>
+              <span class="text-[#0000ee] font-bold">73.1px</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Accessibility Token Rules -->
+        <div class="bg-[#141415] border border-[#333333] p-6 rounded-lg space-y-4">
+          <h3 class="font-bold text-base text-white flex items-center gap-2">
+            <i class="fa-solid fa-universal-access text-[#0000ee]"></i> WCAG 2.2 AA Tokens
+          </h3>
+          <div class="space-y-2 text-xs">
+            <div class="p-2.5 bg-[#000000] border border-[#333333] rounded">
+              <span class="text-[#0000ee] font-bold block mb-1">Focus-Visible Ring</span>
+              <span class="text-white/80">3px solid #0000ee with 3px offset. Never use outline:none without fallback.</span>
+            </div>
+            <div class="p-2.5 bg-[#000000] border border-[#333333] rounded">
+              <span class="text-[#0000ee] font-bold block mb-1">Contrast Ratio</span>
+              <span class="text-white/80">Minimum 4.5:1 text contrast for all primary and secondary actions.</span>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </section>
+
+    <!-- STOREFRONT COMPONENTS SHOWCASE (15 BUTTON INSTANCES) -->
+    <section id="components" class="py-16 px-6 lg:px-12 max-w-7xl mx-auto border-b border-[#333333]">
+      <div class="mb-10 space-y-2">
+        <span class="text-xs font-bold tracking-widest text-[#0000ee] uppercase">COMPONENT MATRIX</span>
+        <h2 class="text-2xl sm:text-3xl font-bold text-white">Storefront Component Guidance (15 Buttons)</h2>
+        <p class="text-white/70 text-[14px]">Required component states: Default, Hover, Focus-Visible, Active, Disabled, Loading, & Error.</p>
+      </div>
+
+      <!-- 15 Button Component Instances Grid -->
+      <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+        
+        <!-- Button 1: Primary Action -->
+        <div class="p-5 bg-[#141415] border border-[#333333] rounded-lg space-y-2">
+          <span class="text-xs font-mono text-[#0000ee]">Button 01 &bull; Default</span>
+          <button class="w-full py-2.5 bg-[#0000ee] text-white text-[14px] font-bold rounded hover:bg-blue-700 btn-token">
+            Add to Cart &bull; $149.00
+          </button>
+        </div>
+
+        <!-- Button 2: Secondary Action -->
+        <div class="p-5 bg-[#141415] border border-[#333333] rounded-lg space-y-2">
+          <span class="text-xs font-mono text-white/50">Button 02 &bull; Secondary</span>
+          <button class="w-full py-2.5 bg-transparent border border-[#333333] text-white text-[14px] font-bold rounded hover:bg-[#333333] btn-token">
+            View Details
+          </button>
+        </div>
+
+        <!-- Button 3: Focus-Visible Active -->
+        <div class="p-5 bg-[#141415] border border-[#333333] rounded-lg space-y-2">
+          <span class="text-xs font-mono text-[#0000ee]">Button 03 &bull; Focus-Visible</span>
+          <button class="w-full py-2.5 bg-[#0000ee] text-white text-[14px] font-bold rounded outline outline-4 outline-[#0000ee] outline-offset-2">
+            Keyboard Focus Active
+          </button>
+        </div>
+
+        <!-- Button 4: Disabled State -->
+        <div class="p-5 bg-[#141415] border border-[#333333] rounded-lg space-y-2">
+          <span class="text-xs font-mono text-white/50">Button 04 &bull; Disabled</span>
+          <button disabled class="w-full py-2.5 bg-[#333333] text-white/40 text-[14px] font-bold rounded cursor-not-allowed">
+            Item Sold Out
+          </button>
+        </div>
+
+        <!-- Button 5: Loading State -->
+        <div class="p-5 bg-[#141415] border border-[#333333] rounded-lg space-y-2">
+          <span class="text-xs font-mono text-[#0000ee]">Button 05 &bull; Loading</span>
+          <button disabled class="w-full py-2.5 bg-[#0000ee] opacity-80 text-white text-[14px] font-bold rounded cursor-wait flex justify-center items-center gap-2">
+            <i class="fa-solid fa-circle-notch fa-spin text-xs"></i> Processing Order...
+          </button>
+        </div>
+
+        <!-- Button 6: Error State -->
+        <div class="p-5 bg-[#141415] border border-[#333333] rounded-lg space-y-2">
+          <span class="text-xs font-mono text-red-400">Button 06 &bull; Error State</span>
+          <button class="w-full py-2.5 bg-red-950 border border-red-500 text-red-200 text-[14px] font-bold rounded">
+            Payment Failed - Retry
+          </button>
+        </div>
+
+        <!-- Buttons 7 to 15: Utility Actions -->
+        <div class="p-5 bg-[#141415] border border-[#333333] rounded-lg space-y-2">
+          <span class="text-xs font-mono text-white/50">Button 07 &bull; Quick Checkout</span>
+          <button class="w-full py-2.5 bg-white text-black text-[14px] font-bold rounded hover:bg-neutral-200 btn-token">
+            Buy with Apple Pay
+          </button>
+        </div>
+
+        <div class="p-5 bg-[#141415] border border-[#333333] rounded-lg space-y-2">
+          <span class="text-xs font-mono text-white/50">Button 08 &bull; Wishlist</span>
+          <button class="w-full py-2.5 bg-transparent border border-[#0000ee] text-[#0000ee] text-[14px] font-bold rounded hover:bg-[#0000ee] hover:text-white btn-token">
+            <i class="fa-regular fa-heart"></i> Save to Wishlist
+          </button>
+        </div>
+
+        <div class="p-5 bg-[#141415] border border-[#333333] rounded-lg space-y-2">
+          <span class="text-xs font-mono text-white/50">Button 09 &bull; Share</span>
+          <button class="w-full py-2.5 bg-[#333333] text-white text-[14px] font-bold rounded hover:bg-neutral-700 btn-token">
+            <i class="fa-solid fa-share-nodes"></i> Share Product
+          </button>
+        </div>
+
+        <div class="p-5 bg-[#141415] border border-[#333333] rounded-lg space-y-2">
+          <span class="text-xs font-mono text-white/50">Button 10 &bull; Filter Apply</span>
+          <button class="w-full py-2.5 bg-[#0000ee] text-white text-[14px] font-bold rounded hover:bg-blue-700 btn-token">
+            Apply 4 Filters
+          </button>
+        </div>
+
+        <div class="p-5 bg-[#141415] border border-[#333333] rounded-lg space-y-2">
+          <span class="text-xs font-mono text-white/50">Button 11 &bull; Clear Filters</span>
+          <button class="w-full py-2.5 bg-transparent text-white/60 hover:text-white text-[14px] font-bold rounded">
+            Clear All
+          </button>
+        </div>
+
+        <div class="p-5 bg-[#141415] border border-[#333333] rounded-lg space-y-2">
+          <span class="text-xs font-mono text-white/50">Button 12 &bull; Size Guide</span>
+          <button class="w-full py-2.5 bg-[#333333] text-white text-[14px] font-bold rounded hover:bg-neutral-700 btn-token">
+            Open Size Chart
+          </button>
+        </div>
+
+        <div class="p-5 bg-[#141415] border border-[#333333] rounded-lg space-y-2">
+          <span class="text-xs font-mono text-white/50">Button 13 &bull; Subscribe</span>
+          <button class="w-full py-2.5 bg-[#0000ee] text-white text-[14px] font-bold rounded hover:bg-blue-700 btn-token">
+            Join Storefront List
+          </button>
+        </div>
+
+        <div class="p-5 bg-[#141415] border border-[#333333] rounded-lg space-y-2">
+          <span class="text-xs font-mono text-white/50">Button 14 &bull; Download Specs</span>
+          <button class="w-full py-2.5 bg-transparent border border-[#333333] text-white text-[14px] font-bold rounded hover:bg-[#333333] btn-token">
+            Download Spec PDF
+          </button>
+        </div>
+
+        <div class="p-5 bg-[#141415] border border-[#333333] rounded-lg space-y-2">
+          <span class="text-xs font-mono text-white/50">Button 15 &bull; Help & Chat</span>
+          <button class="w-full py-2.5 bg-[#0000ee] text-white text-[14px] font-bold rounded hover:bg-blue-700 btn-token">
+            <i class="fa-solid fa-comments"></i> Start Live Chat
+          </button>
+        </div>
+
+      </div>
+    </section>
+
+    <!-- ACCESSIBILITY ACCEPTANCE & QA CHECKLIST -->
+    <section id="qa-checklist" class="py-16 px-6 lg:px-12 max-w-7xl mx-auto">
+      <div class="mb-10 space-y-2">
+        <span class="text-xs font-bold tracking-widest text-[#0000ee] uppercase">QUALITY GATES</span>
+        <h2 class="text-2xl sm:text-3xl font-bold text-white">WCAG 2.2 AA Accessibility & QA Checklist</h2>
+        <p class="text-white/70 text-[14px]">Testable pass/fail checks for storefront implementation.</p>
+      </div>
+
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+        
+        <!-- Rules: Do -->
+        <div class="bg-[#141415] border border-[#333333] p-6 rounded-lg space-y-4">
+          <h3 class="font-bold text-base text-white flex items-center gap-2">
+            <i class="fa-solid fa-circle-check text-green-500"></i> Rules: Do (Must Enforce)
+          </h3>
+          <ul class="space-y-3 text-xs text-white/90">
+            <li class="flex gap-2">
+              <i class="fa-solid fa-check text-green-500 mt-0.5"></i>
+              <span>Use semantic tokens (`color.text.primary`), never raw un-tokenized hex.</span>
+            </li>
+            <li class="flex gap-2">
+              <i class="fa-solid fa-check text-green-500 mt-0.5"></i>
+              <span>Every component MUST define default, hover, focus-visible, active, disabled, loading, and error states.</span>
+            </li>
+            <li class="flex gap-2">
+              <i class="fa-solid fa-check text-green-500 mt-0.5"></i>
+              <span>Interactive components MUST document keyboard, pointer, and touch behavior.</span>
+            </li>
+          </ul>
+        </div>
+
+        <!-- Rules: Don't -->
+        <div class="bg-[#141415] border border-[#333333] p-6 rounded-lg space-y-4">
+          <h3 class="font-bold text-base text-white flex items-center gap-2">
+            <i class="fa-solid fa-circle-xmark text-red-500"></i> Rules: Don't (Prohibited)
+          </h3>
+          <ul class="space-y-3 text-xs text-white/90">
+            <li class="flex gap-2">
+              <i class="fa-solid fa-xmark text-red-500 mt-0.5"></i>
+              <span>Do NOT allow low-contrast text or hidden focus indicators.</span>
+            </li>
+            <li class="flex gap-2">
+              <i class="fa-solid fa-xmark text-red-500 mt-0.5"></i>
+              <span>Do NOT introduce one-off spacing (`space.1 = 14.62px`, `space.2 = 73.1px`) or font exceptions.</span>
+            </li>
+            <li class="flex gap-2">
+              <i class="fa-solid fa-xmark text-red-500 mt-0.5"></i>
+              <span>Do NOT use ambiguous labels or non-descriptive actions.</span>
+            </li>
+          </ul>
+        </div>
+
+      </div>
+    </section>
+
+  </main>
+
+  <!-- FOOTER -->
+  <footer class="bg-[#141415] border-t border-[#333333] py-8 px-6 lg:px-12 text-xs text-white/50">
+    <div class="max-w-7xl mx-auto flex flex-col sm:flex-row justify-between items-center gap-4">
+      <div>&copy; 2026 A speed date with Preetoshi &bull; Published on <a href="https://axxnsh.github.io" class="text-[#0000ee] hover:underline">axxnsh.github.io</a></div>
+      <div class="flex gap-6">
+        <a href="https://preetoshi.com/" target="_blank" class="text-white hover:text-[#0000ee]">preetoshi.com</a>
+        <a href="#qa-checklist" class="text-white hover:text-[#0000ee]">QA Checklist</a>
+      </div>
     </div>
+  </footer>
 
-    <!-- SEAMLESS DUAL-VIDEO LOOP ENGINE SCRIPT -->
-    <script>
-        document.addEventListener('DOMContentLoaded', () => {
-            const videoUrl = "https://strvid.nyc3.cdn.digitaloceanspaces.com/motionsite/nature_peace.mp4";
-            const video1 = document.getElementById('video1');
-            const video2 = document.getElementById('video2');
+  <!-- INTERACTIVE SPEED DATE CONTROLLER SCRIPT -->
+  <script>
+    document.addEventListener('DOMContentLoaded', () => {
 
-            video1.src = videoUrl;
-            video2.src = videoUrl;
+      // Questions Array
+      const questions = [
+        "What is Preetoshi's core approach to building accessible, token-driven e-commerce storefronts?",
+        "How do semantic tokens improve component state consistency across web applications?",
+        "What are the non-negotiable WCAG 2.2 AA focus-visible rules for keyboard-first navigation?",
+        "Why must every storefront component define explicit Default, Hover, Focus, Active, Disabled, Loading, and Error states?",
+        "How do spacing tokens (space.1=14.62px, space.2=73.1px) streamline UI delivery?"
+      ];
 
-            let currentVid = video1;
-            let nextVid = video2;
-            let isCrossfading = false;
-            const targetPlaybackRate = 0.5;
+      let currentQ = 0;
+      let timerSeconds = 180; // 3 minutes
+      let timerInterval = null;
 
-            currentVid.playbackRate = targetPlaybackRate;
-            nextVid.playbackRate = targetPlaybackRate;
+      const promptQuestion = document.getElementById('prompt-question');
+      const nextBtn = document.getElementById('next-question-btn');
+      const resetBtn = document.getElementById('reset-timer-btn');
+      const dateTimer = document.getElementById('date-timer');
+      const startDateBtn = document.getElementById('start-date-btn');
 
-            currentVid.play().catch(e => console.log('Autoplay handled:', e));
+      function updateTimerDisplay() {
+        const mins = Math.floor(timerSeconds / 60);
+        const secs = timerSeconds % 60;
+        dateTimer.textContent = `${mins.toString().padStart(2, '0')}:${secs.toString().padStart(2, '0')}`;
+      }
 
-            function checkVideoLoop() {
-                if (currentVid.duration && !isCrossfading) {
-                    const remainingTime = (currentVid.duration - currentVid.currentTime) / currentVid.playbackRate;
+      function startTimer() {
+        if (timerInterval) clearInterval(timerInterval);
+        timerInterval = setInterval(() => {
+          if (timerSeconds > 0) {
+            timerSeconds--;
+            updateTimerDisplay();
+          } else {
+            clearInterval(timerInterval);
+            alert("Speed Date session completed! Review the QA checklist.");
+          }
+        }, 1000);
+      }
 
-                    if (remainingTime <= 2.0 && remainingTime > 0) {
-                        isCrossfading = true;
-
-                        nextVid.currentTime = 0;
-                        nextVid.playbackRate = targetPlaybackRate;
-                        nextVid.play().then(() => {
-                            nextVid.classList.remove('opacity-0');
-                            nextVid.classList.add('opacity-100');
-                            currentVid.classList.remove('opacity-100');
-                            currentVid.classList.add('opacity-0');
-
-                            setTimeout(() => {
-                                currentVid.pause();
-                                currentVid.currentTime = 0;
-                                
-                                // Swap video references
-                                const temp = currentVid;
-                                currentVid = nextVid;
-                                nextVid = temp;
-                                isCrossfading = false;
-                            }, 2000);
-                        }).catch(err => {
-                            isCrossfading = false;
-                        });
-                    }
-                }
-                requestAnimationFrame(checkVideoLoop);
-            }
-
-            requestAnimationFrame(checkVideoLoop);
-
-            // Mobile Menu Toggle
-            const mobileMenuToggle = document.getElementById('mobile-menu-toggle');
-            const mobileDrawer = document.getElementById('mobile-drawer');
-
-            if (mobileMenuToggle && mobileDrawer) {
-                mobileMenuToggle.addEventListener('click', () => {
-                    mobileDrawer.classList.toggle('hidden');
-                    mobileDrawer.classList.toggle('flex');
-                });
-            }
-
-            // Video Modal Controls
-            const openModalBtn = document.getElementById('open-video-modal-btn');
-            const closeModalBtn = document.getElementById('close-video-modal-btn');
-            const videoModal = document.getElementById('video-modal');
-            const modalVideoPlayer = document.getElementById('modal-video-player');
-
-            if (openModalBtn && videoModal) {
-                openModalBtn.addEventListener('click', () => {
-                    videoModal.classList.remove('hidden');
-                    videoModal.classList.add('flex');
-                    modalVideoPlayer.play();
-                });
-
-                closeModalBtn.addEventListener('click', () => {
-                    videoModal.classList.add('hidden');
-                    videoModal.classList.remove('flex');
-                    modalVideoPlayer.pause();
-                });
-
-                videoModal.addEventListener('click', (e) => {
-                    if (e.target === videoModal) {
-                        videoModal.classList.add('hidden');
-                        videoModal.classList.remove('flex');
-                        modalVideoPlayer.pause();
-                    }
-                });
-            }
+      if (nextBtn) {
+        nextBtn.addEventListener('click', () => {
+          currentQ = (currentQ + 1) % questions.length;
+          promptQuestion.textContent = `"${questions[currentQ]}"`;
         });
-    </script>
+      }
+
+      if (resetBtn) {
+        resetBtn.addEventListener('click', () => {
+          timerSeconds = 180;
+          updateTimerDisplay();
+          startTimer();
+        });
+      }
+
+      if (startDateBtn) {
+        startDateBtn.addEventListener('click', () => {
+          document.getElementById('speed-date').scrollIntoView({ behavior: 'smooth' });
+          timerSeconds = 180;
+          updateTimerDisplay();
+          startTimer();
+        });
+      }
+
+      startTimer();
+
+    });
+  </script>
+
 </body>
 </html>
