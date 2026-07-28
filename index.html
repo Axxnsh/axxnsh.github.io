@@ -3,16 +3,19 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <meta name="description" content="Equilibrium — Live Better, Feel Whole Every Day. Take charge of your journey with personalized wellness routines and insights.">
-  <title>Equilibrium | Live Better, Feel Whole Every Day</title>
+  <meta name="description" content="Ansh Roy — Creative Director & High-Contrast UI/UX Designer Portfolio. Crafting bold, intuitive digital experiences.">
+  <title>ANSH ROY // CREATIVE DIRECTOR & UI/UX DESIGNER</title>
 
-  <!-- Google Font: Geist -->
+  <!-- Google Fonts: Anton (Display), Space Grotesk (Sans), IBM Plex Mono (Mono) -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Geist:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Anton&family=IBM+Plex+Mono:wght@400;500;600&family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet">
 
   <!-- FontAwesome Icons -->
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+
+  <!-- Three.js WebGL Library CDN -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
 
   <!-- Tailwind CSS CDN -->
   <script src="https://cdn.tailwindcss.com"></script>
@@ -20,8 +23,16 @@
     tailwind.config = {
       theme: {
         extend: {
+          colors: {
+            spaceDark: '#030014',
+            drawerBg: '#333333',
+            acidLime: '#CCFF00',
+            energyBlue: '#88AAFF',
+          },
           fontFamily: {
-            sans: ['"Geist"', '-apple-system', 'BlinkMacSystemFont', '"Segoe UI"', 'Roboto', 'sans-serif'],
+            display: ['"Anton"', 'Impact', 'sans-serif'],
+            sans: ['"Space Grotesk"', 'system-ui', 'sans-serif'],
+            mono: ['"IBM Plex Mono"', 'monospace'],
           }
         }
       }
@@ -29,267 +40,489 @@
   </script>
 
   <style>
-    * {
-      font-family: 'Geist', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+    /* Selection Style */
+    ::selection {
+      background-color: #CCFF00;
+      color: #000000;
     }
 
     body {
-      background-color: #050b14;
+      background-color: #030014;
       color: #ffffff;
+      font-family: 'Space Grotesk', sans-serif;
       margin: 0;
       padding: 0;
       overflow-x: hidden;
     }
 
-    /* Liquid Glass Effect */
-    .liquid-glass {
-      background: rgba(255, 255, 255, 0.01);
-      background-blend-mode: luminosity;
-      backdrop-filter: blur(4px);
-      -webkit-backdrop-filter: blur(4px);
-      border: none;
-      box-shadow: inset 0 1px 1px rgba(255, 255, 255, 0.1);
-      position: relative;
-      overflow: hidden;
+    /* Text Stroke Utility */
+    .text-stroke-white {
+      -webkit-text-stroke: 1px rgba(255, 255, 255, 0.9);
+      color: transparent;
     }
 
-    .liquid-glass::before {
-      content: '';
-      position: absolute;
-      inset: 0;
-      border-radius: inherit;
-      padding: 1.4px;
-      background: linear-gradient(180deg,
-        rgba(255, 255, 255, 0.45) 0%,
-        rgba(255, 255, 255, 0.15) 20%,
-        rgba(255, 255, 255, 0) 40%,
-        rgba(255, 255, 255, 0) 60%,
-        rgba(255, 255, 255, 0.15) 80%,
-        rgba(255, 255, 255, 0.45) 100%);
-      -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
-      -webkit-mask-composite: xor;
-      mask-composite: exclude;
-      pointer-events: none;
+    .text-stroke-white-thick {
+      -webkit-text-stroke: 2px rgba(255, 255, 255, 0.95);
+      color: transparent;
+    }
+
+    .text-stroke-marquee {
+      -webkit-text-stroke: 1px rgba(255, 255, 255, 0.15);
+      color: transparent;
+    }
+
+    /* Infinite Marquee Animation */
+    @keyframes marquee {
+      0% { transform: translateX(0%); }
+      100% { transform: translateX(-50%); }
+    }
+
+    .animate-marquee {
+      display: flex;
+      width: 200%;
+      animation: marquee 25s linear infinite;
+    }
+
+    /* Typewriter Cursor */
+    @keyframes blink {
+      0%, 100% { opacity: 1; }
+      50% { opacity: 0; }
+    }
+
+    .blinking-cursor {
+      display: inline-block;
+      width: 2px;
+      height: 1em;
+      background-color: #CCFF00;
+      vertical-align: text-bottom;
+      margin-left: 2px;
+      animation: blink 0.8s step-end infinite;
+    }
+
+    /* Info Drawer Slide Animation */
+    .drawer-slide {
+      transition: transform 0.5s cubic-bezier(0.16, 1, 0.3, 1);
     }
   </style>
 </head>
-<body class="bg-[#050b14] text-white">
+<body class="relative min-h-screen overflow-hidden flex flex-col bg-[#030014] text-white">
 
-  <!-- ROOT HERO CONTAINER -->
-  <div class="relative w-full min-h-screen overflow-hidden">
-    
-    <!-- Background Looping Video -->
-    <video 
-      autoplay 
-      muted 
-      loop 
-      playsinline 
-      class="absolute inset-0 w-full h-full object-cover z-0"
-      src="https://d8j0ntlcm91z4.cloudfront.net/user_38xzZboKViGWJOttwIXH07lWA1P/hf_20260511_230229_7c9bc431-46cf-489a-948d-e8144d8eb5d4.mp4"
-    ></video>
+  <!-- Z-INDEX 0: Three.js WebGL Interactive Particle & Line Background -->
+  <canvas id="webgl-canvas" class="fixed inset-0 z-0 w-full h-full pointer-events-none"></canvas>
 
-    <!-- Dark Gradient Protection Overlay -->
-    <div class="absolute inset-0 bg-gradient-to-t from-[#050b14] via-black/20 to-black/40 z-10 pointer-events-none"></div>
-
-    <!-- NAVBAR (z-index: 20) -->
-    <header class="absolute top-0 left-0 right-0 z-20 flex items-center justify-between px-5 sm:px-8 py-5 max-w-7xl mx-auto w-full">
-      
-      <!-- Logo (left) -->
-      <a href="#" class="flex items-center gap-2 text-white font-medium text-base select-none">
-        <svg class="w-[22px] h-[22px] text-white stroke-[1.5]" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-          <path stroke-linecap="round" stroke-linejoin="round" d="M18.178 8c5.096 0 5.096 8 0 8-5.095 0-7.083-8-12.178-8-5.096 0-5.096 8 0 8 5.095 0 7.083-8 12.178-8z"/>
-        </svg>
-        <span>Equilibrium</span>
-      </a>
-
-      <!-- Nav pill (center, hidden md:flex) -->
-      <nav class="hidden md:flex liquid-glass items-center gap-1 rounded-xl px-2 py-2">
-        <a href="#home" class="flex items-center gap-0.5 px-3 py-1.5 rounded-md text-sm transition-colors bg-white/15 text-white font-medium">Home</a>
-        
-        <div class="relative group">
-          <button class="flex items-center gap-1 px-3 py-1.5 rounded-md text-sm transition-colors text-white/70 hover:text-white font-medium">
-            <span>Wellness</span>
-            <svg class="w-3.5 h-3.5 mt-px text-white/70 group-hover:text-white transition-transform group-hover:rotate-180" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/>
-            </svg>
-          </button>
-          <!-- Dropdown Menu -->
-          <div class="absolute left-0 mt-2 w-48 rounded-xl liquid-glass bg-black/80 backdrop-blur-xl p-2 hidden group-hover:block border border-white/10 shadow-2xl">
-            <a href="#routines" class="block px-3 py-2 text-xs text-white/80 hover:text-white hover:bg-white/10 rounded-lg">Mindfulness & Meditations</a>
-            <a href="#routines" class="block px-3 py-2 text-xs text-white/80 hover:text-white hover:bg-white/10 rounded-lg">Sleep & Circadian Sync</a>
-            <a href="#routines" class="block px-3 py-2 text-xs text-white/80 hover:text-white hover:bg-white/10 rounded-lg">Biometric Insights</a>
-          </div>
-        </div>
-
-        <a href="#routines" class="flex items-center gap-0.5 px-3 py-1.5 rounded-md text-sm transition-colors text-white/70 hover:text-white font-medium">Routine</a>
-        <a href="#team" class="flex items-center gap-0.5 px-3 py-1.5 rounded-md text-sm transition-colors text-white/70 hover:text-white font-medium">Our Team</a>
-      </nav>
-
-      <!-- CTAs (right, hidden md:flex) -->
-      <div class="hidden md:flex items-center gap-3">
-        <button class="liquid-glass text-white text-sm font-medium px-4 py-2.5 rounded-full hover:bg-white/5 transition-colors">
-          Log in
-        </button>
-        <button class="bg-white text-black text-sm font-medium px-4 py-2.5 rounded-full hover:bg-white/90 transition-colors shadow-lg">
-          Begin Now
-        </button>
+  <!-- Z-INDEX 30: STICKY HEADER -->
+  <header class="fixed top-0 left-0 right-0 z-30 w-full px-6 sm:px-10 py-6 flex items-center justify-between pointer-events-auto">
+    <!-- Logo -->
+    <a href="#" class="flex items-center gap-3 group select-none">
+      <span class="font-display text-2xl sm:text-3xl tracking-widest text-white uppercase">ANSH</span>
+      <div class="w-9 h-9 sm:w-10 sm:h-10 rounded-full bg-[#CCFF00] text-black flex items-center justify-center text-lg font-bold shadow-lg transition-transform duration-500 group-hover:rotate-180">
+        ✦
       </div>
+    </a>
 
-      <!-- Mobile Toggle (md:hidden) -->
-      <button id="mobile-toggle-btn" class="md:hidden liquid-glass text-white p-2 rounded-lg focus:outline-none">
-        <svg id="menu-icon" class="w-[18px] h-[18px]" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"/>
-        </svg>
-        <svg id="close-icon" class="w-[18px] h-[18px] hidden" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"/>
-        </svg>
-      </button>
+    <!-- Desktop Links (hidden on mobile) -->
+    <nav class="hidden md:flex items-center gap-8 font-mono text-xs text-white/70 tracking-wider">
+      <a href="#archive" id="open-drawer-archive" class="hover:text-[#CCFF00] transition-colors cursor-pointer">[ ARCHIVE ]</a>
+      <a href="#process" id="open-drawer-process" class="hover:text-[#CCFF00] transition-colors cursor-pointer">[ PROCESS ]</a>
+      <a href="#labs" id="open-drawer-labs" class="hover:text-[#CCFF00] transition-colors cursor-pointer">[ LABS ]</a>
+    </nav>
 
-    </header>
+    <!-- Action Button -->
+    <button id="open-drawer-btn" class="px-5 sm:px-6 py-2.5 rounded-full font-mono text-xs font-semibold text-black bg-[#CCFF00] hover:bg-white hover:scale-105 active:scale-95 transition-all shadow-[0_0_20px_rgba(204,255,0,0.4)] cursor-pointer">
+      COMMISSION &rarr;
+    </button>
+  </header>
 
-    <!-- Mobile Menu Overlay -->
-    <div id="mobile-menu" class="absolute top-[72px] left-4 right-4 z-30 md:hidden liquid-glass bg-black/90 backdrop-blur-2xl rounded-2xl p-4 hidden flex-col gap-1 border border-white/10 shadow-2xl">
-      <a href="#home" class="flex items-center justify-between w-full px-4 py-3 rounded-lg text-sm text-white bg-white/10 font-medium">Home</a>
-      <a href="#routines" class="flex items-center justify-between w-full px-4 py-3 rounded-lg text-sm text-white/70 hover:text-white hover:bg-white/5 font-medium">Wellness</a>
-      <a href="#routines" class="flex items-center justify-between w-full px-4 py-3 rounded-lg text-sm text-white/70 hover:text-white hover:bg-white/5 font-medium">Routine</a>
-      <a href="#team" class="flex items-center justify-between w-full px-4 py-3 rounded-lg text-sm text-white/70 hover:text-white hover:bg-white/5 font-medium">Our Team</a>
-      
-      <div class="flex gap-2 mt-2 pt-3 border-t border-white/10">
-        <button class="flex-1 liquid-glass text-white text-sm font-medium px-4 py-2.5 rounded-full hover:bg-white/5 transition-colors">Log in</button>
-        <button class="flex-1 bg-white text-black text-sm font-medium px-4 py-2.5 rounded-full hover:bg-white/90 transition-colors">Begin Now</button>
-      </div>
-    </div>
-
-    <!-- HERO CONTENT (bottom-left) -->
-    <div class="absolute bottom-0 left-0 z-20 px-6 sm:px-12 pb-10 sm:pb-16 max-w-2xl">
-      
-      <!-- Headline H1 -->
-      <h1 class="text-white text-4xl sm:text-5xl lg:text-6xl font-medium leading-tight tracking-tight mb-4">
-        Live Better, Feel Whole Every Day
-      </h1>
-
-      <!-- Description Paragraph -->
-      <p class="text-white/60 text-sm leading-relaxed mb-7 max-w-md">
-        Take charge of how you feel with a companion built for your journey—build routines, follow your growth, and unlock tailored insights for a steadier, more vibrant life each day.
-      </p>
-
-      <!-- Action Buttons Row -->
-      <div class="flex flex-wrap items-center gap-3">
-        <button class="bg-white text-black text-sm sm:text-base font-medium px-6 sm:px-7 py-3 rounded-full hover:bg-white/90 transition-colors shadow-lg cursor-pointer">
-          Start Today
-        </button>
-        <a href="#routines" class="liquid-glass text-white text-sm sm:text-base font-medium px-6 sm:px-7 py-3 rounded-full hover:bg-white/5 transition-colors cursor-pointer inline-flex items-center justify-center">
-          Discover How
-        </a>
-      </div>
-
-    </div>
-
+  <!-- Z-INDEX 10: HERO IMAGE (Subject Cut-out) -->
+  <div class="absolute inset-x-0 bottom-0 z-10 flex justify-center pointer-events-none overflow-hidden h-[85vh] sm:h-[95vh] md:h-[105vh]">
+    <img 
+      src="https://strvid.nyc3.cdn.digitaloceanspaces.com/motionsite/hero_main_1.png.png" 
+      alt="Ansh Roy" 
+      class="h-full object-contain object-bottom filter brightness-95 grayscale contrast-125 drop-shadow-[0_25px_50px_rgba(0,0,0,0.85)] pointer-events-auto transition-transform duration-700 hover:scale-[1.04] cursor-pointer"
+    >
   </div>
 
-  <!-- ADDITIONAL SYNCHRONIZED SECTIONS BELOW (Making the site super rich & complete) -->
-  
-  <!-- Section 1: Tailored Routines & Features -->
-  <section id="routines" class="py-24 px-6 sm:px-12 max-w-7xl mx-auto border-t border-white/10">
-    <div class="flex flex-col md:flex-row justify-between items-start md:items-end mb-16 gap-6">
-      <div>
-        <span class="text-xs uppercase tracking-widest text-white/50 font-semibold">YOUR DAILY COMPANION</span>
-        <h2 class="text-3xl sm:text-4xl lg:text-5xl font-medium text-white mt-2">Designed for Total Balance</h2>
-      </div>
-      <p class="text-white/60 text-sm max-w-md">
-        Seamlessly blend mindfulness, circadian rhythms, and personalized insights into your everyday lifestyle.
+  <!-- Z-INDEX 20: HERO CONTENT (Typography & Bio) -->
+  <main class="relative z-20 flex-1 flex flex-col items-center justify-center text-center px-4 sm:px-8 py-24 select-none my-auto">
+    
+    <!-- Mammoth Headline -->
+    <div class="flex flex-col items-center justify-center leading-none">
+      <!-- Top Line: DESIGN WITH -->
+      <span class="font-display text-4xl sm:text-6xl md:text-7xl lg:text-8xl tracking-tight text-stroke-white uppercase mb-1 sm:mb-2">
+        DESIGN WITH
+      </span>
+
+      <!-- Bottom Line: Rotates PURPOSE / IMPACT / INTENT -->
+      <span id="scramble-word" class="font-display text-6xl sm:text-8xl md:text-9xl lg:text-[180px] tracking-tight text-[#CCFF00] uppercase drop-shadow-[0_0_35px_rgba(204,255,0,0.3)]">
+        PURPOSE
+      </span>
+    </div>
+
+    <!-- Typewriter Bio -->
+    <div class="mt-6 sm:mt-8 max-w-xl mx-auto px-4 py-3 rounded-2xl bg-black/40 backdrop-blur-md border border-white/10 shadow-2xl">
+      <p class="font-sans text-xs sm:text-sm md:text-base text-white/90 font-normal leading-relaxed min-h-[48px]">
+        <span id="typewriter-bio-content"></span><span id="typewriter-cursor" class="blinking-cursor"></span>
       </p>
     </div>
 
-    <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
-      <!-- Feature Card 1 -->
-      <div class="liquid-glass p-8 rounded-3xl space-y-4 hover:bg-white/[0.03] transition-all border border-white/10">
-        <div class="w-12 h-12 rounded-2xl bg-white/10 flex items-center justify-center text-white">
-          <i class="fa-solid fa-brain text-xl"></i>
-        </div>
-        <h3 class="text-xl font-medium text-white">Adaptive Mindfulness</h3>
-        <p class="text-xs text-white/60 leading-relaxed">
-          AI-driven guided sessions that adapt to your stress levels and energy throughout the day.
-        </p>
-      </div>
+  </main>
 
-      <!-- Feature Card 2 -->
-      <div class="liquid-glass p-8 rounded-3xl space-y-4 hover:bg-white/[0.03] transition-all border border-white/10">
-        <div class="w-12 h-12 rounded-2xl bg-white/10 flex items-center justify-center text-white">
-          <i class="fa-solid fa-moon text-xl"></i>
-        </div>
-        <h3 class="text-xl font-medium text-white">Circadian Syncing</h3>
-        <p class="text-xs text-white/60 leading-relaxed">
-          Optimize your sleep cycles and morning routines for maximum daily vitality and focus.
-        </p>
-      </div>
-
-      <!-- Feature Card 3 -->
-      <div class="liquid-glass p-8 rounded-3xl space-y-4 hover:bg-white/[0.03] transition-all border border-white/10">
-        <div class="w-12 h-12 rounded-2xl bg-white/10 flex items-center justify-center text-white">
-          <i class="fa-solid fa-chart-line text-xl"></i>
-        </div>
-        <h3 class="text-xl font-medium text-white">Biometric Analytics</h3>
-        <p class="text-xs text-white/60 leading-relaxed">
-          Connect your wearables to monitor real-time recovery score, heart rate variability, and wellness milestones.
-        </p>
-      </div>
-    </div>
-  </section>
-
-  <!-- Section 2: Our Team & Creator Branding -->
-  <section id="team" class="py-20 px-6 sm:px-12 bg-white/[0.02] border-t border-white/10">
-    <div class="max-w-7xl mx-auto flex flex-col md:flex-row items-center justify-between gap-8">
-      <div class="space-y-3 text-center md:text-left">
-        <span class="text-xs font-semibold text-white/40 uppercase tracking-widest">DESIGNED & ENGINEERED BY ANSH</span>
-        <h3 class="text-2xl sm:text-3xl font-medium text-white">Equilibrium Ecosystem</h3>
-        <p class="text-sm text-white/60 max-w-lg">
-          Empowering over 100,000+ individuals to build sustainable routines and lead vibrant lives.
-        </p>
-      </div>
-      
-      <div class="flex items-center gap-6">
-        <div class="text-center">
-          <div class="text-2xl font-bold text-white">99.8%</div>
-          <div class="text-xs text-white/50">Satisfaction Rate</div>
-        </div>
-        <div class="w-px h-10 bg-white/20"></div>
-        <div class="text-center">
-          <div class="text-2xl font-bold text-white">24/7</div>
-          <div class="text-xs text-white/50">Wellness Sync</div>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <!-- FOOTER -->
-  <footer class="py-8 px-6 sm:px-12 border-t border-white/10 text-center text-xs text-white/40">
-    <div class="max-w-7xl mx-auto flex flex-col sm:flex-row justify-between items-center gap-4">
-      <div>&copy; 2026 Equilibrium. All rights reserved. Published on <a href="https://axxnsh.github.io" class="text-white hover:underline">axxnsh.github.io</a></div>
-      <div class="flex gap-6">
-        <a href="#" class="hover:text-white transition-colors">Privacy Policy</a>
-        <a href="#" class="hover:text-white transition-colors">Terms of Service</a>
-        <a href="#" class="hover:text-white transition-colors">Contact Ansh</a>
-      </div>
+  <!-- Z-INDEX 30: FOOTER MARQUEE -->
+  <footer class="fixed bottom-0 left-0 right-0 z-30 pointer-events-none overflow-hidden py-3 bg-gradient-to-t from-[#030014] to-transparent">
+    <div class="animate-marquee whitespace-nowrap font-display text-4xl sm:text-6xl md:text-7xl tracking-widest text-stroke-marquee uppercase select-none opacity-40">
+      ANSH ROY // CREATIVE DIRECTOR // ANSH ROY // CREATIVE DIRECTOR // ANSH ROY // CREATIVE DIRECTOR // ANSH ROY // CREATIVE DIRECTOR //
     </div>
   </footer>
 
-  <!-- Interactive JavaScript -->
+  <!-- Z-INDEX 50: INFO DRAWER (Side Menu Panel) -->
+  <div id="info-drawer" class="fixed inset-y-0 right-0 z-50 w-full sm:max-w-xl md:max-w-2xl bg-[#333333] border-l border-white/10 shadow-2xl drawer-slide translate-x-full flex flex-col">
+    
+    <!-- Sticky Header -->
+    <div class="sticky top-0 z-10 bg-[#333333]/90 backdrop-blur-md px-6 sm:px-8 py-5 border-b border-white/10 flex items-center justify-between">
+      <div class="font-mono text-xs text-[#CCFF00] uppercase tracking-wider flex items-center gap-2">
+        <span class="w-2 h-2 rounded-full bg-[#CCFF00] animate-ping"></span>
+        ANSH ROY &bull; PORTFOLIO & COMMISSION
+      </div>
+      <button id="close-drawer-btn" class="w-10 h-10 rounded-full bg-white/10 hover:bg-[#CCFF00] hover:text-black text-white flex items-center justify-center text-lg transition-colors cursor-pointer" aria-label="Close Drawer">
+        &times;
+      </button>
+    </div>
+
+    <!-- Scrollable Drawer Body -->
+    <div class="flex-1 overflow-y-auto px-6 sm:px-10 py-8 space-y-10">
+      
+      <!-- Navigation Menu -->
+      <div>
+        <span class="font-mono text-xs text-white/40 uppercase tracking-widest block mb-4">[ NAVIGATION ]</span>
+        <div class="flex flex-col gap-3 font-display text-3xl sm:text-4xl">
+          <a href="#" class="hover:text-[#CCFF00] transition-colors flex items-center justify-between group">
+            <span>PROJECTS</span>
+            <span class="font-mono text-xs text-white/40 group-hover:text-[#CCFF00]">(08)</span>
+          </a>
+          <a href="#" class="hover:text-[#CCFF00] transition-colors flex items-center justify-between group">
+            <span>PROCESS</span>
+            <span class="font-mono text-xs text-white/40 group-hover:text-[#CCFF00]">(03)</span>
+          </a>
+          <a href="#" class="hover:text-[#CCFF00] transition-colors flex items-center justify-between group">
+            <span>LABS & AI</span>
+            <span class="font-mono text-xs text-white/40 group-hover:text-[#CCFF00]">(12)</span>
+          </a>
+          <a href="#" class="hover:text-[#CCFF00] transition-colors flex items-center justify-between group">
+            <span>RESUME / CV</span>
+            <span class="font-mono text-xs text-white/40 group-hover:text-[#CCFF00]">(PDF)</span>
+          </a>
+        </div>
+      </div>
+
+      <!-- Contact Form ("LET'S WORK") -->
+      <div class="pt-6 border-t border-white/10 space-y-6">
+        <div>
+          <span class="font-mono text-xs text-[#CCFF00] uppercase tracking-widest block mb-1">[ INQUIRIES ]</span>
+          <h3 class="font-display text-3xl sm:text-4xl text-white uppercase">LET'S WORK TOGETHER</h3>
+          <p class="font-sans text-xs sm:text-sm text-white/60 mt-1">Available for select freelance creative direction, UI/UX engineering, & brand identity projects.</p>
+        </div>
+
+        <form id="contact-form" class="space-y-5" onsubmit="event.preventDefault(); alert('Thank you! Ansh will respond within 24 hours.');">
+          <div class="space-y-1">
+            <label for="drawer-name" class="font-mono text-xs text-white/70">YOUR NAME *</label>
+            <input type="text" id="drawer-name" required placeholder="Alex Rivera" class="w-full bg-transparent border-b border-white/30 focus:border-[#CCFF00] py-2 text-sm text-white focus:outline-none transition-colors">
+          </div>
+
+          <div class="space-y-1">
+            <label for="drawer-email" class="font-mono text-xs text-white/70">YOUR EMAIL *</label>
+            <input type="email" id="drawer-email" required placeholder="alex@company.com" class="w-full bg-transparent border-b border-white/30 focus:border-[#CCFF00] py-2 text-sm text-white focus:outline-none transition-colors">
+          </div>
+
+          <div class="space-y-1">
+            <label for="drawer-type" class="font-mono text-xs text-white/70">PROJECT TYPE</label>
+            <select id="drawer-type" class="w-full bg-[#333333] border-b border-white/30 focus:border-[#CCFF00] py-2 text-sm text-white focus:outline-none transition-colors cursor-pointer">
+              <option value="uiux" class="bg-[#333333] text-white">Full UI/UX Product Design</option>
+              <option value="brand" class="bg-[#333333] text-white">Creative Direction & Branding</option>
+              <option value="frontend" class="bg-[#333333] text-white">Web App Engineering (React/Three.js)</option>
+              <option value="consulting" class="bg-[#333333] text-white">Design System Consultation</option>
+            </select>
+          </div>
+
+          <div class="space-y-1">
+            <label for="drawer-msg" class="font-mono text-xs text-white/70">MESSAGE / BRIEF *</label>
+            <textarea id="drawer-msg" rows="3" required placeholder="Tell me about your vision, timeline, and budget..." class="w-full bg-transparent border-b border-white/30 focus:border-[#CCFF00] py-2 text-sm text-white focus:outline-none transition-colors"></textarea>
+          </div>
+
+          <button type="submit" class="w-full py-4 rounded-xl font-mono text-sm font-bold text-black bg-[#CCFF00] hover:bg-white transition-all shadow-[0_0_25px_rgba(204,255,0,0.3)] active:scale-98 cursor-pointer mt-4">
+            SUBMIT PROJECT INQUIRY &rarr;
+          </button>
+        </form>
+
+        <div class="pt-4 font-mono text-xs text-white/40 flex justify-between">
+          <span>EMAIL: hello@ansh.design</span>
+          <span>LOCATION: NEW DELHI &bull; GLOBAL REMOTE</span>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- JAVASCRIPT ARCHITECTURE -->
   <script>
     document.addEventListener('DOMContentLoaded', () => {
-      const mobileToggleBtn = document.getElementById('mobile-toggle-btn');
-      const mobileMenu = document.getElementById('mobile-menu');
-      const menuIcon = document.getElementById('menu-icon');
-      const closeIcon = document.getElementById('close-icon');
 
-      if (mobileToggleBtn && mobileMenu) {
-        mobileToggleBtn.addEventListener('click', () => {
-          mobileMenu.classList.toggle('hidden');
-          mobileMenu.classList.toggle('flex');
-          menuIcon.classList.toggle('hidden');
-          closeIcon.classList.toggle('hidden');
-        });
+      // =========================================================
+      // 1. Three.js Interactive WebGL Particle & Line Background
+      // =========================================================
+      const canvas = document.getElementById('webgl-canvas');
+      const scene = new THREE.Scene();
+      const camera = new THREE.PerspectiveCamera(60, window.innerWidth / window.innerHeight, 0.1, 1000);
+      camera.position.z = 50;
+
+      const renderer = new THREE.WebGLRenderer({ canvas: canvas, antialias: true, alpha: true });
+      renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
+      renderer.setSize(window.innerWidth, window.innerHeight);
+
+      // Particle System (15,000 Points)
+      const particleCount = 15000;
+      const positions = new Float32Array(particleCount * 3);
+      const originalPositions = new Float32Array(particleCount * 3);
+      const colors = new Float32Array(particleCount * 3);
+
+      const baseColor = new THREE.Color(0x001f3f);
+      const accentColor = new THREE.Color(0xCCFF00);
+
+      for (let i = 0; i < particleCount; i++) {
+        const x = (Math.random() - 0.5) * 160;
+        const y = (Math.random() - 0.5) * 100;
+        const z = (Math.random() - 0.5) * 100;
+
+        positions[i * 3] = x;
+        positions[i * 3 + 1] = y;
+        positions[i * 3 + 2] = z;
+
+        originalPositions[i * 3] = x;
+        originalPositions[i * 3 + 1] = y;
+        originalPositions[i * 3 + 2] = z;
+
+        colors[i * 3] = baseColor.r;
+        colors[i * 3 + 1] = baseColor.g;
+        colors[i * 3 + 2] = baseColor.b;
       }
+
+      const particleGeometry = new THREE.BufferGeometry();
+      particleGeometry.setAttribute('position', new THREE.BufferAttribute(positions, 3));
+      particleGeometry.setAttribute('color', new THREE.BufferAttribute(colors, 3));
+
+      const particleMaterial = new THREE.PointsMaterial({
+        size: 0.5,
+        vertexColors: true,
+        transparent: true,
+        opacity: 0.25,
+        blending: THREE.AdditiveBlending
+      });
+
+      const particleSystem = new THREE.Points(particleGeometry, particleMaterial);
+      scene.add(particleSystem);
+
+      // Energy Lines (530 Z-moving dashed lines)
+      const lineCount = 530;
+      const lineGeometry = new THREE.BufferGeometry();
+      const linePositions = new Float32Array(lineCount * 6);
+
+      for (let i = 0; i < lineCount; i++) {
+        const x = (Math.random() - 0.5) * 140;
+        const y = (Math.random() - 0.5) * 90;
+        const zStart = (Math.random() - 0.5) * 100;
+        const length = 5 + Math.random() * 15;
+
+        linePositions[i * 6] = x;
+        linePositions[i * 6 + 1] = y;
+        linePositions[i * 6 + 2] = zStart;
+
+        linePositions[i * 6 + 3] = x;
+        linePositions[i * 6 + 4] = y;
+        linePositions[i * 6 + 5] = zStart - length;
+      }
+
+      lineGeometry.setAttribute('position', new THREE.BufferAttribute(linePositions, 3));
+      const lineMaterial = new THREE.LineBasicMaterial({
+        color: 0x88aaff,
+        transparent: true,
+        opacity: 0.20
+      });
+
+      const lineSystem = new THREE.LineSegments(lineGeometry, lineMaterial);
+      scene.add(lineSystem);
+
+      // Mouse Intersection & Repulsion
+      const mouse = new THREE.Vector2(-9999, -9999);
+      const targetMouse = new THREE.Vector2(-9999, -9999);
+
+      window.addEventListener('mousemove', (e) => {
+        targetMouse.x = (e.clientX / window.innerWidth) * 2 - 1;
+        targetMouse.y = -(e.clientY / window.innerHeight) * 2 + 1;
+      });
+
+      window.addEventListener('resize', () => {
+        camera.aspect = window.innerWidth / window.innerHeight;
+        camera.updateProjectionMatrix();
+        renderer.setSize(window.innerWidth, window.innerHeight);
+      });
+
+      // Animation Loop
+      function animateThree() {
+        requestAnimationFrame(animateThree);
+
+        mouse.x += (targetMouse.x - mouse.x) * 0.1;
+        mouse.y += (targetMouse.y - mouse.y) * 0.1;
+
+        // Convert 2D mouse to 3D space at z=0
+        const mouse3D = new THREE.Vector3(mouse.x * 50, mouse.y * 30, 0);
+
+        const posAttr = particleGeometry.attributes.position;
+        const colorAttr = particleGeometry.attributes.color;
+
+        for (let i = 0; i < particleCount; i++) {
+          const px = posAttr.array[i * 3];
+          const py = posAttr.array[i * 3 + 1];
+          const pz = posAttr.array[i * 3 + 2];
+
+          const ox = originalPositions[i * 3];
+          const oy = originalPositions[i * 3 + 1];
+          const oz = originalPositions[i * 3 + 2];
+
+          const dx = px - mouse3D.x;
+          const dy = py - mouse3D.y;
+          const dz = pz - mouse3D.z;
+          const dist = Math.sqrt(dx * dx + dy * dy + dz * dz);
+
+          if (dist < 20) {
+            const force = (1 - dist / 20) * 0.04;
+            posAttr.array[i * 3] += dx * force;
+            posAttr.array[i * 3 + 1] += dy * force;
+
+            // Interpolate color towards #CCFF00
+            const mix = (1 - dist / 20) * 0.4;
+            colorAttr.array[i * 3] = THREE.MathUtils.lerp(baseColor.r, accentColor.r, mix);
+            colorAttr.array[i * 3 + 1] = THREE.MathUtils.lerp(baseColor.g, accentColor.g, mix);
+            colorAttr.array[i * 3 + 2] = THREE.MathUtils.lerp(baseColor.b, accentColor.b, mix);
+          } else {
+            // Spring return
+            posAttr.array[i * 3] += (ox - px) * 0.05;
+            posAttr.array[i * 3 + 1] += (oy - py) * 0.05;
+            posAttr.array[i * 3 + 2] += (oz - pz) * 0.05;
+
+            colorAttr.array[i * 3] += (baseColor.r - colorAttr.array[i * 3]) * 0.05;
+            colorAttr.array[i * 3 + 1] += (baseColor.g - colorAttr.array[i * 3 + 1]) * 0.05;
+            colorAttr.array[i * 3 + 2] += (baseColor.b - colorAttr.array[i * 3 + 2]) * 0.05;
+          }
+        }
+
+        posAttr.needsUpdate = true;
+        colorAttr.needsUpdate = true;
+
+        // Move energy lines forward in Z space
+        const linePos = lineGeometry.attributes.position;
+        for (let i = 0; i < lineCount; i++) {
+          linePos.array[i * 6 + 2] += 0.3;
+          linePos.array[i * 6 + 5] += 0.3;
+
+          if (linePos.array[i * 6 + 2] > 50) {
+            linePos.array[i * 6 + 2] -= 100;
+            linePos.array[i * 6 + 5] -= 100;
+          }
+        }
+        linePos.needsUpdate = true;
+
+        renderer.render(scene, camera);
+      }
+      animateThree();
+
+
+      // =========================================================
+      // 2. Scramble Text Headline Engine (PURPOSE / IMPACT / INTENT)
+      // =========================================================
+      const words = ["PURPOSE", "IMPACT", "INTENT"];
+      let wordIndex = 0;
+      const scrambleElement = document.getElementById('scramble-word');
+      const chars = "ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789!@#$%^&*";
+
+      function scrambleToWord(targetWord) {
+        let iteration = 0;
+        const totalIterations = targetWord.length * 3;
+
+        const scrambleInterval = setInterval(() => {
+          scrambleElement.innerText = targetWord
+            .split("")
+            .map((letter, index) => {
+              if (index < iteration / 3) {
+                return targetWord[index];
+              }
+              return chars[Math.floor(Math.random() * chars.length)];
+            })
+            .join("");
+
+          if (iteration >= totalIterations) {
+            clearInterval(scrambleInterval);
+            scrambleElement.innerText = targetWord;
+          }
+
+          iteration += 1;
+        }, 35);
+      }
+
+      setInterval(() => {
+        wordIndex = (wordIndex + 1) % words.length;
+        scrambleToWord(words[wordIndex]);
+      }, 4000);
+
+
+      // =========================================================
+      // 3. Typewriter Bio Looping Engine (Remounts every 7s)
+      // =========================================================
+      const bioText = "I'm Ansh — a freelance UI/UX designer crafting bold, high-contrast digital experiences that are intuitive, impactful, and built to stand out.";
+      const bioElement = document.getElementById('typewriter-bio-content');
+      const cursorElement = document.getElementById('typewriter-cursor');
+
+      function startTypewriterBio() {
+        bioElement.textContent = "";
+        if (cursorElement) cursorElement.style.display = "inline-block";
+
+        let charIdx = 0;
+        const typeInterval = setInterval(() => {
+          if (charIdx < bioText.length) {
+            bioElement.textContent += bioText.charAt(charIdx);
+            charIdx++;
+          } else {
+            clearInterval(typeInterval);
+          }
+        }, 25);
+      }
+
+      startTypewriterBio();
+      setInterval(startTypewriterBio, 7000);
+
+
+      // =========================================================
+      // 4. InfoDrawer Controls
+      // =========================================================
+      const drawer = document.getElementById('info-drawer');
+      const openBtn = document.getElementById('open-drawer-btn');
+      const closeBtn = document.getElementById('close-drawer-btn');
+      const archiveLink = document.getElementById('open-drawer-archive');
+      const processLink = document.getElementById('open-drawer-process');
+      const labsLink = document.getElementById('open-drawer-labs');
+
+      function openDrawer() {
+        drawer.classList.remove('translate-x-full');
+      }
+
+      function closeDrawer() {
+        drawer.classList.add('translate-x-full');
+      }
+
+      if (openBtn) openBtn.addEventListener('click', openDrawer);
+      if (closeBtn) closeBtn.addEventListener('click', closeDrawer);
+      if (archiveLink) archiveLink.addEventListener('click', openDrawer);
+      if (processLink) processLink.addEventListener('click', openDrawer);
+      if (labsLink) labsLink.addEventListener('click', openDrawer);
+
     });
   </script>
 
