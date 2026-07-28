@@ -3,8 +3,8 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" content="Ansh • NaturaVista — Find Peace in Every Journey. Curated travel experiences, digital product engineering & creative direction by Ansh.">
-    <title>Ansh — Find Peace in Every Journey | Created by Ansh.com</title>
+    <meta name="description" content="Ansh — Find Peace in Every Journey. Curated travel experiences that connect you with nature, culture, and yourself.">
+    <title>Ansh — Find Peace in Every Journey</title>
     
     <!-- Google Fonts: Cormorant Garamond & Plus Jakarta Sans -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -48,13 +48,6 @@
             transition: opacity 2000ms ease-in-out;
             will-change: opacity;
         }
-
-        .glass-card {
-            background: rgba(255, 255, 255, 0.7);
-            backdrop-filter: blur(16px);
-            -webkit-backdrop-filter: blur(16px);
-            border: 1px solid rgba(6, 44, 33, 0.12);
-        }
     </style>
 </head>
 <body class="bg-stone-100 text-emerald-950 font-sans antialiased overflow-x-hidden min-h-screen flex flex-col justify-between relative">
@@ -88,13 +81,13 @@
                 <a href="#experiences" class="text-emerald-900 hover:text-emerald-950 transition-colors">Experiences</a>
                 <a href="#sustainability" class="text-emerald-900 hover:text-emerald-950 transition-colors">Sustainability</a>
                 <a href="#about" class="text-emerald-900 hover:text-emerald-950 transition-colors">About Us</a>
-                <a href="#contact" class="text-emerald-900 hover:text-emerald-950 transition-colors">Contact</a>
+                <a href="#blog" class="text-emerald-900 hover:text-emerald-950 transition-colors">Blog</a>
             </nav>
 
             <!-- Right Action -->
             <div class="flex items-center gap-4">
-                <a href="#contact" class="hidden sm:inline-flex items-center justify-center px-6 py-2.5 rounded-full text-xs font-semibold uppercase tracking-wider text-emerald-950 border border-emerald-900/30 bg-white/50 hover:bg-emerald-950 hover:text-white backdrop-blur-md transition-all duration-300 shadow-sm">
-                    Get in Touch
+                <a href="mailto:maybeansh@gmail.com" class="hidden sm:inline-flex items-center justify-center px-6 py-2.5 rounded-full text-xs font-semibold uppercase tracking-wider text-emerald-950 border border-emerald-900/30 bg-white/50 hover:bg-emerald-950 hover:text-white backdrop-blur-md transition-all duration-300 shadow-sm">
+                    Plan Your Escape
                 </a>
                 <button id="mobile-menu-toggle" class="md:hidden text-emerald-950 focus:outline-none p-2 rounded-lg bg-white/40 backdrop-blur-md" aria-label="Toggle Navigation Menu">
                     <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -110,8 +103,7 @@
             <a href="#destinations" class="text-emerald-900 font-medium py-2">Destinations</a>
             <a href="#experiences" class="text-emerald-900 font-medium py-2">Experiences</a>
             <a href="#sustainability" class="text-emerald-900 font-medium py-2">Sustainability</a>
-            <a href="#contact" class="text-emerald-900 font-medium py-2">Contact & Details</a>
-            <a href="#contact" class="mt-2 inline-flex justify-center px-6 py-3 rounded-full text-xs font-semibold uppercase tracking-wider text-white bg-emerald-950">Get in Touch</a>
+            <a href="mailto:maybeansh@gmail.com" class="mt-2 inline-flex justify-center px-6 py-3 rounded-full text-xs font-semibold uppercase tracking-wider text-white bg-emerald-950">Plan Your Escape</a>
         </div>
 
         <!-- 2. MAIN HERO CONTENT (Center Aligned) -->
@@ -141,8 +133,8 @@
                 <!-- Action Buttons -->
                 <div class="pt-4 flex flex-wrap items-center justify-center gap-4 sm:gap-6">
                     <!-- Primary CTA -->
-                    <a href="#contact" class="inline-flex items-center gap-3 px-7 py-3.5 rounded-full text-sm font-medium text-white bg-emerald-950 hover:bg-emerald-900 border border-emerald-800/50 shadow-xl transition-all duration-300 group">
-                        <span>Contact Ansh</span>
+                    <a href="#destinations" class="inline-flex items-center gap-3 px-7 py-3.5 rounded-full text-sm font-medium text-white bg-emerald-950 hover:bg-emerald-900 border border-emerald-800/50 shadow-xl transition-all duration-300 group">
+                        <span>Explore Destinations</span>
                         <svg class="w-4 h-4 text-teal-300 group-hover:translate-x-1.5 transition-transform duration-300" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3"/>
                         </svg>
@@ -162,98 +154,37 @@
         </main>
 
         <!-- 3. BOTTOM SCROLL INDICATOR -->
-        <div class="relative z-20 w-full max-w-7xl mx-auto px-6 lg:px-12 pb-8 pt-4 flex flex-col items-center justify-center">
-            <a href="#contact" class="flex flex-col items-center gap-2 group">
-                <span class="text-[10px] uppercase font-bold tracking-[0.25em] text-emerald-900 group-hover:text-emerald-950 transition-colors">SCROLL FOR CONTACT DETAILS</span>
-                <div class="w-[1px] h-4 bg-emerald-900/30 my-1"></div>
-                <div class="w-4 h-6 rounded-full border border-emerald-950/60 flex justify-center pt-1">
-                    <div class="w-[2px] h-1.5 bg-emerald-950 rounded-full animate-scroll-dot"></div>
-                </div>
-            </a>
+        <div class="relative z-20 w-full max-w-7xl mx-auto px-6 lg:px-12 pb-4 pt-4 flex flex-col items-center justify-center">
+            <span class="text-[10px] uppercase font-bold tracking-[0.25em] text-emerald-900">SCROLL TO EXPLORE</span>
+            <div class="w-[1px] h-4 bg-emerald-900/30 my-1"></div>
+            <div class="w-4 h-6 rounded-full border border-emerald-950/60 flex justify-center pt-1">
+                <div class="w-[2px] h-1.5 bg-emerald-950 rounded-full animate-scroll-dot"></div>
+            </div>
         </div>
+
+        <!-- 4. CLEAN MINIMALIST FOOTER (As Requested: No big boxes, simple inline text at bottom) -->
+        <footer class="relative z-20 w-full border-t border-emerald-900/10 bg-white/40 backdrop-blur-md py-4 px-6 lg:px-12 text-xs text-emerald-950">
+            <div class="max-w-7xl mx-auto flex flex-col sm:flex-row items-center justify-between gap-3 text-center sm:text-left">
+                
+                <!-- Created by Ansh.com & Contact details in simple inline text -->
+                <div class="flex flex-wrap items-center justify-center sm:justify-start gap-x-4 gap-y-1 font-medium">
+                    <span class="font-bold text-emerald-950">Created by <a href="https://ansh.com" target="_blank" class="underline hover:text-emerald-700">Ansh.com</a></span>
+                    <span class="hidden sm:inline text-emerald-900/40">&bull;</span>
+                    <span>Gmail: <a href="mailto:maybeansh@gmail.com" class="font-semibold underline hover:text-emerald-700">maybeansh@gmail.com</a></span>
+                    <span class="hidden sm:inline text-emerald-900/40">&bull;</span>
+                    <span>Mob No.: <a href="tel:+919389984522" class="font-semibold underline hover:text-emerald-700">9389984522</a></span>
+                </div>
+
+                <!-- Copyright -->
+                <div class="text-emerald-900/70 text-[11px]">
+                    &copy; 2026 Ansh. All rights reserved.
+                </div>
+
+            </div>
+        </footer>
     </div>
 
-    <!-- CONTACT & CREATOR DETAILS SECTION (As Requested) -->
-    <section id="contact" class="relative z-20 py-20 px-6 lg:px-12 bg-white/80 backdrop-blur-xl border-t border-emerald-900/10">
-        <div class="max-w-7xl mx-auto space-y-16">
-            
-            <!-- Creator Badge Header -->
-            <div class="text-center space-y-4">
-                <div class="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-emerald-950 text-white text-xs font-bold uppercase tracking-widest shadow-md">
-                    <i class="fa-solid fa-circle-check text-teal-300"></i> Created by Ansh.com
-                </div>
-                <h2 class="font-serif text-4xl sm:text-5xl font-semibold text-emerald-950">Let's Connect & Collaborate</h2>
-                <p class="text-emerald-900/80 text-base max-w-xl mx-auto font-medium">
-                    Have a project in mind, need technical consultation, or want to build something extraordinary? Get in touch directly with Ansh.
-                </p>
-            </div>
-
-            <!-- Contact Information Cards Grid -->
-            <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
-                
-                <!-- Email Card -->
-                <div class="glass-card p-8 rounded-3xl space-y-4 transition-all hover:-translate-y-1 hover:shadow-xl">
-                    <div class="w-12 h-12 rounded-2xl bg-emerald-950 text-teal-300 flex items-center justify-center text-xl shadow-md">
-                        <i class="fa-solid fa-envelope"></i>
-                    </div>
-                    <span class="text-xs font-bold uppercase tracking-wider text-emerald-900/60 block">Official Gmail</span>
-                    <a href="mailto:maybeansh@gmail.com" class="font-serif text-2xl font-bold text-emerald-950 hover:text-emerald-700 transition-colors block break-words">
-                        maybeansh@gmail.com
-                    </a>
-                    <p class="text-xs text-emerald-900/70">Send an email for business inquiries, projects, or collaborations.</p>
-                </div>
-
-                <!-- Phone / Mobile Card -->
-                <div class="glass-card p-8 rounded-3xl space-y-4 transition-all hover:-translate-y-1 hover:shadow-xl">
-                    <div class="w-12 h-12 rounded-2xl bg-emerald-950 text-teal-300 flex items-center justify-center text-xl shadow-md">
-                        <i class="fa-solid fa-phone"></i>
-                    </div>
-                    <span class="text-xs font-bold uppercase tracking-wider text-emerald-900/60 block">Mobile Number</span>
-                    <a href="tel:+919389984522" class="font-serif text-2xl font-bold text-emerald-950 hover:text-emerald-700 transition-colors block">
-                        +91 9389984522
-                    </a>
-                    <p class="text-xs text-emerald-900/70">Available for direct calls & WhatsApp messaging.</p>
-                </div>
-
-                <!-- Domain & Location Card -->
-                <div class="glass-card p-8 rounded-3xl space-y-4 transition-all hover:-translate-y-1 hover:shadow-xl">
-                    <div class="w-12 h-12 rounded-2xl bg-emerald-950 text-teal-300 flex items-center justify-center text-xl shadow-md">
-                        <i class="fa-solid fa-globe"></i>
-                    </div>
-                    <span class="text-xs font-bold uppercase tracking-wider text-emerald-900/60 block">Official Domain</span>
-                    <a href="https://ansh.com" target="_blank" class="font-serif text-2xl font-bold text-emerald-950 hover:text-emerald-700 transition-colors block">
-                        Ansh.com
-                    </a>
-                    <p class="text-xs text-emerald-900/70">New Delhi, India &bull; Available Worldwide Remote</p>
-                </div>
-
-            </div>
-
-            <!-- Social Links & Copyright Footer -->
-            <div class="pt-12 border-t border-emerald-900/10 flex flex-col md:flex-row justify-between items-center gap-6 text-center md:text-left">
-                <div class="space-y-1">
-                    <div class="font-serif text-xl font-bold text-emerald-950">Created by <span class="underline">Ansh.com</span></div>
-                    <p class="text-xs text-emerald-900/70">&copy; 2026 Ansh. All rights reserved. Published on <a href="https://axxnsh.github.io" class="font-bold underline text-emerald-950">axxnsh.github.io</a></p>
-                </div>
-
-                <!-- Social Icons -->
-                <div class="flex items-center gap-4">
-                    <a href="https://github.com/Axxnsh" target="_blank" class="w-10 h-10 rounded-full bg-emerald-950 text-white flex items-center justify-center hover:bg-emerald-900 transition-colors shadow-md" title="GitHub Profile">
-                        <i class="fa-brands fa-github"></i>
-                    </a>
-                    <a href="mailto:maybeansh@gmail.com" class="w-10 h-10 rounded-full bg-emerald-950 text-white flex items-center justify-center hover:bg-emerald-900 transition-colors shadow-md" title="Send Email">
-                        <i class="fa-solid fa-envelope"></i>
-                    </a>
-                    <a href="tel:+919389984522" class="w-10 h-10 rounded-full bg-emerald-950 text-white flex items-center justify-center hover:bg-emerald-900 transition-colors shadow-md" title="Call Ansh">
-                        <i class="fa-solid fa-phone"></i>
-                    </a>
-                </div>
-            </div>
-
-        </div>
-    </section>
-
-    <!-- 4. INTERACTIVE FULLSCREEN VIDEO MODAL -->
+    <!-- INTERACTIVE FULLSCREEN VIDEO MODAL -->
     <div id="video-modal" class="fixed inset-0 z-50 bg-slate-950/90 backdrop-blur-xl hidden items-center justify-center p-4 sm:p-8">
         <div class="relative w-full max-w-5xl aspect-video bg-black rounded-2xl overflow-hidden shadow-2xl border border-white/10">
             <button id="close-video-modal-btn" class="absolute top-4 right-4 z-10 w-10 h-10 rounded-full bg-black/60 hover:bg-black text-white flex items-center justify-center transition-colors text-lg cursor-pointer">
