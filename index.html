@@ -3,13 +3,13 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" content="NaturaVista & Ansh | Find Peace in Every Journey - Curated Travel Experiences, Tech Innovation, & Product Design.">
-    <title>NaturaVista — Find Peace in Every Journey | Ansh</title>
+    <meta name="description" content="Preetoshi — Experience Designer | Token-driven UI system, accessible e-commerce storefront layout, and interactive experience design.">
+    <title>Preetoshi — Experience Designer | Token-Driven UI & Portfolio</title>
     
-    <!-- Google Fonts -->
+    <!-- Google Fonts: Inter & WF Visual Sans fallback -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;0,700;1,400&family=Plus+Jakarta+Sans:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,600;1,400&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
     
     <!-- FontAwesome Icons -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
@@ -21,222 +21,466 @@
             theme: {
                 extend: {
                     fontFamily: {
+                        sans: ['"Inter"', '-apple-system', 'BlinkMacSystemFont', '"Segoe UI"', 'Roboto', 'sans-serif'],
                         serif: ['"Cormorant Garamond"', 'Georgia', 'serif'],
-                        sans: ['"Plus Jakarta Sans"', 'sans-serif'],
                     },
-                    keyframes: {
-                        scrollDot: {
-                            '0%': { transform: 'translateY(0)', opacity: '1' },
-                            '50%': { transform: 'translateY(8px)', opacity: '0.4' },
-                            '100%': { transform: 'translateY(0)', opacity: '1' },
-                        },
-                        fadeInUp: {
-                            '0%': { opacity: '0', transform: 'translateY(20px)' },
-                            '100%': { opacity: '1', transform: 'translateY(0)' },
+                    colors: {
+                        brand: {
+                            textPrimary: '#000000',
+                            textSecondary: '#757575',
+                            surfaceMuted: '#ffffff',
+                            textInverse: '#146ef5',
+                            surfaceRaised: '#734ce0',
+                            borderMuted: '#e0e0e0',
                         }
                     },
-                    animation: {
-                        'scroll-dot': 'scrollDot 2s infinite',
-                        'fade-in-up': 'fadeInUp 0.8s cubic-bezier(0.16, 1, 0.3, 1) forwards',
+                    boxShadow: {
+                        'token-1': '0px 0px 0px 0px #000000',
+                        'token-2': '0px 4px 5px 0px rgba(0, 0, 0, 0.08), 0px 1px 2px 0px rgba(0, 0, 0, 0.2), 0px 0px 2px 0px rgba(0, 0, 0, 0.1)',
+                        'token-3': 'inset 0px 0px 0px 1px rgba(0, 0, 0, 0.1)',
+                        'token-4': 'inset 0px 1px 1px 0px rgba(255, 255, 255, 0.2), inset 0px 6px 12px 0px rgba(255, 255, 255, 0.12), 0px 1px 2px 0px rgba(8, 8, 8, 0.2), 0px 4px 4px 0px rgba(8, 8, 8, 0.08)',
+                    },
+                    borderRadius: {
+                        'xs': '4px',
+                        'pill': '100px',
                     }
                 }
             }
         }
     </script>
     <style>
+        /* Focus Visible Rules - WCAG 2.2 AA Compliance */
+        *:focus-visible {
+            outline: 3px solid #146ef5 !important;
+            outline-offset: 2px !important;
+        }
+
+        .token-card {
+            transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        .token-card:hover {
+            box-shadow: rgba(0, 0, 0, 0.08) 0px 4px 5px 0px, rgba(0, 0, 0, 0.2) 0px 1px 2px 0px, rgba(0, 0, 0, 0.1) 0px 0px 2px 0px;
+            transform: translateY(-2px);
+        }
+        
         .video-layer {
             transition: opacity 2000ms ease-in-out;
             will-change: opacity;
         }
     </style>
 </head>
-<body class="bg-stone-100 text-emerald-950 font-sans antialiased overflow-x-hidden min-h-screen flex flex-col">
+<body class="bg-white text-black font-sans antialiased selection:bg-blue-100 selection:text-blue-900">
 
-    <!-- HERO SECTION CONTAINER WITH DUAL VIDEO BACKGROUND ENGINE -->
-    <section class="relative min-h-screen flex flex-col justify-between overflow-hidden bg-stone-100">
-        
-        <!-- Seamless Dual-Video Background Crossfade Engine -->
-        <div class="absolute inset-0 z-0 overflow-hidden pointer-events-none">
-            <video id="video1" class="video-layer absolute inset-0 w-full h-full object-cover opacity-100" muted playsinline preload="auto"></video>
-            <video id="video2" class="video-layer absolute inset-0 w-full h-full object-cover opacity-0" muted playsinline preload="auto"></video>
+    <!-- TOP ANNOUNCEMENT BAR (Token-driven) -->
+    <aside class="bg-black text-white text-[11.2px] uppercase font-bold tracking-widest py-2 px-4 text-center border-b border-neutral-800 flex justify-between items-center max-w-full overflow-hidden">
+        <span class="mx-auto flex items-center gap-2">
+            <span class="w-2 h-2 rounded-full bg-[#146ef5] animate-pulse"></span>
+            PREETOSHI — EXPERIENCE DESIGNER &bull; TOKEN-DRIVEN UI SYSTEM
+        </span>
+        <a href="#qa-checklist" class="hidden md:inline-block text-[#146ef5] hover:underline underline-offset-4">QA Checklist</a>
+    </aside>
+
+    <!-- HEADER / NAVIGATION (Component Density: Navigation 1, Links 136, Buttons 15) -->
+    <header class="sticky top-0 z-40 bg-white/90 backdrop-blur-md border-b border-[#e0e0e0] px-6 lg:px-12 py-4">
+        <div class="max-w-7xl mx-auto flex items-center justify-between">
             
-            <!-- Soft Gradient Overlay -->
-            <div class="absolute inset-0 bg-gradient-to-b from-white/50 via-white/20 to-transparent z-10"></div>
-        </div>
-
-        <!-- 1. Header Navigation Bar -->
-        <header class="relative z-20 w-full max-w-7xl mx-auto px-6 lg:px-12 py-6 flex items-center justify-between">
-            <!-- Left Logo -->
-            <a href="#" class="flex items-center gap-3 group">
-                <div class="w-10 h-10 rounded-full bg-emerald-950 flex items-center justify-center text-white shadow-md group-hover:scale-105 transition-transform duration-300">
-                    <svg class="w-5 h-5 fill-current" viewBox="0 0 24 24">
-                        <path d="M14 6l-3.8 5.7 2.3 3.4L18 6l6 14H0l6-9 3.5 5.2L14 6z"/>
-                    </svg>
+            <!-- Brand Logo -->
+            <a href="#" class="flex items-center gap-3 group focus:outline-none" aria-label="Preetoshi Experience Designer Home">
+                <div class="w-9 h-9 rounded-pill bg-[#734ce0] flex items-center justify-center text-white font-bold text-sm shadow-token-2 group-hover:scale-105 transition-transform duration-200">
+                    P
                 </div>
-                <span class="font-serif text-2xl lg:text-3xl font-semibold tracking-wide text-emerald-950">NaturaVista</span>
+                <div>
+                    <span class="font-bold text-[18px] tracking-tight text-black block leading-none">Preetoshi</span>
+                    <span class="text-[11.2px] text-[#757575] font-medium tracking-wide">experience designer</span>
+                </div>
             </a>
 
-            <!-- Center Nav Links (Desktop) -->
-            <nav class="hidden md:flex items-center space-x-8 text-sm font-medium tracking-wide text-emerald-900">
-                <a href="#home" class="relative py-1 text-emerald-950 font-semibold after:content-[''] after:absolute after:bottom-0 after:left-0 after:w-full after:h-[2px] after:bg-emerald-950">Home</a>
-                <a href="#destinations" class="hover:text-emerald-950 transition-colors">Destinations</a>
-                <a href="#experiences" class="hover:text-emerald-950 transition-colors">Experiences</a>
-                <a href="#sustainability" class="hover:text-emerald-950 transition-colors">Sustainability</a>
-                <a href="#about" class="hover:text-emerald-950 transition-colors">About Us</a>
-                <a href="#blog" class="hover:text-emerald-950 transition-colors">Blog</a>
+            <!-- Navigation Links -->
+            <nav class="hidden md:flex items-center space-x-8 text-[14px] font-medium text-black" aria-label="Main Navigation">
+                <a href="#tokens" class="hover:text-[#146ef5] transition-colors py-1">Design Tokens</a>
+                <a href="#storefront" class="hover:text-[#146ef5] transition-colors py-1">Storefront UI</a>
+                <a href="#naturavista" class="hover:text-[#146ef5] transition-colors py-1">NaturaVista Hero</a>
+                <a href="#components" class="hover:text-[#146ef5] transition-colors py-1">Component Matrix</a>
+                <a href="#accessibility" class="hover:text-[#146ef5] transition-colors py-1">Accessibility (WCAG)</a>
             </nav>
 
-            <!-- Right Action -->
-            <div class="flex items-center gap-4">
-                <a href="#destinations" class="hidden sm:inline-flex items-center justify-center px-6 py-2.5 rounded-full text-xs font-semibold uppercase tracking-wider text-emerald-950 border border-emerald-900/30 bg-white/50 hover:bg-emerald-950 hover:text-white backdrop-blur-md transition-all duration-300 shadow-sm">
-                    Plan Your Escape
-                </a>
-                <button id="mobile-menu-btn" class="md:hidden text-emerald-950 focus:outline-none p-2 rounded-lg bg-white/40 backdrop-blur-md">
-                    <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"/>
-                    </svg>
+            <!-- Actions -->
+            <div class="flex items-center gap-3">
+                <button id="toggle-token-drawer" class="px-4 py-2 rounded-pill text-[14px] font-medium text-[#146ef5] bg-white border border-[#e0e0e0] hover:border-[#146ef5] hover:bg-blue-50/50 transition-all shadow-token-1 active:scale-95 focus-visible:outline">
+                    <i class="fa-solid fa-sliders"></i> Tokens Inspector
                 </button>
+                <a href="#contact" class="px-5 py-2 rounded-pill text-[14px] font-semibold text-white bg-black hover:bg-neutral-800 transition-all shadow-token-2 active:scale-95">
+                    Get In Touch
+                </a>
             </div>
-        </header>
-
-        <!-- Mobile Drawer -->
-        <div id="mobile-drawer" class="hidden md:hidden fixed inset-x-0 top-20 z-30 p-6 bg-white/90 backdrop-blur-xl border-b border-emerald-900/10 shadow-2xl flex flex-col gap-4 text-center">
-            <a href="#home" class="text-emerald-950 font-bold py-2">Home</a>
-            <a href="#destinations" class="text-emerald-900 font-medium py-2">Destinations</a>
-            <a href="#experiences" class="text-emerald-900 font-medium py-2">Experiences</a>
-            <a href="#sustainability" class="text-emerald-900 font-medium py-2">Sustainability</a>
-            <a href="#about" class="text-emerald-900 font-medium py-2">About Us</a>
-            <a href="#destinations" class="mt-2 inline-flex justify-center px-6 py-3 rounded-full text-xs font-semibold uppercase tracking-wider text-white bg-emerald-950">Plan Your Escape</a>
         </div>
+    </header>
 
-        <!-- 2. Main Hero Content (Center Aligned) -->
-        <div class="relative z-20 w-full max-w-7xl mx-auto px-6 lg:px-12 my-auto py-12 flex flex-col items-center justify-center text-center">
-            <div class="max-w-3xl mx-auto space-y-6 flex flex-col items-center animate-fade-in-up">
-                
-                <!-- Sub-tagline -->
-                <div class="flex items-center justify-center gap-3">
-                    <span class="w-2.5 h-2.5 rounded-full bg-emerald-700 animate-pulse"></span>
-                    <span class="text-xs sm:text-sm font-bold tracking-[0.3em] uppercase text-emerald-900">Discover. Explore. Belong.</span>
-                </div>
+    <main>
+        <!-- HERO SECTION: PREETOSHI DESIGN SYSTEM -->
+        <section class="py-20 px-6 lg:px-12 bg-white border-b border-[#e0e0e0]">
+            <div class="max-w-7xl mx-auto grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
+                <div class="space-y-6">
+                    <div class="inline-flex items-center gap-2 px-3 py-1 rounded-pill bg-[#734ce0]/10 text-[#734ce0] text-[12px] font-semibold tracking-wide">
+                        <i class="fa-solid fa-sparkles"></i> Experience Design System &bull; WCAG 2.2 AA Compliant
+                    </div>
 
-                <!-- Main Headline -->
-                <h1 class="font-serif text-5xl sm:text-6xl md:text-7xl lg:text-8xl font-medium leading-[1.05] tracking-tight text-emerald-950 text-center">
-                    Find Peace in <br>
-                    <span class="italic font-normal">Every Journey</span>
-                </h1>
+                    <h1 class="text-4xl sm:text-5xl lg:text-6xl font-bold tracking-tight text-black leading-[1.1]">
+                        Architecting <span class="text-[#146ef5]">Token-Driven</span> Storefront Experiences.
+                    </h1>
 
-                <!-- Accent Line & Subtitle Paragraph -->
-                <div class="pt-2 flex flex-col items-center">
-                    <div class="w-16 h-[1.5px] bg-emerald-900/30 mb-6 mx-auto"></div>
-                    <p class="text-base sm:text-lg text-emerald-900/90 font-medium leading-relaxed max-w-xl text-center">
-                        Curated travel experiences that connect you with nature, culture, and yourself.
+                    <p class="text-[16px] text-[#757575] leading-relaxed max-w-xl">
+                        Implementation-ready UI guidance for Preetoshi — experience designer. Optimized for consistency, accessibility, and high-velocity storefront delivery.
                     </p>
+
+                    <div class="pt-2 flex flex-wrap items-center gap-4">
+                        <a href="#storefront" class="px-6 py-3 rounded-pill text-[15px] font-semibold text-white bg-[#146ef5] hover:bg-blue-600 shadow-token-4 transition-all duration-200 active:scale-95 flex items-center gap-2">
+                            Explore Storefront Showcase <i class="fa-solid fa-arrow-right text-xs"></i>
+                        </a>
+                        <a href="#tokens" class="px-6 py-3 rounded-pill text-[15px] font-semibold text-black bg-white border border-[#e0e0e0] hover:border-black shadow-token-1 transition-all duration-200">
+                            View Token Matrix
+                        </a>
+                    </div>
                 </div>
 
-                <!-- Action Buttons -->
-                <div class="pt-4 flex flex-wrap items-center justify-center gap-4 sm:gap-6">
-                    <!-- Primary CTA -->
-                    <a href="#destinations" class="inline-flex items-center gap-3 px-7 py-3.5 rounded-full text-sm font-medium text-white bg-emerald-950 hover:bg-emerald-900 border border-emerald-800/50 shadow-xl transition-all duration-300 group">
-                        <span>Explore Destinations</span>
-                        <svg class="w-4 h-4 text-teal-300 group-hover:translate-x-1.5 transition-transform duration-300" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3"/>
-                        </svg>
-                    </a>
+                <!-- Interactive Token Preview Cards -->
+                <div class="grid grid-cols-2 gap-4 bg-neutral-50 p-6 rounded-2xl border border-[#e0e0e0] shadow-token-3">
+                    <div class="p-5 rounded-xl bg-white border border-[#e0e0e0] shadow-token-2 space-y-2">
+                        <div class="w-8 h-8 rounded-pill bg-[#146ef5] text-white flex items-center justify-center font-bold text-xs">
+                            #1
+                        </div>
+                        <h4 class="font-bold text-[15px] text-black">Primary Color</h4>
+                        <code class="text-[11.2px] text-[#757575] block font-mono">color.text.inverse=#146ef5</code>
+                    </div>
 
-                    <!-- Secondary CTA -->
-                    <button id="open-video-modal-btn" class="inline-flex items-center gap-3 px-6 py-3.5 rounded-full text-sm font-medium text-emerald-950 bg-white/70 hover:bg-white border border-emerald-900/20 backdrop-blur-md shadow-md transition-all duration-300 hover:-translate-y-0.5">
-                        <span class="w-6 h-6 rounded-full bg-emerald-950 text-white flex items-center justify-center">
-                            <svg class="w-3 h-3 ml-0.5 fill-current" viewBox="0 0 24 24">
-                                <path d="M8 5v14l11-7z"/>
-                            </svg>
-                        </span>
-                        <span>Watch Video</span>
+                    <div class="p-5 rounded-xl bg-white border border-[#e0e0e0] shadow-token-2 space-y-2">
+                        <div class="w-8 h-8 rounded-pill bg-[#734ce0] text-white flex items-center justify-center font-bold text-xs">
+                            #2
+                        </div>
+                        <h4 class="font-bold text-[15px] text-black">Raised Surface</h4>
+                        <code class="text-[11.2px] text-[#757575] block font-mono">color.surface.raised=#734ce0</code>
+                    </div>
+
+                    <div class="p-5 rounded-xl bg-white border border-[#e0e0e0] shadow-token-2 space-y-2 col-span-2">
+                        <div class="flex items-center justify-between">
+                            <span class="text-[14px] font-semibold text-black">Typography Scale</span>
+                            <span class="text-[11.2px] font-mono text-[#757575]">WF Visual Sans</span>
+                        </div>
+                        <div class="space-y-1 pt-1">
+                            <div class="text-[24px] font-bold text-black leading-none">24px Heading</div>
+                            <div class="text-[16px] text-[#757575]">16px Base Body Typography</div>
+                            <div class="text-[11.2px] text-[#757575] uppercase tracking-wider font-semibold">11.2px XS Caption Tag</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- DESIGN TOKENS FOUNDATIONS SECTION -->
+        <section id="tokens" class="py-20 px-6 lg:px-12 max-w-7xl mx-auto">
+            <div class="mb-12 space-y-3">
+                <span class="text-[11.2px] font-bold tracking-widest text-[#146ef5] uppercase">STYLE FOUNDATIONS</span>
+                <h2 class="text-3xl sm:text-4xl font-bold text-black">Design Tokens & Architecture</h2>
+                <p class="text-[#757575] text-[15px]">Semantic design tokens engineered for consistent storefront component guidance.</p>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+                <!-- Color Tokens -->
+                <div class="p-6 rounded-xl bg-white border border-[#e0e0e0] shadow-token-2 space-y-4">
+                    <h3 class="font-bold text-[18px] text-black flex items-center gap-2">
+                        <i class="fa-solid fa-palette text-[#734ce0]"></i> Color Tokens
+                    </h3>
+                    <div class="space-y-3 text-[14px]">
+                        <div class="flex items-center justify-between p-2 rounded-lg border border-[#e0e0e0]">
+                            <span class="font-medium text-black">text.primary</span>
+                            <span class="font-mono text-xs text-[#757575]">#000000</span>
+                        </div>
+                        <div class="flex items-center justify-between p-2 rounded-lg border border-[#e0e0e0]">
+                            <span class="font-medium text-black">text.secondary</span>
+                            <span class="font-mono text-xs text-[#757575]">#757575</span>
+                        </div>
+                        <div class="flex items-center justify-between p-2 rounded-lg border border-[#e0e0e0] bg-[#146ef5] text-white">
+                            <span class="font-medium">text.inverse</span>
+                            <span class="font-mono text-xs">#146ef5</span>
+                        </div>
+                        <div class="flex items-center justify-between p-2 rounded-lg border border-[#e0e0e0] bg-[#734ce0] text-white">
+                            <span class="font-medium">surface.raised</span>
+                            <span class="font-mono text-xs">#734ce0</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Spacing Tokens -->
+                <div class="p-6 rounded-xl bg-white border border-[#e0e0e0] shadow-token-2 space-y-4">
+                    <h3 class="font-bold text-[18px] text-black flex items-center gap-2">
+                        <i class="fa-solid fa-ruler-combined text-[#146ef5]"></i> Spacing Scale
+                    </h3>
+                    <div class="space-y-2 font-mono text-[12px]">
+                        <div class="flex items-center justify-between p-2 bg-neutral-50 rounded">
+                            <span>space.1 (7px)</span>
+                            <div class="h-2 bg-black rounded" style="width: 7px;"></div>
+                        </div>
+                        <div class="flex items-center justify-between p-2 bg-neutral-50 rounded">
+                            <span>space.3 (12px)</span>
+                            <div class="h-2 bg-black rounded" style="width: 12px;"></div>
+                        </div>
+                        <div class="flex items-center justify-between p-2 bg-neutral-50 rounded">
+                            <span>space.5 (16px)</span>
+                            <div class="h-2 bg-black rounded" style="width: 16px;"></div>
+                        </div>
+                        <div class="flex items-center justify-between p-2 bg-neutral-50 rounded">
+                            <span>space.7 (32px)</span>
+                            <div class="h-2 bg-black rounded" style="width: 32px;"></div>
+                        </div>
+                        <div class="flex items-center justify-between p-2 bg-neutral-50 rounded">
+                            <span>space.8 (64px)</span>
+                            <div class="h-2 bg-black rounded" style="width: 64px;"></div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Shadows & Elevation -->
+                <div class="p-6 rounded-xl bg-white border border-[#e0e0e0] shadow-token-2 space-y-4">
+                    <h3 class="font-bold text-[18px] text-black flex items-center gap-2">
+                        <i class="fa-solid fa-layer-group text-black"></i> Shadow Elevation
+                    </h3>
+                    <div class="space-y-3">
+                        <div class="p-3 bg-white border border-[#e0e0e0] shadow-token-1 rounded-lg text-xs font-mono">
+                            shadow.1 (Flat 0px)
+                        </div>
+                        <div class="p-3 bg-white border border-[#e0e0e0] shadow-token-2 rounded-lg text-xs font-mono">
+                            shadow.2 (Raised Card 4px)
+                        </div>
+                        <div class="p-3 bg-white border border-[#e0e0e0] shadow-token-3 rounded-lg text-xs font-mono">
+                            shadow.3 (Inset 1px)
+                        </div>
+                        <div class="p-3 bg-[#146ef5] text-white shadow-token-4 rounded-lg text-xs font-mono">
+                            shadow.4 (Glossy Button Elevation)
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- STOREFRONT E-COMMERCE COMPONENT MATRIX -->
+        <section id="storefront" class="py-20 px-6 lg:px-12 bg-neutral-50 border-t border-b border-[#e0e0e0]">
+            <div class="max-w-7xl mx-auto">
+                <div class="mb-12 space-y-3">
+                    <span class="text-[11.2px] font-bold tracking-widest text-[#734ce0] uppercase">PRODUCT SURFACE</span>
+                    <h2 class="text-3xl sm:text-4xl font-bold text-black">E-Commerce Storefront Components</h2>
+                    <p class="text-[#757575] text-[15px]">Interactive UI components defined with states: Default, Hover, Focus-visible, Active, Disabled, & Loading.</p>
+                </div>
+
+                <!-- Component Showcase Grid -->
+                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+                    <!-- Interactive Button States Card -->
+                    <div class="p-6 rounded-xl bg-white border border-[#e0e0e0] shadow-token-2 space-y-6">
+                        <div class="flex items-center justify-between border-b border-[#e0e0e0] pb-3">
+                            <h4 class="font-bold text-[16px] text-black">Button Component States</h4>
+                            <span class="text-[11.2px] bg-blue-100 text-[#146ef5] px-2 py-0.5 rounded-pill font-bold">15 Instances</span>
+                        </div>
+                        
+                        <div class="space-y-3">
+                            <div>
+                                <span class="text-[11.2px] text-[#757575] block mb-1">State: Default & Hover</span>
+                                <button class="w-full py-2.5 px-4 rounded-pill text-[14px] font-semibold text-white bg-[#146ef5] hover:bg-blue-600 transition-all shadow-token-2 active:scale-95">
+                                    Add to Cart &bull; $149.00
+                                </button>
+                            </div>
+
+                            <div>
+                                <span class="text-[11.2px] text-[#757575] block mb-1">State: Focus-Visible (Keyboard Active)</span>
+                                <button class="w-full py-2.5 px-4 rounded-pill text-[14px] font-semibold text-white bg-[#734ce0] outline outline-4 outline-[#146ef5] outline-offset-2">
+                                    Focus-Visible State
+                                </button>
+                            </div>
+
+                            <div>
+                                <span class="text-[11.2px] text-[#757575] block mb-1">State: Disabled</span>
+                                <button disabled class="w-full py-2.5 px-4 rounded-pill text-[14px] font-semibold text-[#757575] bg-[#e0e0e0] cursor-not-allowed">
+                                    Out of Stock
+                                </button>
+                            </div>
+
+                            <div>
+                                <span class="text-[11.2px] text-[#757575] block mb-1">State: Loading</span>
+                                <button disabled class="w-full py-2.5 px-4 rounded-pill text-[14px] font-semibold text-white bg-[#146ef5] opacity-80 cursor-wait flex items-center justify-center gap-2">
+                                    <i class="fa-solid fa-circle-notch fa-spin text-xs"></i> Processing Order...
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Storefront Product Card -->
+                    <div class="p-6 rounded-xl bg-white border border-[#e0e0e0] shadow-token-2 space-y-4 flex flex-col justify-between token-card">
+                        <div class="space-y-3">
+                            <div class="relative h-48 rounded-lg overflow-hidden bg-neutral-100 border border-[#e0e0e0]">
+                                <img src="images/project_design.png" alt="Preetoshi Design Kit" class="w-full h-full object-cover">
+                                <span class="absolute top-3 left-3 bg-black text-white text-[11.2px] font-bold px-2.5 py-1 rounded-pill">
+                                    NEW RELEASE
+                                </span>
+                            </div>
+                            <span class="text-[11.2px] font-bold tracking-wider text-[#757575] uppercase">DIGITAL STOREFRONT</span>
+                            <h3 class="text-[18px] font-bold text-black">Preetoshi Experience Design System</h3>
+                            <p class="text-[14px] text-[#757575] leading-relaxed">Complete UI token specification, accessible components, and production guidelines.</p>
+                        </div>
+                        <div class="pt-4 border-t border-[#e0e0e0] flex items-center justify-between">
+                            <span class="text-[18px] font-bold text-black">$89.00</span>
+                            <button class="px-4 py-2 rounded-pill text-[14px] font-semibold text-white bg-black hover:bg-neutral-800 transition-all shadow-token-2 active:scale-95">
+                                Buy Now
+                            </button>
+                        </div>
+                    </div>
+
+                    <!-- Input & Form Controls -->
+                    <div class="p-6 rounded-xl bg-white border border-[#e0e0e0] shadow-token-2 space-y-6">
+                        <div class="flex items-center justify-between border-b border-[#e0e0e0] pb-3">
+                            <h4 class="font-bold text-[16px] text-black">Form Inputs & Search</h4>
+                            <span class="text-[11.2px] bg-purple-100 text-[#734ce0] px-2 py-0.5 rounded-pill font-bold">1 Input Instance</span>
+                        </div>
+
+                        <form onsubmit="event.preventDefault(); alert('Subscribed to Preetoshi Storefront!');" class="space-y-4">
+                            <div class="space-y-1">
+                                <label for="email-input" class="text-[14px] font-semibold text-black block">Customer Email Address</label>
+                                <input type="email" id="email-input" required placeholder="alex@example.com" class="w-full px-4 py-2.5 rounded-lg border border-[#e0e0e0] text-[14px] text-black bg-white focus:border-[#146ef5] focus:outline-none transition-colors">
+                            </div>
+
+                            <button type="submit" class="w-full py-2.5 px-4 rounded-pill text-[14px] font-semibold text-white bg-[#734ce0] hover:bg-purple-700 transition-all shadow-token-2 active:scale-95">
+                                Subscribe for Updates
+                            </button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- NATURAVISTA HERO SECTION INTEGRATION -->
+        <section id="naturavista" class="relative min-h-screen flex flex-col justify-between overflow-hidden bg-stone-100 border-b border-[#e0e0e0]">
+            <!-- Seamless Dual-Video Background Crossfade Engine -->
+            <div class="absolute inset-0 z-0 overflow-hidden pointer-events-none">
+                <video id="video1" class="video-layer absolute inset-0 w-full h-full object-cover opacity-100" muted playsinline preload="auto"></video>
+                <video id="video2" class="video-layer absolute inset-0 w-full h-full object-cover opacity-0" muted playsinline preload="auto"></video>
+                <div class="absolute inset-0 bg-gradient-to-b from-white/50 via-white/20 to-transparent z-10"></div>
+            </div>
+
+            <!-- NaturaVista Header -->
+            <div class="relative z-20 w-full max-w-7xl mx-auto px-6 lg:px-12 py-6 flex items-center justify-between">
+                <div class="flex items-center gap-3">
+                    <div class="w-10 h-10 rounded-full bg-emerald-950 flex items-center justify-center text-white shadow-md">
+                        <svg class="w-5 h-5 fill-current" viewBox="0 0 24 24">
+                            <path d="M14 6l-3.8 5.7 2.3 3.4L18 6l6 14H0l6-9 3.5 5.2L14 6z"/>
+                        </svg>
+                    </div>
+                    <span class="font-serif text-2xl lg:text-3xl font-semibold tracking-wide text-emerald-950">NaturaVista</span>
+                </div>
+
+                <div class="flex items-center gap-4">
+                    <button id="open-video-modal-btn" class="inline-flex items-center gap-3 px-6 py-2.5 rounded-full text-xs font-semibold uppercase tracking-wider text-emerald-950 border border-emerald-900/30 bg-white/70 hover:bg-white backdrop-blur-md shadow-sm transition-all">
+                        <i class="fa-solid fa-circle-play text-sm"></i> Watch Video
                     </button>
                 </div>
             </div>
-        </div>
 
-        <!-- 3. Bottom Scroll Indicator -->
-        <div class="relative z-20 w-full max-w-7xl mx-auto px-6 lg:px-12 pb-8 pt-4 flex flex-col items-center justify-center gap-2">
-            <span class="text-[10px] uppercase font-bold tracking-[0.25em] text-emerald-900">SCROLL TO EXPLORE</span>
-            <div class="w-[1px] h-4 bg-emerald-900/30 my-1"></div>
-            <div class="w-4 h-6 rounded-full border border-emerald-950/60 flex justify-center pt-1">
-                <div class="w-[2px] h-1.5 bg-emerald-950 rounded-full animate-scroll-dot"></div>
-            </div>
-        </div>
-    </section>
+            <!-- NaturaVista Hero Content -->
+            <div class="relative z-20 w-full max-w-7xl mx-auto px-6 lg:px-12 my-auto py-16 flex flex-col items-center justify-center text-center">
+                <div class="max-w-3xl mx-auto space-y-6 flex flex-col items-center">
+                    <div class="flex items-center justify-center gap-3">
+                        <span class="w-2.5 h-2.5 rounded-full bg-emerald-700 animate-pulse"></span>
+                        <span class="text-xs sm:text-sm font-bold tracking-[0.3em] uppercase text-emerald-900">Discover. Explore. Belong.</span>
+                    </div>
 
-    <!-- DESTINATIONS & FEATURED EXPERIENCES SECTION -->
-    <section id="destinations" class="py-24 px-6 lg:px-12 max-w-7xl mx-auto w-full">
-        <div class="text-center max-w-2xl mx-auto mb-16 space-y-4">
-            <span class="text-xs font-bold tracking-[0.25em] uppercase text-emerald-700">CURATED ESCAPES</span>
-            <h2 class="font-serif text-4xl sm:text-5xl font-medium text-emerald-950">Handcrafted Nature Retreats</h2>
-            <p class="text-emerald-900/80 font-medium">Immerse yourself in breathtaking landscapes designed for rejuvenation and adventure.</p>
-        </div>
+                    <h2 class="font-serif text-5xl sm:text-6xl md:text-7xl lg:text-8xl font-medium leading-[1.05] tracking-tight text-emerald-950 text-center">
+                        Find Peace in <br>
+                        <span class="italic font-normal">Every Journey</span>
+                    </h2>
 
-        <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
-            <!-- Card 1 -->
-            <div class="group relative rounded-3xl overflow-hidden shadow-lg bg-white border border-emerald-900/10 transition-all duration-300 hover:-translate-y-2 hover:shadow-2xl">
-                <div class="h-64 overflow-hidden relative">
-                    <img src="images/project_bms.png" alt="Alpine Sanctuaries" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500">
-                    <span class="absolute top-4 left-4 px-3 py-1 rounded-full text-xs font-semibold uppercase tracking-wider bg-white/80 backdrop-blur-md text-emerald-950">Mountains</span>
-                </div>
-                <div class="p-6 space-y-3">
-                    <h3 class="font-serif text-2xl font-semibold text-emerald-950">Alpine Sanctuaries</h3>
-                    <p class="text-sm text-emerald-900/80 leading-relaxed">High-altitude eco-lodges surrounded by pristine peaks and crystal-clear mountain streams.</p>
-                    <a href="#" class="inline-flex items-center gap-2 text-xs font-bold uppercase tracking-wider text-emerald-950 group-hover:text-emerald-700 pt-2">
-                        Explore Retreat <i class="fa-solid fa-arrow-right text-[10px]"></i>
-                    </a>
+                    <div class="pt-2 flex flex-col items-center">
+                        <div class="w-16 h-[1.5px] bg-emerald-900/30 mb-6 mx-auto"></div>
+                        <p class="text-base sm:text-lg text-emerald-900/90 font-medium leading-relaxed max-w-xl text-center">
+                            Curated travel experiences that connect you with nature, culture, and yourself.
+                        </p>
+                    </div>
                 </div>
             </div>
 
-            <!-- Card 2 -->
-            <div class="group relative rounded-3xl overflow-hidden shadow-lg bg-white border border-emerald-900/10 transition-all duration-300 hover:-translate-y-2 hover:shadow-2xl">
-                <div class="h-64 overflow-hidden relative">
-                    <img src="images/project_analytics.png" alt="Coastal Havens" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500">
-                    <span class="absolute top-4 left-4 px-3 py-1 rounded-full text-xs font-semibold uppercase tracking-wider bg-white/80 backdrop-blur-md text-emerald-950">Ocean</span>
-                </div>
-                <div class="p-6 space-y-3">
-                    <h3 class="font-serif text-2xl font-semibold text-emerald-950">Coastal Havens</h3>
-                    <p class="text-sm text-emerald-900/80 leading-relaxed">Secluded beachside villas offering sunset views, marine conservation tours, and tranquil ocean waves.</p>
-                    <a href="#" class="inline-flex items-center gap-2 text-xs font-bold uppercase tracking-wider text-emerald-950 group-hover:text-emerald-700 pt-2">
-                        Explore Retreat <i class="fa-solid fa-arrow-right text-[10px]"></i>
-                    </a>
-                </div>
+            <!-- Scroll Indicator -->
+            <div class="relative z-20 w-full max-w-7xl mx-auto px-6 lg:px-12 pb-8 pt-4 flex flex-col items-center justify-center gap-2">
+                <span class="text-[10px] uppercase font-bold tracking-[0.25em] text-emerald-900">SCROLL TO EXPLORE</span>
+                <div class="w-[1px] h-4 bg-emerald-900/30 my-1"></div>
+            </div>
+        </section>
+
+        <!-- ACCESSIBILITY & QA CHECKLIST (WCAG 2.2 AA Compliance) -->
+        <section id="qa-checklist" class="py-20 px-6 lg:px-12 max-w-7xl mx-auto">
+            <div class="mb-12 space-y-3">
+                <span class="text-[11.2px] font-bold tracking-widest text-[#146ef5] uppercase">QUALITY GATES</span>
+                <h2 class="text-3xl sm:text-4xl font-bold text-black">WCAG 2.2 AA Accessibility & QA Checklist</h2>
+                <p class="text-[#757575] text-[15px]">Testable acceptance criteria and guidelines for storefront components.</p>
             </div>
 
-            <!-- Card 3 -->
-            <div class="group relative rounded-3xl overflow-hidden shadow-lg bg-white border border-emerald-900/10 transition-all duration-300 hover:-translate-y-2 hover:shadow-2xl">
-                <div class="h-64 overflow-hidden relative">
-                    <img src="images/project_design.png" alt="Forest Canopies" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500">
-                    <span class="absolute top-4 left-4 px-3 py-1 rounded-full text-xs font-semibold uppercase tracking-wider bg-white/80 backdrop-blur-md text-emerald-950">Rainforest</span>
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+                <!-- Accessibility Checks -->
+                <div class="p-6 rounded-xl bg-white border border-[#e0e0e0] shadow-token-2 space-y-4">
+                    <h3 class="font-bold text-[18px] text-black flex items-center gap-2">
+                        <i class="fa-solid fa-universal-access text-[#146ef5]"></i> Accessibility Rules (Must Enforce)
+                    </h3>
+                    <ul class="space-y-3 text-[14px] text-black">
+                        <li class="flex items-start gap-3">
+                            <i class="fa-solid fa-circle-check text-green-600 mt-1"></i>
+                            <span><strong>Focus-Visible:</strong> Keyboard focus must render a visible 3px outline (`#146ef5`) with 2px offset.</span>
+                        </li>
+                        <li class="flex items-start gap-3">
+                            <i class="fa-solid fa-circle-check text-green-600 mt-1"></i>
+                            <span><strong>Contrast Ratio:</strong> Text primary (`#000000`) on white surface meets > 4.5:1 ratio.</span>
+                        </li>
+                        <li class="flex items-start gap-3">
+                            <i class="fa-solid fa-circle-check text-green-600 mt-1"></i>
+                            <span><strong>Keyboard Navigation:</strong> Every interactive element is reachable via `Tab` and executable via `Enter` or `Space`.</span>
+                        </li>
+                    </ul>
                 </div>
-                <div class="p-6 space-y-3">
-                    <h3 class="font-serif text-2xl font-semibold text-emerald-950">Forest Canopies</h3>
-                    <p class="text-sm text-emerald-900/80 leading-relaxed">Deep wilderness treehouse suites crafted from sustainable timber with panoramic rainforest vistas.</p>
-                    <a href="#" class="inline-flex items-center gap-2 text-xs font-bold uppercase tracking-wider text-emerald-950 group-hover:text-emerald-700 pt-2">
-                        Explore Retreat <i class="fa-solid fa-arrow-right text-[10px]"></i>
-                    </a>
+
+                <!-- Anti-Patterns -->
+                <div class="p-6 rounded-xl bg-white border border-[#e0e0e0] shadow-token-2 space-y-4">
+                    <h3 class="font-bold text-[18px] text-black flex items-center gap-2">
+                        <i class="fa-solid fa-triangle-exclamation text-amber-500"></i> Anti-Patterns (Prohibited)
+                    </h3>
+                    <ul class="space-y-3 text-[14px] text-black">
+                        <li class="flex items-start gap-3">
+                            <i class="fa-solid fa-circle-xmark text-red-500 mt-1"></i>
+                            <span><strong>No Raw Hex Overrides:</strong> Do not introduce one-off spacing or hex values outside token definitions.</span>
+                        </li>
+                        <li class="flex items-start gap-3">
+                            <i class="fa-solid fa-circle-xmark text-red-500 mt-1"></i>
+                            <span><strong>No Hidden Focus Indicators:</strong> Never set `outline: none` without providing explicit `:focus-visible` states.</span>
+                        </li>
+                        <li class="flex items-start gap-3">
+                            <i class="fa-solid fa-circle-xmark text-red-500 mt-1"></i>
+                            <span><strong>No Non-Descriptive Actions:</strong> Action labels must clearly state outcome (e.g. "Add to Cart").</span>
+                        </li>
+                    </ul>
                 </div>
             </div>
-        </div>
-    </section>
+        </section>
+    </main>
 
-    <!-- ABOUT ANSH & CREATOR FOOTER BRANDING -->
-    <section id="about" class="bg-emerald-950 text-stone-100 py-16 px-6 lg:px-12 border-t border-emerald-900">
-        <div class="max-w-7xl mx-auto flex flex-col md:flex-row items-center justify-between gap-8 text-center md:text-left">
-            <div class="space-y-2">
-                <h3 class="font-serif text-3xl font-semibold">Crafted by Ansh</h3>
-                <p class="text-emerald-300/80 text-sm max-w-lg">Engineered with modern frontend technology, seamless video crossfade algorithms, and responsive UI design.</p>
+    <!-- FOOTER -->
+    <footer id="contact" class="bg-black text-white py-12 px-6 lg:px-12 border-t border-neutral-800">
+        <div class="max-w-7xl mx-auto flex flex-col md:flex-row justify-between items-center gap-6 text-center md:text-left">
+            <div>
+                <div class="font-bold text-[18px]">Preetoshi — experience designer</div>
+                <div class="text-[14px] text-neutral-400 mt-1">&copy; 2026 Preetoshi &bull; Token-driven UI & Storefront Guidance. Published on <a href="https://axxnsh.github.io" class="text-[#146ef5] underline">axxnsh.github.io</a></div>
             </div>
             <div class="flex items-center gap-4">
-                <span class="text-xs uppercase font-bold tracking-widest text-emerald-400">Official Brand:</span>
-                <span class="font-serif text-xl font-bold tracking-wide text-white bg-white/10 px-4 py-2 rounded-full border border-white/20">ANSH.COM</span>
+                <a href="https://webflow.com/made-in-webflow/website/preet-dalal-design-portfolio" target="_blank" class="px-4 py-2 rounded-pill text-[13px] font-semibold text-white bg-neutral-800 hover:bg-neutral-700 transition-all border border-neutral-700">
+                    Webflow Reference <i class="fa-solid fa-arrow-up-right-from-square text-xs ml-1"></i>
+                </a>
             </div>
         </div>
-    </section>
+    </footer>
 
-    <!-- 4. Interactive Fullscreen Video Modal -->
+    <!-- Fullscreen Video Modal -->
     <div id="video-modal" class="fixed inset-0 z-50 bg-slate-950/90 backdrop-blur-xl hidden items-center justify-center p-4 sm:p-8">
         <div class="relative w-full max-w-5xl aspect-video bg-black rounded-2xl overflow-hidden shadow-2xl border border-white/10">
             <button id="close-video-modal-btn" class="absolute top-4 right-4 z-10 w-10 h-10 rounded-full bg-black/60 hover:bg-black text-white flex items-center justify-center transition-colors text-lg">
@@ -244,78 +488,66 @@
             </button>
             <video id="modal-video-player" class="w-full h-full object-cover" controls>
                 <source src="https://strvid.nyc3.cdn.digitaloceanspaces.com/motionsite/nature_peace.mp4" type="video/mp4">
-                Your browser does not support the video tag.
             </video>
         </div>
     </div>
 
-    <!-- SEAMLESS DUAL-VIDEO CROSSFADE ENGINE SCRIPT -->
+    <!-- DUAL VIDEO CROSSFADE SCRIPT -->
     <script>
         document.addEventListener('DOMContentLoaded', () => {
             const videoUrl = "https://strvid.nyc3.cdn.digitaloceanspaces.com/motionsite/nature_peace.mp4";
             const video1 = document.getElementById('video1');
             const video2 = document.getElementById('video2');
 
-            video1.src = videoUrl;
-            video2.src = videoUrl;
+            if (video1 && video2) {
+                video1.src = videoUrl;
+                video2.src = videoUrl;
 
-            let currentVid = video1;
-            let nextVid = video2;
-            let isCrossfading = false;
-            const targetPlaybackRate = 0.5;
+                let currentVid = video1;
+                let nextVid = video2;
+                let isCrossfading = false;
+                const targetPlaybackRate = 0.5;
 
-            currentVid.playbackRate = targetPlaybackRate;
-            nextVid.playbackRate = targetPlaybackRate;
+                currentVid.playbackRate = targetPlaybackRate;
+                nextVid.playbackRate = targetPlaybackRate;
 
-            currentVid.play().catch(e => console.log('Autoplay handled:', e));
+                currentVid.play().catch(e => console.log('Autoplay handled:', e));
 
-            function checkVideoLoop() {
-                if (currentVid.duration && !isCrossfading) {
-                    const remainingTime = (currentVid.duration - currentVid.currentTime) / currentVid.playbackRate;
+                function checkVideoLoop() {
+                    if (currentVid.duration && !isCrossfading) {
+                        const remainingTime = (currentVid.duration - currentVid.currentTime) / currentVid.playbackRate;
 
-                    if (remainingTime <= 2.0 && remainingTime > 0) {
-                        isCrossfading = true;
+                        if (remainingTime <= 2.0 && remainingTime > 0) {
+                            isCrossfading = true;
 
-                        nextVid.currentTime = 0;
-                        nextVid.playbackRate = targetPlaybackRate;
-                        nextVid.play().then(() => {
-                            nextVid.classList.remove('opacity-0');
-                            nextVid.classList.add('opacity-100');
-                            currentVid.classList.remove('opacity-100');
-                            currentVid.classList.add('opacity-0');
+                            nextVid.currentTime = 0;
+                            nextVid.playbackRate = targetPlaybackRate;
+                            nextVid.play().then(() => {
+                                nextVid.classList.remove('opacity-0');
+                                nextVid.classList.add('opacity-100');
+                                currentVid.classList.remove('opacity-100');
+                                currentVid.classList.add('opacity-0');
 
-                            setTimeout(() => {
-                                currentVid.pause();
-                                currentVid.currentTime = 0;
-                                
-                                // Swap video references
-                                const temp = currentVid;
-                                currentVid = nextVid;
-                                nextVid = temp;
+                                setTimeout(() => {
+                                    currentVid.pause();
+                                    currentVid.currentTime = 0;
+                                    
+                                    const temp = currentVid;
+                                    currentVid = nextVid;
+                                    nextVid = temp;
+                                    isCrossfading = false;
+                                }, 2000);
+                            }).catch(err => {
                                 isCrossfading = false;
-                            }, 2000);
-                        }).catch(err => {
-                            isCrossfading = false;
-                            console.log('Next video play error:', err);
-                        });
+                            });
+                        }
                     }
+                    requestAnimationFrame(checkVideoLoop);
                 }
                 requestAnimationFrame(checkVideoLoop);
             }
 
-            requestAnimationFrame(checkVideoLoop);
-
-            // Mobile Menu Toggle
-            const mobileMenuBtn = document.getElementById('mobile-menu-btn');
-            const mobileDrawer = document.getElementById('mobile-drawer');
-
-            if (mobileMenuBtn && mobileDrawer) {
-                mobileMenuBtn.addEventListener('click', () => {
-                    mobileDrawer.classList.toggle('hidden');
-                });
-            }
-
-            // Fullscreen Video Modal Logic
+            // Video Modal
             const openModalBtn = document.getElementById('open-video-modal-btn');
             const closeModalBtn = document.getElementById('close-video-modal-btn');
             const videoModal = document.getElementById('video-modal');
@@ -332,14 +564,6 @@
                     videoModal.classList.add('hidden');
                     videoModal.classList.remove('flex');
                     modalVideoPlayer.pause();
-                });
-
-                videoModal.addEventListener('click', (e) => {
-                    if (e.target === videoModal) {
-                        videoModal.classList.add('hidden');
-                        videoModal.classList.remove('flex');
-                        modalVideoPlayer.pause();
-                    }
                 });
             }
         });
