@@ -3,13 +3,12 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <meta name="description" content="Aethera® — Beyond silence, we build the eternal. Building platforms for brilliant minds, fearless makers, and thoughtful souls.">
-  <title>Aethera®</title>
+  <meta name="description" content="Ansh® — Creative Agency & Adaptive Response Interface. Good taste tends to find us.">
+  <title>Ansh®</title>
 
-  <!-- Google Fonts: Instrument Serif & Inter -->
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=Inter:wght@400;500&display=swap" rel="stylesheet">
+  <!-- External Font Links -->
+  <link rel="stylesheet" href="https://db.onlinewebfonts.com/c/5ac3fe7c6abd2f62067f266d89671492?family=HelveticaNowDisplay-Medium">
+  <link rel="stylesheet" href="https://db.onlinewebfonts.com/c/1aa3377e489837a26d019bba501e779d?family=HelveticaNowDisplayW01-Rg">
 
   <!-- Tailwind CSS CDN -->
   <script src="https://cdn.tailwindcss.com"></script>
@@ -17,14 +16,9 @@
     tailwind.config = {
       theme: {
         extend: {
-          colors: {
-            brandBlack: '#000000',
-            brandGray: '#6F6F6F',
-            brandWhite: '#FFFFFF',
-          },
           fontFamily: {
-            display: ['"Instrument Serif"', 'Georgia', 'serif'],
-            body: ['"Inter"', 'sans-serif'],
+            heading: ['var(--font-heading)'],
+            body: ['var(--font-body)'],
           }
         }
       }
@@ -32,151 +26,315 @@
   </script>
 
   <style>
+    @font-face {
+      font-family: 'HelveticaNowDisplay-Medium';
+      src: url("https://db.onlinewebfonts.com/t/5ac3fe7c6abd2f62067f266d89671492.eot");
+      src: url("https://db.onlinewebfonts.com/t/5ac3fe7c6abd2f62067f266d89671492.eot?#iefix") format("embedded-opentype"),
+           url("https://db.onlinewebfonts.com/t/5ac3fe7c6abd2f62067f266d89671492.woff2") format("woff2"),
+           url("https://db.onlinewebfonts.com/t/5ac3fe7c6abd2f62067f266d89671492.woff") format("woff"),
+           url("https://db.onlinewebfonts.com/t/5ac3fe7c6abd2f62067f266d89671492.ttf") format("truetype");
+    }
+
+    @font-face {
+      font-family: 'HelveticaNowDisplayW01-Rg';
+      src: url("https://db.onlinewebfonts.com/t/1aa3377e489837a26d019bba501e779d.eot");
+      src: url("https://db.onlinewebfonts.com/t/1aa3377e489837a26d019bba501e779d.eot?#iefix") format("embedded-opentype"),
+           url("https://db.onlinewebfonts.com/t/1aa3377e489837a26d019bba501e779d.woff2") format("woff2"),
+           url("https://db.onlinewebfonts.com/t/1aa3377e489837a26d019bba501e779d.woff") format("woff"),
+           url("https://db.onlinewebfonts.com/t/1aa3377e489837a26d019bba501e779d.ttf") format("truetype");
+    }
+
+    :root {
+      --font-heading: 'HelveticaNowDisplay-Medium', 'Helvetica Neue', Arial, sans-serif;
+      --font-body: 'HelveticaNowDisplayW01-Rg', 'Helvetica Neue', Arial, sans-serif;
+    }
+
     body {
-      background-color: #FFFFFF;
-      color: #000000;
-      font-family: 'Inter', sans-serif;
-      min-height: 100vh;
+      font-family: var(--font-body);
       margin: 0;
       padding: 0;
       overflow-x: hidden;
+      background-color: #000;
+      color: #000;
     }
 
-    /* Video Fade Transition */
-    .video-fade {
-      transition: opacity 0.5s ease-in-out;
-      will-change: opacity;
+    /* Typewriter Cursor Animation */
+    @keyframes blink {
+      0%, 100% { opacity: 1; }
+      50% { opacity: 0; }
+    }
+    .blinking-cursor {
+      display: inline-block;
+      width: 2px;
+      height: 1.1em;
+      background-color: #000;
+      vertical-align: middle;
+      margin-left: 2px;
+      animation: blink 1s step-end infinite;
     }
 
-    /* Keyframes & Animations */
-    @keyframes fade-rise {
-      from {
-        opacity: 0;
-        transform: translateY(20px);
-      }
-      to {
-        opacity: 1;
-        transform: translateY(0);
-      }
+    /* Pill Action Fade Animation */
+    .pill-animated {
+      opacity: 0;
+      transform: translateY(8px);
+      transition: opacity 0.4s ease, transform 0.4s ease;
     }
-
-    .animate-fade-rise {
-      animation: fade-rise 0.8s ease-out both;
-    }
-
-    .animate-fade-rise-delay {
-      animation: fade-rise 0.8s ease-out 0.2s both;
-    }
-
-    .animate-fade-rise-delay-2 {
-      animation: fade-rise 0.8s ease-out 0.4s both;
+    .pill-animated.visible {
+      opacity: 1;
+      transform: translateY(0);
     }
   </style>
 </head>
-<body class="relative min-h-screen w-full overflow-hidden bg-white">
+<body class="relative min-h-screen w-full">
 
-  <!-- Background Video Layer (z-0) -->
-  <div class="absolute inset-x-0 bottom-0 top-[300px] z-0 overflow-hidden pointer-events-none">
-    <video 
-      id="bg-video" 
-      autoplay 
-      muted 
-      playsinline 
-      class="video-fade absolute inset-0 w-full h-full object-cover opacity-0"
-      src="https://d8j0ntlcm91z4.cloudfront.net/user_38xzZboKViGWJOttwIXH07lWA1P/hf_20260328_083109_283f3553-e28f-428b-a723-d639c617eb2b.mp4"
-    ></video>
-    <!-- Gradient Overlays: absolute inset-0 bg-gradient-to-b from-white via-transparent to-white -->
-    <div class="absolute inset-0 bg-gradient-to-b from-white via-transparent to-white z-0 pointer-events-none"></div>
-  </div>
+  <!-- Mouse Scrubbing Background Video -->
+  <video 
+    id="scrub-video"
+    muted 
+    playsinline 
+    preload="auto"
+    class="fixed inset-0 z-0 w-full h-full object-cover pointer-events-none"
+    style="object-position: 70% center;"
+    src="https://d8j0ntlcm91z4.cloudfront.net/user_38xzZboKViGWJOttwIXH07lWA1P/hf_20260530_042513_df96a13b-6155-4f6e-8b93-c9dee66fba08.mp4"
+  ></video>
 
-  <!-- Navigation Bar (z-10) -->
-  <header class="relative z-10 flex justify-between items-center px-8 py-6 max-w-7xl mx-auto w-full">
-    <!-- Logo -->
-    <a href="#" class="text-3xl tracking-tight font-display text-brandBlack" style="font-family: 'Instrument Serif', serif; color: #000000;">
-      Aethera<sup class="text-xs font-sans">®</sup>
+  <!-- NAVBAR (fixed, z-index: 10) -->
+  <header class="fixed top-0 left-0 right-0 z-10 w-full px-5 sm:px-8 py-4 sm:py-5 flex justify-between items-center">
+    <!-- Logo (left) -->
+    <a href="#" class="flex items-center gap-3 select-none">
+      <span class="text-[21px] sm:text-[26px] tracking-tight font-black text-black" style="font-family: var(--font-heading);">
+        Ansh<sup>®</sup>
+      </span>
+      <span class="text-[25px] sm:text-[30px] text-black select-none" style="letter-spacing: -0.02em;">✳︎</span>
     </a>
 
-    <!-- Menu items (hidden on mobile, md:flex) -->
-    <nav class="hidden md:flex items-center space-x-8 text-sm">
-      <a href="#" class="transition-colors font-medium text-brandBlack" style="color: #000000;">Home</a>
-      <a href="#" class="transition-colors font-medium text-brandGray hover:text-brandBlack" style="color: #6F6F6F;">Studio</a>
-      <a href="#" class="transition-colors font-medium text-brandGray hover:text-brandBlack" style="color: #6F6F6F;">About</a>
-      <a href="#" class="transition-colors font-medium text-brandGray hover:text-brandBlack" style="color: #6F6F6F;">Journal</a>
-      <a href="#" class="transition-colors font-medium text-brandGray hover:text-brandBlack" style="color: #6F6F6F;">Reach Us</a>
+    <!-- Desktop nav links (center, hidden below md) -->
+    <nav class="hidden md:flex items-center text-[23px] text-black">
+      <a href="#" class="hover:opacity-60 transition-opacity">Labs</a><span class="mr-2">,</span>
+      <a href="#" class="hover:opacity-60 transition-opacity">Studio</a><span class="mr-2">,</span>
+      <a href="#" class="hover:opacity-60 transition-opacity">Openings</a><span class="mr-2">,</span>
+      <a href="#" class="hover:opacity-60 transition-opacity">Shop</a>
     </nav>
 
-    <!-- CTA Button -->
-    <button class="rounded-full px-6 py-2.5 text-sm bg-brandBlack text-white hover:scale-[1.03] transition-transform duration-200 cursor-pointer" style="background-color: #000000; color: #FFFFFF;">
-      Begin Journey
+    <!-- Desktop CTA (right, hidden below md) -->
+    <a href="mailto:hello@ansh.co" class="hidden md:inline-block text-[23px] text-black underline underline-offset-2 hover:opacity-60 transition-opacity">
+      Get in touch
+    </a>
+
+    <!-- Mobile Hamburger Toggle (visible below md) -->
+    <button id="hamburger-btn" aria-label="Toggle Navigation Menu" class="md:hidden flex flex-col justify-center items-center gap-[5px] w-8 h-8 focus:outline-none z-20">
+      <span id="bar-top" class="w-6 h-[2px] bg-black transition-all duration-300 origin-center"></span>
+      <span id="bar-mid" class="w-6 h-[2px] bg-black transition-all duration-300"></span>
+      <span id="bar-bot" class="w-6 h-[2px] bg-black transition-all duration-300 origin-center"></span>
     </button>
   </header>
 
-  <!-- Hero Section (z-10) -->
-  <main class="relative z-10 flex flex-col items-center justify-center text-center px-6 pb-40" style="padding-top: calc(8rem - 75px);">
+  <!-- Mobile Menu Overlay (z-index: 9) -->
+  <div id="mobile-overlay" class="fixed inset-0 z-9 bg-white/95 backdrop-blur-sm flex flex-col justify-center px-8 gap-8 opacity-0 pointer-events-none transition-all duration-300 md:hidden">
+    <a href="#" class="mobile-nav-item text-[32px] font-medium text-black">Labs</a>
+    <a href="#" class="mobile-nav-item text-[32px] font-medium text-black">Studio</a>
+    <a href="#" class="mobile-nav-item text-[32px] font-medium text-black">Openings</a>
+    <a href="#" class="mobile-nav-item text-[32px] font-medium text-black">Shop</a>
+    <a href="mailto:hello@ansh.co" class="mobile-nav-item text-[32px] font-medium text-black underline">Get in touch</a>
+  </div>
+
+  <!-- HERO SECTION (z-index: 1) -->
+  <main class="relative z-1 h-screen w-full flex flex-col justify-end pb-12 md:justify-center md:pb-0 px-5 sm:px-8 md:px-10 overflow-hidden">
     
-    <!-- Headline -->
-    <h1 
-      class="text-5xl sm:text-7xl md:text-8xl max-w-7xl font-normal text-brandBlack animate-fade-rise"
-      style="font-family: 'Instrument Serif', serif; color: #000000; line-height: 0.95; letter-spacing: -2.46px;"
-    >
-      Beyond <em class="italic font-normal" style="color: #6F6F6F;">silence,</em> we build <em class="italic font-normal" style="color: #6F6F6F;">the eternal.</em>
-    </h1>
+    <div class="max-w-xl relative z-10">
+      
+      <!-- 1. Blurred Intro Label -->
+      <div class="pointer-events-none select-none mb-5 sm:mb-6 text-[#000]" style="font-size: clamp(18px, 4vw, 26px); line-height: 1.3; font-weight: 400; filter: blur(4px);">
+        Hey there, meet A.R.I.A,<br>
+        Ansh's Adaptive Response Interface Agent
+      </div>
 
-    <!-- Description -->
-    <p class="text-base sm:text-lg max-w-2xl mt-8 leading-relaxed animate-fade-rise-delay" style="color: #6F6F6F;">
-      Building platforms for brilliant minds, fearless makers, and thoughtful souls. Through the noise, we craft digital havens for deep work and pure flows.
-    </p>
+      <!-- 2. Typewriter Text -->
+      <p id="typewriter-text" class="text-black mb-5 sm:mb-6 font-normal text-[#000]" style="font-size: clamp(18px, 4vw, 26px); line-height: 1.35; min-height: 54px;">
+        <span id="typewriter-content"></span><span id="typewriter-cursor" class="blinking-cursor"></span>
+      </p>
 
-    <!-- Hero CTA Button -->
-    <button class="rounded-full px-14 py-5 text-base mt-12 text-white bg-brandBlack hover:scale-[1.03] transition-transform duration-200 cursor-pointer animate-fade-rise-delay-2" style="background-color: #000000; color: #FFFFFF;">
-      Begin Journey
-    </button>
+      <!-- 3. Action Pill Buttons -->
+      <div id="pill-container" class="pill-animated flex flex-wrap gap-y-1">
+        
+        <!-- 4 White Pill Buttons -->
+        <button class="pill-btn inline-flex items-center justify-center bg-white text-black border border-black/10 rounded-full text-[13px] sm:text-[15px] px-4 sm:px-5 py-[0.3em] mx-[0.2em] mb-[0.4em] whitespace-nowrap hover:bg-black hover:text-white transition-colors duration-200 cursor-pointer">
+          Pitch us an idea
+        </button>
+
+        <button class="pill-btn inline-flex items-center justify-center bg-white text-black border border-black/10 rounded-full text-[13px] sm:text-[15px] px-4 sm:px-5 py-[0.3em] mx-[0.2em] mb-[0.4em] whitespace-nowrap hover:bg-black hover:text-white transition-colors duration-200 cursor-pointer">
+          Come work here
+        </button>
+
+        <button class="pill-btn inline-flex items-center justify-center bg-white text-black border border-black/10 rounded-full text-[13px] sm:text-[15px] px-4 sm:px-5 py-[0.3em] mx-[0.2em] mb-[0.4em] whitespace-nowrap hover:bg-black hover:text-white transition-colors duration-200 cursor-pointer">
+          Send a brief hello
+        </button>
+
+        <button class="pill-btn inline-flex items-center justify-center bg-white text-black border border-black/10 rounded-full text-[13px] sm:text-[15px] px-4 sm:px-5 py-[0.3em] mx-[0.2em] mb-[0.4em] whitespace-nowrap hover:bg-black hover:text-white transition-colors duration-200 cursor-pointer">
+          See how we operate
+        </button>
+
+        <!-- 1 Outline Pill Button (Copy Email) -->
+        <button id="copy-email-btn" class="inline-flex items-center justify-center text-white bg-transparent border border-white rounded-full text-[13px] sm:text-[15px] px-4 sm:px-5 py-[0.3em] mx-[0.2em] mb-[0.4em] whitespace-nowrap gap-2 sm:gap-3 hover:bg-white hover:text-black transition-colors duration-200 cursor-pointer">
+          <span>Reach us: <span class="underline underline-offset-1">hello@ansh.co</span></span>
+          <svg class="w-3 h-3 fill-current shrink-0" viewBox="0 0 16 16">
+            <path d="M4 2a2 2 0 0 1 2-2h6a2 2 0 0 1 2 2v8a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V2zm2-1a1 1 0 0 0-1 1v8a1 1 0 0 0 1 1h6a1 1 0 0 0 1-1V2a1 1 0 0 0-1-1H6z"/>
+            <path d="M2 5a1 1 0 0 0-1 1v8a1 1 0 0 0 1 1h6a1 1 0 0 0 1-1v-1h1v1a2 2 0 0 1-2 2H2a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2h1v1H2z"/>
+          </svg>
+        </button>
+
+      </div>
+
+    </div>
 
   </main>
 
-  <!-- Custom Fade In / Fade Out Video Loop Controller Script -->
+  <!-- Interactive JavaScript -->
   <script>
     document.addEventListener('DOMContentLoaded', () => {
-      const video = document.getElementById('bg-video');
-      if (!video) return;
 
-      let isResetting = false;
+      // ==========================================
+      // 1. Mouse-Scrub Controlled Background Video
+      // ==========================================
+      const video = document.getElementById('scrub-video');
+      let prevX = null;
+      let targetTime = 0;
+      let isSeeking = false;
+      const SENSITIVITY = 0.8;
 
-      function updateVideoFade() {
-        if (video.duration && !isResetting) {
-          const currentTime = video.currentTime;
-          const duration = video.duration;
-          const fadeDuration = 0.5;
+      if (video) {
+        video.addEventListener('loadedmetadata', () => {
+          targetTime = video.duration * 0.2; // Start slightly in
+          video.currentTime = targetTime;
+        });
 
-          if (currentTime < fadeDuration) {
-            // Fade in over 0.5s at start (opacity 0 to 1)
-            const opacity = currentTime / fadeDuration;
-            video.style.opacity = Math.min(1, Math.max(0, opacity));
-          } else if (duration - currentTime <= fadeDuration) {
-            // Fade out over 0.5s before end (opacity 1 to 0)
-            const opacity = (duration - currentTime) / fadeDuration;
-            video.style.opacity = Math.min(1, Math.max(0, opacity));
-          } else {
-            video.style.opacity = '1';
+        window.addEventListener('mousemove', (e) => {
+          if (!video.duration) return;
+
+          if (prevX === null) {
+            prevX = e.clientX;
+            return;
           }
+
+          const delta = e.clientX - prevX;
+          prevX = e.clientX;
+
+          const timeOffset = (delta / window.innerWidth) * SENSITIVITY * video.duration;
+          targetTime = Math.max(0, Math.min(video.duration, targetTime + timeOffset));
+
+          if (!isSeeking) {
+            performSeek();
+          }
+        });
+
+        function performSeek() {
+          if (!video.duration) return;
+          isSeeking = true;
+          video.currentTime = targetTime;
         }
-        requestAnimationFrame(updateVideoFade);
+
+        video.addEventListener('seeked', () => {
+          if (Math.abs(video.currentTime - targetTime) > 0.05) {
+            video.currentTime = targetTime;
+          } else {
+            isSeeking = false;
+          }
+        });
       }
 
-      video.addEventListener('ended', () => {
-        isResetting = true;
-        video.style.opacity = '0';
-        setTimeout(() => {
-          video.currentTime = 0;
-          video.play().then(() => {
-            isResetting = false;
-          }).catch(e => console.log('Autoplay error:', e));
-        }, 100);
-      });
+      // ==========================================
+      // 2. Typewriter Effect Logic
+      // ==========================================
+      const fullText = "Glad you stopped in. Good taste tends to find us. Now, what are we building?";
+      const typewriterContent = document.getElementById('typewriter-content');
+      const typewriterCursor = document.getElementById('typewriter-cursor');
+      const speed = 38; // ms per char
+      const startDelay = 600; // ms
 
-      // Initial autoplay start
-      video.play().catch(e => console.log('Autoplay play error:', e));
-      requestAnimationFrame(updateVideoFade);
+      let charIndex = 0;
+
+      setTimeout(() => {
+        const interval = setInterval(() => {
+          if (charIndex < fullText.length) {
+            typewriterContent.textContent += fullText.charAt(charIndex);
+            charIndex++;
+          } else {
+            clearInterval(interval);
+            if (typewriterCursor) {
+              typewriterCursor.style.display = 'none'; // Remove cursor when done
+            }
+          }
+        }, speed);
+      }, startDelay);
+
+      // ==========================================
+      // 3. Action Pill Buttons Animation (400ms)
+      // ==========================================
+      const pillContainer = document.getElementById('pill-container');
+      setTimeout(() => {
+        if (pillContainer) {
+          pillContainer.classList.add('visible');
+        }
+      }, 400);
+
+      // ==========================================
+      // 4. Copy Email Handler
+      // ==========================================
+      const copyEmailBtn = document.getElementById('copy-email-btn');
+      if (copyEmailBtn) {
+        copyEmailBtn.addEventListener('click', () => {
+          const email = "hello@ansh.co";
+          navigator.clipboard.writeText(email).then(() => {
+            const originalHTML = copyEmailBtn.innerHTML;
+            copyEmailBtn.innerHTML = `<span>Copied <strong>${email}</strong>!</span>`;
+            setTimeout(() => {
+              copyEmailBtn.innerHTML = originalHTML;
+            }, 2000);
+          }).catch(err => {
+            alert('Email: hello@ansh.co');
+          });
+        });
+      }
+
+      // ==========================================
+      // 5. Mobile Hamburger Navigation Menu Toggle
+      // ==========================================
+      const hamburgerBtn = document.getElementById('hamburger-btn');
+      const mobileOverlay = document.getElementById('mobile-overlay');
+      const barTop = document.getElementById('bar-top');
+      const barMid = document.getElementById('bar-mid');
+      const barBot = document.getElementById('bar-bot');
+      let isOpen = false;
+
+      if (hamburgerBtn && mobileOverlay) {
+        hamburgerBtn.addEventListener('click', () => {
+          isOpen = !isOpen;
+          if (isOpen) {
+            mobileOverlay.classList.remove('opacity-0', 'pointer-events-none');
+            mobileOverlay.classList.add('opacity-100', 'pointer-events-auto');
+            barTop.style.transform = 'translateY(7px) rotate(45deg)';
+            barMid.style.opacity = '0';
+            barBot.style.transform = 'translateY(-7px) rotate(-45deg)';
+          } else {
+            mobileOverlay.classList.add('opacity-0', 'pointer-events-none');
+            mobileOverlay.classList.remove('opacity-100', 'pointer-events-auto');
+            barTop.style.transform = 'none';
+            barMid.style.opacity = '1';
+            barBot.style.transform = 'none';
+          }
+        });
+
+        document.querySelectorAll('.mobile-nav-item').forEach(item => {
+          item.addEventListener('click', () => {
+            isOpen = false;
+            mobileOverlay.classList.add('opacity-0', 'pointer-events-none');
+            barTop.style.transform = 'none';
+            barMid.style.opacity = '1';
+            barBot.style.transform = 'none';
+          });
+        });
+      }
+
     });
   </script>
 
