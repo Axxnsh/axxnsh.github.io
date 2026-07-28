@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <meta name="description" content="Ansh® — Creative Agency & Adaptive Response Interface. Good taste tends to find us.">
+  <meta name="description" content="Ansh® — Creative Agency & Adaptive Response Interface. Ultra-smooth mouse scrubbing video experience.">
   <title>Ansh®</title>
 
   <!-- External Font Links -->
@@ -193,18 +193,22 @@
   <script>
     document.addEventListener('DOMContentLoaded', () => {
 
-      // ==========================================
-      // 1. Mouse-Scrub Controlled Background Video
-      // ==========================================
+      // =========================================================
+      // 1. Ultra-Smooth 60FPS LERP Mouse-Scrub Controlled Video Engine
+      // =========================================================
       const video = document.getElementById('scrub-video');
       let prevX = null;
       let targetTime = 0;
+      let currentTime = 0;
       let isSeeking = false;
+      
       const SENSITIVITY = 0.8;
+      const LERP_FACTOR = 0.15; // Smooth damping factor for butter-smooth 60fps motion
 
       if (video) {
         video.addEventListener('loadedmetadata', () => {
           targetTime = video.duration * 0.2; // Start slightly in
+          currentTime = targetTime;
           video.currentTime = targetTime;
         });
 
@@ -221,25 +225,28 @@
 
           const timeOffset = (delta / window.innerWidth) * SENSITIVITY * video.duration;
           targetTime = Math.max(0, Math.min(video.duration, targetTime + timeOffset));
-
-          if (!isSeeking) {
-            performSeek();
-          }
         });
 
-        function performSeek() {
-          if (!video.duration) return;
-          isSeeking = true;
-          video.currentTime = targetTime;
+        // Continuous 60fps LERP interpolation loop
+        function smoothScrubLoop() {
+          if (video.duration) {
+            // Smoothly damp towards targetTime
+            currentTime += (targetTime - currentTime) * LERP_FACTOR;
+
+            // Only seek if decoder is not currently locked and delta is noticeable
+            if (Math.abs(video.currentTime - currentTime) > 0.005 && !isSeeking) {
+              isSeeking = true;
+              video.currentTime = currentTime;
+            }
+          }
+          requestAnimationFrame(smoothScrubLoop);
         }
 
         video.addEventListener('seeked', () => {
-          if (Math.abs(video.currentTime - targetTime) > 0.05) {
-            video.currentTime = targetTime;
-          } else {
-            isSeeking = false;
-          }
+          isSeeking = false;
         });
+
+        requestAnimationFrame(smoothScrubLoop);
       }
 
       // ==========================================
