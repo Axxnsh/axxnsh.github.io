@@ -11,6 +11,9 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;0,700;1,400&family=Plus+Jakarta+Sans:wght@300;400;500;600;700&display=swap" rel="stylesheet">
     
+    <!-- FontAwesome Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+
     <!-- Tailwind CSS CDN -->
     <script src="https://cdn.tailwindcss.com"></script>
     <script>
@@ -159,25 +162,42 @@
             </div>
         </div>
 
-        <!-- 4. SIMPLE TEXT FOOTER (As Requested: NO BOXES, simple clean text at bottom) -->
-        <footer class="relative z-20 w-full border-t border-emerald-900/10 bg-white/50 backdrop-blur-md py-6 px-6 lg:px-12 text-emerald-950">
-            <div class="max-w-7xl mx-auto flex flex-col sm:flex-row items-center justify-between gap-4 text-center sm:text-left">
+        <!-- 4. PERFECTLY MERGED PHOTO + CREATOR FOOTER -->
+        <footer class="relative z-20 w-full border-t border-emerald-900/10 bg-white/60 backdrop-blur-md py-8 px-6 lg:px-12 text-emerald-950">
+            <div class="max-w-7xl mx-auto flex flex-col sm:flex-row items-center justify-between gap-6 text-center sm:text-left">
                 
-                <div class="space-y-1">
-                    <div class="font-serif text-2xl font-semibold tracking-wide">
-                        Created by <a href="https://ansh.com" target="_blank" class="underline hover:text-emerald-700">Ansh.com</a>
+                <!-- Left Side: Ansh Profile Photo & Creator Info -->
+                <div class="flex items-center gap-4">
+                    <!-- Photo Avatar -->
+                    <div class="relative shrink-0">
+                        <img src="ansh_profile.jpg" alt="Ansh Profile Photo" class="w-16 h-16 sm:w-20 sm:h-20 rounded-full object-cover shadow-xl border-2 border-white ring-2 ring-emerald-950/20">
+                        <span class="absolute bottom-0 right-0 w-4 h-4 rounded-full bg-teal-400 border-2 border-white shadow" title="Available"></span>
                     </div>
-                    <div class="text-sm font-medium text-emerald-900/90 flex flex-wrap justify-center sm:justify-start gap-x-4 gap-y-1 pt-1">
-                        <span>Gmail: <a href="mailto:maybeansh@gmail.com" class="font-semibold underline hover:text-emerald-700">maybeansh@gmail.com</a></span>
-                        <span class="hidden sm:inline text-emerald-900/40">&bull;</span>
-                        <span>Mob No.: <a href="tel:+919389984522" class="font-semibold underline hover:text-emerald-700">+91 9389984522</a></span>
-                        <span class="hidden sm:inline text-emerald-900/40">&bull;</span>
-                        <span>New Delhi, India</span>
+
+                    <!-- Creator Details -->
+                    <div class="space-y-1">
+                        <div class="font-serif text-2xl font-semibold tracking-wide flex items-center gap-2">
+                            <span>Created by <a href="https://ansh.com" target="_blank" class="underline hover:text-emerald-700">Ansh.com</a></span>
+                            <i class="fa-solid fa-circle-check text-emerald-800 text-sm" title="Verified Creator"></i>
+                        </div>
+                        <div class="text-xs sm:text-sm font-medium text-emerald-900/80 flex flex-wrap justify-center sm:justify-start gap-x-3 gap-y-1">
+                            <span>Gmail: <a href="mailto:maybeansh@gmail.com" class="font-semibold underline hover:text-emerald-700">maybeansh@gmail.com</a></span>
+                            <span class="hidden sm:inline text-emerald-900/30">&bull;</span>
+                            <span>Mob No.: <a href="tel:+919389984522" class="font-semibold underline hover:text-emerald-700">+91 9389984522</a></span>
+                            <span class="hidden sm:inline text-emerald-900/30">&bull;</span>
+                            <span>New Delhi, India</span>
+                        </div>
                     </div>
                 </div>
 
-                <div class="text-xs text-emerald-900/70 font-medium">
-                    &copy; 2026 Ansh. All rights reserved.
+                <!-- Right Side: Social & Copyright -->
+                <div class="flex flex-col items-center sm:items-end gap-2">
+                    <a href="https://github.com/Axxnsh" target="_blank" class="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-emerald-950 text-white text-xs font-bold hover:bg-emerald-900 transition-colors shadow-md">
+                        <i class="fa-brands fa-github text-sm"></i> GitHub (@Axxnsh)
+                    </a>
+                    <div class="text-xs text-emerald-900/60 font-medium">
+                        &copy; 2026 Ansh. All rights reserved.
+                    </div>
                 </div>
 
             </div>
