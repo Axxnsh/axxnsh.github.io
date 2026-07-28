@@ -1,530 +1,270 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" class="scroll-smooth">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <meta name="description" content="Ansh Roy — Creative Director & High-Contrast UI/UX Designer Portfolio. Crafting bold, intuitive digital experiences.">
-  <title>ANSH ROY // CREATIVE DIRECTOR & UI/UX DESIGNER</title>
-
-  <!-- Google Fonts: Anton (Display), Space Grotesk (Sans), IBM Plex Mono (Mono) -->
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Anton&family=IBM+Plex+Mono:wght@400;500;600&family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet">
-
-  <!-- FontAwesome Icons -->
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
-
-  <!-- Three.js WebGL Library CDN -->
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
-
-  <!-- Tailwind CSS CDN -->
-  <script src="https://cdn.tailwindcss.com"></script>
-  <script>
-    tailwind.config = {
-      theme: {
-        extend: {
-          colors: {
-            spaceDark: '#030014',
-            drawerBg: '#333333',
-            acidLime: '#CCFF00',
-            energyBlue: '#88AAFF',
-          },
-          fontFamily: {
-            display: ['"Anton"', 'Impact', 'sans-serif'],
-            sans: ['"Space Grotesk"', 'system-ui', 'sans-serif'],
-            mono: ['"IBM Plex Mono"', 'monospace'],
-          }
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Ansh • NaturaVista — Find Peace in Every Journey. Curated travel experiences connecting you with nature and yourself.">
+    <title>Ansh • NaturaVista — Find Peace in Every Journey</title>
+    
+    <!-- Google Fonts: Cormorant Garamond & Plus Jakarta Sans -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;0,700;1,400&family=Plus+Jakarta+Sans:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: {
+                        serif: ['"Cormorant Garamond"', 'Georgia', 'serif'],
+                        sans: ['"Plus Jakarta Sans"', 'sans-serif'],
+                    },
+                    keyframes: {
+                        scrollDot: {
+                            '0%': { transform: 'translateY(0)', opacity: '1' },
+                            '50%': { transform: 'translateY(8px)', opacity: '0.4' },
+                            '100%': { transform: 'translateY(0)', opacity: '1' },
+                        },
+                        fadeInUp: {
+                            '0%': { opacity: '0', transform: 'translateY(20px)' },
+                            '100%': { opacity: '1', transform: 'translateY(0)' },
+                        }
+                    },
+                    animation: {
+                        'scroll-dot': 'scrollDot 2s infinite',
+                        'fade-in-up': 'fadeInUp 0.8s cubic-bezier(0.16, 1, 0.3, 1) forwards',
+                    }
+                }
+            }
         }
-      }
-    }
-  </script>
-
-  <style>
-    /* Selection Style */
-    ::selection {
-      background-color: #CCFF00;
-      color: #000000;
-    }
-
-    body {
-      background-color: #030014;
-      color: #ffffff;
-      font-family: 'Space Grotesk', sans-serif;
-      margin: 0;
-      padding: 0;
-      overflow-x: hidden;
-    }
-
-    /* Text Stroke Utility */
-    .text-stroke-white {
-      -webkit-text-stroke: 1px rgba(255, 255, 255, 0.9);
-      color: transparent;
-    }
-
-    .text-stroke-white-thick {
-      -webkit-text-stroke: 2px rgba(255, 255, 255, 0.95);
-      color: transparent;
-    }
-
-    .text-stroke-marquee {
-      -webkit-text-stroke: 1px rgba(255, 255, 255, 0.15);
-      color: transparent;
-    }
-
-    /* Infinite Marquee Animation */
-    @keyframes marquee {
-      0% { transform: translateX(0%); }
-      100% { transform: translateX(-50%); }
-    }
-
-    .animate-marquee {
-      display: flex;
-      width: 200%;
-      animation: marquee 25s linear infinite;
-    }
-
-    /* Typewriter Cursor */
-    @keyframes blink {
-      0%, 100% { opacity: 1; }
-      50% { opacity: 0; }
-    }
-
-    .blinking-cursor {
-      display: inline-block;
-      width: 2px;
-      height: 1em;
-      background-color: #CCFF00;
-      vertical-align: text-bottom;
-      margin-left: 2px;
-      animation: blink 0.8s step-end infinite;
-    }
-
-    /* Info Drawer Slide Animation */
-    .drawer-slide {
-      transition: transform 0.5s cubic-bezier(0.16, 1, 0.3, 1);
-    }
-  </style>
+    </script>
+    <style>
+        .video-layer {
+            transition: opacity 2000ms ease-in-out;
+            will-change: opacity;
+        }
+    </style>
 </head>
-<body class="relative min-h-screen overflow-hidden flex flex-col bg-[#030014] text-white">
+<body class="bg-stone-100 text-emerald-950 font-sans antialiased overflow-x-hidden min-h-screen flex flex-col justify-between relative">
 
-  <!-- Z-INDEX 0: Three.js WebGL Interactive Particle & Line Background -->
-  <canvas id="webgl-canvas" class="fixed inset-0 z-0 w-full h-full pointer-events-none"></canvas>
-
-  <!-- Z-INDEX 30: STICKY HEADER -->
-  <header class="fixed top-0 left-0 right-0 z-30 w-full px-6 sm:px-10 py-6 flex items-center justify-between pointer-events-auto">
-    <!-- Logo -->
-    <a href="#" class="flex items-center gap-3 group select-none">
-      <span class="font-display text-2xl sm:text-3xl tracking-widest text-white uppercase">ANSH</span>
-      <div class="w-9 h-9 sm:w-10 sm:h-10 rounded-full bg-[#CCFF00] text-black flex items-center justify-center text-lg font-bold shadow-lg transition-transform duration-500 group-hover:rotate-180">
-        ✦
-      </div>
-    </a>
-
-    <!-- Desktop Links (hidden on mobile) -->
-    <nav class="hidden md:flex items-center gap-8 font-mono text-xs text-white/70 tracking-wider">
-      <a href="#archive" id="open-drawer-archive" class="hover:text-[#CCFF00] transition-colors cursor-pointer">[ ARCHIVE ]</a>
-      <a href="#process" id="open-drawer-process" class="hover:text-[#CCFF00] transition-colors cursor-pointer">[ PROCESS ]</a>
-      <a href="#labs" id="open-drawer-labs" class="hover:text-[#CCFF00] transition-colors cursor-pointer">[ LABS ]</a>
-    </nav>
-
-    <!-- Action Button -->
-    <button id="open-drawer-btn" class="px-5 sm:px-6 py-2.5 rounded-full font-mono text-xs font-semibold text-black bg-[#CCFF00] hover:bg-white hover:scale-105 active:scale-95 transition-all shadow-[0_0_20px_rgba(204,255,0,0.4)] cursor-pointer">
-      COMMISSION &rarr;
-    </button>
-  </header>
-
-  <!-- Z-INDEX 10: HERO IMAGE (Subject Cut-out) -->
-  <div class="absolute inset-x-0 bottom-0 z-10 flex justify-center pointer-events-none overflow-hidden h-[85vh] sm:h-[95vh] md:h-[105vh]">
-    <img 
-      src="https://strvid.nyc3.cdn.digitaloceanspaces.com/motionsite/hero_main_1.png.png" 
-      alt="Ansh Roy" 
-      class="h-full object-contain object-bottom filter brightness-95 grayscale contrast-125 drop-shadow-[0_25px_50px_rgba(0,0,0,0.85)] pointer-events-auto transition-transform duration-700 hover:scale-[1.04] cursor-pointer"
-    >
-  </div>
-
-  <!-- Z-INDEX 20: HERO CONTENT (Typography & Bio) -->
-  <main class="relative z-20 flex-1 flex flex-col items-center justify-center text-center px-4 sm:px-8 py-24 select-none my-auto">
-    
-    <!-- Mammoth Headline -->
-    <div class="flex flex-col items-center justify-center leading-none">
-      <!-- Top Line: DESIGN WITH -->
-      <span class="font-display text-4xl sm:text-6xl md:text-7xl lg:text-8xl tracking-tight text-stroke-white uppercase mb-1 sm:mb-2">
-        DESIGN WITH
-      </span>
-
-      <!-- Bottom Line: Rotates PURPOSE / IMPACT / INTENT -->
-      <span id="scramble-word" class="font-display text-6xl sm:text-8xl md:text-9xl lg:text-[180px] tracking-tight text-[#CCFF00] uppercase drop-shadow-[0_0_35px_rgba(204,255,0,0.3)]">
-        PURPOSE
-      </span>
+    <!-- DUAL VIDEO BACKGROUND ENGINE -->
+    <div class="absolute inset-0 z-0 overflow-hidden pointer-events-none">
+        <video id="video1" class="video-layer absolute inset-0 w-full h-full object-cover opacity-100" muted playsinline preload="auto"></video>
+        <video id="video2" class="video-layer absolute inset-0 w-full h-full object-cover opacity-0" muted playsinline preload="auto"></video>
+        
+        <!-- Background Overlay -->
+        <div class="absolute inset-0 bg-gradient-to-b from-white/50 via-white/20 to-transparent z-10"></div>
     </div>
 
-    <!-- Typewriter Bio -->
-    <div class="mt-6 sm:mt-8 max-w-xl mx-auto px-4 py-3 rounded-2xl bg-black/40 backdrop-blur-md border border-white/10 shadow-2xl">
-      <p class="font-sans text-xs sm:text-sm md:text-base text-white/90 font-normal leading-relaxed min-h-[48px]">
-        <span id="typewriter-bio-content"></span><span id="typewriter-cursor" class="blinking-cursor"></span>
-      </p>
-    </div>
+    <!-- 1. HEADER NAVIGATION BAR -->
+    <header class="relative z-20 w-full max-w-7xl mx-auto px-6 lg:px-12 py-6 flex items-center justify-between">
+        <!-- Left Logo -->
+        <a href="#" class="flex items-center gap-3 group">
+            <div class="w-10 h-10 rounded-full bg-emerald-950 flex items-center justify-center text-white shadow-md group-hover:scale-105 transition-transform duration-300">
+                <svg class="w-5 h-5 fill-current" viewBox="0 0 24 24">
+                    <path d="M14 6l-3.8 5.7 2.3 3.4L18 6l6 14H0l6-9 3.5 5.2L14 6z"/>
+                </svg>
+            </div>
+            <span class="font-serif text-2xl lg:text-3xl font-semibold tracking-wide text-emerald-950">Ansh &bull; NaturaVista</span>
+        </a>
 
-  </main>
+        <!-- Center Nav Links (Desktop) -->
+        <nav class="hidden md:flex items-center space-x-8 text-sm font-medium tracking-wide">
+            <a href="#home" class="relative py-1 text-emerald-950 font-semibold after:content-[''] after:absolute after:bottom-0 after:left-0 after:w-full after:h-[2px] after:bg-emerald-950">Home</a>
+            <a href="#destinations" class="text-emerald-900 hover:text-emerald-950 transition-colors">Destinations</a>
+            <a href="#experiences" class="text-emerald-900 hover:text-emerald-950 transition-colors">Experiences</a>
+            <a href="#sustainability" class="text-emerald-900 hover:text-emerald-950 transition-colors">Sustainability</a>
+            <a href="#about" class="text-emerald-900 hover:text-emerald-950 transition-colors">About Us</a>
+            <a href="#blog" class="text-emerald-900 hover:text-emerald-950 transition-colors">Blog</a>
+        </nav>
 
-  <!-- Z-INDEX 30: FOOTER MARQUEE -->
-  <footer class="fixed bottom-0 left-0 right-0 z-30 pointer-events-none overflow-hidden py-3 bg-gradient-to-t from-[#030014] to-transparent">
-    <div class="animate-marquee whitespace-nowrap font-display text-4xl sm:text-6xl md:text-7xl tracking-widest text-stroke-marquee uppercase select-none opacity-40">
-      ANSH ROY // CREATIVE DIRECTOR // ANSH ROY // CREATIVE DIRECTOR // ANSH ROY // CREATIVE DIRECTOR // ANSH ROY // CREATIVE DIRECTOR //
-    </div>
-  </footer>
-
-  <!-- Z-INDEX 50: INFO DRAWER (Side Menu Panel) -->
-  <div id="info-drawer" class="fixed inset-y-0 right-0 z-50 w-full sm:max-w-xl md:max-w-2xl bg-[#333333] border-l border-white/10 shadow-2xl drawer-slide translate-x-full flex flex-col">
-    
-    <!-- Sticky Header -->
-    <div class="sticky top-0 z-10 bg-[#333333]/90 backdrop-blur-md px-6 sm:px-8 py-5 border-b border-white/10 flex items-center justify-between">
-      <div class="font-mono text-xs text-[#CCFF00] uppercase tracking-wider flex items-center gap-2">
-        <span class="w-2 h-2 rounded-full bg-[#CCFF00] animate-ping"></span>
-        ANSH ROY &bull; PORTFOLIO & COMMISSION
-      </div>
-      <button id="close-drawer-btn" class="w-10 h-10 rounded-full bg-white/10 hover:bg-[#CCFF00] hover:text-black text-white flex items-center justify-center text-lg transition-colors cursor-pointer" aria-label="Close Drawer">
-        &times;
-      </button>
-    </div>
-
-    <!-- Scrollable Drawer Body -->
-    <div class="flex-1 overflow-y-auto px-6 sm:px-10 py-8 space-y-10">
-      
-      <!-- Navigation Menu -->
-      <div>
-        <span class="font-mono text-xs text-white/40 uppercase tracking-widest block mb-4">[ NAVIGATION ]</span>
-        <div class="flex flex-col gap-3 font-display text-3xl sm:text-4xl">
-          <a href="#" class="hover:text-[#CCFF00] transition-colors flex items-center justify-between group">
-            <span>PROJECTS</span>
-            <span class="font-mono text-xs text-white/40 group-hover:text-[#CCFF00]">(08)</span>
-          </a>
-          <a href="#" class="hover:text-[#CCFF00] transition-colors flex items-center justify-between group">
-            <span>PROCESS</span>
-            <span class="font-mono text-xs text-white/40 group-hover:text-[#CCFF00]">(03)</span>
-          </a>
-          <a href="#" class="hover:text-[#CCFF00] transition-colors flex items-center justify-between group">
-            <span>LABS & AI</span>
-            <span class="font-mono text-xs text-white/40 group-hover:text-[#CCFF00]">(12)</span>
-          </a>
-          <a href="#" class="hover:text-[#CCFF00] transition-colors flex items-center justify-between group">
-            <span>RESUME / CV</span>
-            <span class="font-mono text-xs text-white/40 group-hover:text-[#CCFF00]">(PDF)</span>
-          </a>
+        <!-- Right Action -->
+        <div class="flex items-center gap-4">
+            <a href="#destinations" class="hidden sm:inline-flex items-center justify-center px-6 py-2.5 rounded-full text-xs font-semibold uppercase tracking-wider text-emerald-950 border border-emerald-900/30 bg-white/50 hover:bg-emerald-950 hover:text-white backdrop-blur-md transition-all duration-300 shadow-sm">
+                Plan Your Escape
+            </a>
+            <button id="mobile-menu-toggle" class="md:hidden text-emerald-950 focus:outline-none p-2 rounded-lg bg-white/40 backdrop-blur-md" aria-label="Toggle Mobile Menu">
+                <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"/>
+                </svg>
+            </button>
         </div>
-      </div>
+    </header>
 
-      <!-- Contact Form ("LET'S WORK") -->
-      <div class="pt-6 border-t border-white/10 space-y-6">
-        <div>
-          <span class="font-mono text-xs text-[#CCFF00] uppercase tracking-widest block mb-1">[ INQUIRIES ]</span>
-          <h3 class="font-display text-3xl sm:text-4xl text-white uppercase">LET'S WORK TOGETHER</h3>
-          <p class="font-sans text-xs sm:text-sm text-white/60 mt-1">Available for select freelance creative direction, UI/UX engineering, & brand identity projects.</p>
-        </div>
-
-        <form id="contact-form" class="space-y-5" onsubmit="event.preventDefault(); alert('Thank you! Ansh will respond within 24 hours.');">
-          <div class="space-y-1">
-            <label for="drawer-name" class="font-mono text-xs text-white/70">YOUR NAME *</label>
-            <input type="text" id="drawer-name" required placeholder="Alex Rivera" class="w-full bg-transparent border-b border-white/30 focus:border-[#CCFF00] py-2 text-sm text-white focus:outline-none transition-colors">
-          </div>
-
-          <div class="space-y-1">
-            <label for="drawer-email" class="font-mono text-xs text-white/70">YOUR EMAIL *</label>
-            <input type="email" id="drawer-email" required placeholder="alex@company.com" class="w-full bg-transparent border-b border-white/30 focus:border-[#CCFF00] py-2 text-sm text-white focus:outline-none transition-colors">
-          </div>
-
-          <div class="space-y-1">
-            <label for="drawer-type" class="font-mono text-xs text-white/70">PROJECT TYPE</label>
-            <select id="drawer-type" class="w-full bg-[#333333] border-b border-white/30 focus:border-[#CCFF00] py-2 text-sm text-white focus:outline-none transition-colors cursor-pointer">
-              <option value="uiux" class="bg-[#333333] text-white">Full UI/UX Product Design</option>
-              <option value="brand" class="bg-[#333333] text-white">Creative Direction & Branding</option>
-              <option value="frontend" class="bg-[#333333] text-white">Web App Engineering (React/Three.js)</option>
-              <option value="consulting" class="bg-[#333333] text-white">Design System Consultation</option>
-            </select>
-          </div>
-
-          <div class="space-y-1">
-            <label for="drawer-msg" class="font-mono text-xs text-white/70">MESSAGE / BRIEF *</label>
-            <textarea id="drawer-msg" rows="3" required placeholder="Tell me about your vision, timeline, and budget..." class="w-full bg-transparent border-b border-white/30 focus:border-[#CCFF00] py-2 text-sm text-white focus:outline-none transition-colors"></textarea>
-          </div>
-
-          <button type="submit" class="w-full py-4 rounded-xl font-mono text-sm font-bold text-black bg-[#CCFF00] hover:bg-white transition-all shadow-[0_0_25px_rgba(204,255,0,0.3)] active:scale-98 cursor-pointer mt-4">
-            SUBMIT PROJECT INQUIRY &rarr;
-          </button>
-        </form>
-
-        <div class="pt-4 font-mono text-xs text-white/40 flex justify-between">
-          <span>EMAIL: hello@ansh.design</span>
-          <span>LOCATION: NEW DELHI &bull; GLOBAL REMOTE</span>
-        </div>
-      </div>
-
+    <!-- Mobile Drawer -->
+    <div id="mobile-drawer" class="hidden md:hidden fixed inset-x-0 top-20 z-30 p-6 bg-white/90 backdrop-blur-xl border-b border-emerald-900/10 shadow-2xl flex-col gap-4 text-center">
+        <a href="#home" class="text-emerald-950 font-bold py-2">Home</a>
+        <a href="#destinations" class="text-emerald-900 font-medium py-2">Destinations</a>
+        <a href="#experiences" class="text-emerald-900 font-medium py-2">Experiences</a>
+        <a href="#sustainability" class="text-emerald-900 font-medium py-2">Sustainability</a>
+        <a href="#about" class="text-emerald-900 font-medium py-2">About Us</a>
+        <a href="#destinations" class="mt-2 inline-flex justify-center px-6 py-3 rounded-full text-xs font-semibold uppercase tracking-wider text-white bg-emerald-950">Plan Your Escape</a>
     </div>
-  </div>
 
-  <!-- JAVASCRIPT ARCHITECTURE -->
-  <script>
-    document.addEventListener('DOMContentLoaded', () => {
+    <!-- 2. MAIN HERO CONTENT (Center Aligned) -->
+    <main class="relative z-20 w-full max-w-7xl mx-auto px-6 lg:px-12 my-auto py-12 flex flex-col items-center justify-center text-center">
+        <div class="max-w-3xl mx-auto space-y-6 flex flex-col items-center animate-fade-in-up">
+            
+            <!-- Sub-tagline -->
+            <div class="flex items-center justify-center gap-3">
+                <span class="w-2.5 h-2.5 rounded-full bg-emerald-700 animate-pulse"></span>
+                <span class="text-xs sm:text-sm font-bold tracking-[0.3em] uppercase text-emerald-900">Discover. Explore. Belong.</span>
+            </div>
 
-      // =========================================================
-      // 1. Three.js Interactive WebGL Particle & Line Background
-      // =========================================================
-      const canvas = document.getElementById('webgl-canvas');
-      const scene = new THREE.Scene();
-      const camera = new THREE.PerspectiveCamera(60, window.innerWidth / window.innerHeight, 0.1, 1000);
-      camera.position.z = 50;
+            <!-- Main Headline -->
+            <h1 class="font-serif text-5xl sm:text-6xl md:text-7xl lg:text-8xl font-medium leading-[1.05] tracking-tight text-emerald-950 text-center">
+                Find Peace in <br>
+                <span class="italic font-normal">Every Journey</span>
+            </h1>
 
-      const renderer = new THREE.WebGLRenderer({ canvas: canvas, antialias: true, alpha: true });
-      renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
-      renderer.setSize(window.innerWidth, window.innerHeight);
+            <!-- Accent Line & Subtitle Paragraph -->
+            <div class="pt-2 flex flex-col items-center">
+                <div class="w-16 h-[1.5px] bg-emerald-900/30 mb-6 mx-auto"></div>
+                <p class="text-base sm:text-lg text-emerald-900/90 font-medium leading-relaxed max-w-xl text-center">
+                    Curated travel experiences by Ansh that connect you with nature, culture, and yourself.
+                </p>
+            </div>
 
-      // Particle System (15,000 Points)
-      const particleCount = 15000;
-      const positions = new Float32Array(particleCount * 3);
-      const originalPositions = new Float32Array(particleCount * 3);
-      const colors = new Float32Array(particleCount * 3);
+            <!-- Action Buttons -->
+            <div class="pt-4 flex flex-wrap items-center justify-center gap-4 sm:gap-6">
+                <!-- Primary CTA -->
+                <a href="#destinations" class="inline-flex items-center gap-3 px-7 py-3.5 rounded-full text-sm font-medium text-white bg-emerald-950 hover:bg-emerald-900 border border-emerald-800/50 shadow-xl transition-all duration-300 group">
+                    <span>Explore Destinations</span>
+                    <svg class="w-4 h-4 text-teal-300 group-hover:translate-x-1.5 transition-transform duration-300" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3"/>
+                    </svg>
+                </a>
 
-      const baseColor = new THREE.Color(0x001f3f);
-      const accentColor = new THREE.Color(0xCCFF00);
+                <!-- Secondary CTA -->
+                <button id="open-video-modal-btn" class="inline-flex items-center gap-3 px-6 py-3.5 rounded-full text-sm font-medium text-emerald-950 bg-white/70 hover:bg-white border border-emerald-900/20 backdrop-blur-md shadow-md transition-all duration-300 hover:-translate-y-0.5 cursor-pointer">
+                    <span class="w-6 h-6 rounded-full bg-emerald-950 text-white flex items-center justify-center">
+                        <svg class="w-3 h-3 ml-0.5 fill-current" viewBox="0 0 24 24">
+                            <path d="M8 5v14l11-7z"/>
+                        </svg>
+                    </span>
+                    <span>Watch Video</span>
+                </button>
+            </div>
+        </div>
+    </main>
 
-      for (let i = 0; i < particleCount; i++) {
-        const x = (Math.random() - 0.5) * 160;
-        const y = (Math.random() - 0.5) * 100;
-        const z = (Math.random() - 0.5) * 100;
+    <!-- 3. BOTTOM SCROLL INDICATOR -->
+    <div class="relative z-20 w-full max-w-7xl mx-auto px-6 lg:px-12 pb-8 pt-4 flex flex-col items-center justify-center">
+        <span class="text-[10px] uppercase font-bold tracking-[0.25em] text-emerald-900">SCROLL TO EXPLORE</span>
+        <div class="w-[1px] h-4 bg-emerald-900/30 my-1"></div>
+        <div class="w-4 h-6 rounded-full border border-emerald-950/60 flex justify-center pt-1">
+            <div class="w-[2px] h-1.5 bg-emerald-950 rounded-full animate-scroll-dot"></div>
+        </div>
+    </div>
 
-        positions[i * 3] = x;
-        positions[i * 3 + 1] = y;
-        positions[i * 3 + 2] = z;
+    <!-- 4. INTERACTIVE FULLSCREEN VIDEO MODAL -->
+    <div id="video-modal" class="fixed inset-0 z-50 bg-slate-950/90 backdrop-blur-xl hidden items-center justify-center p-4 sm:p-8">
+        <div class="relative w-full max-w-5xl aspect-video bg-black rounded-2xl overflow-hidden shadow-2xl border border-white/10">
+            <button id="close-video-modal-btn" class="absolute top-4 right-4 z-10 w-10 h-10 rounded-full bg-black/60 hover:bg-black text-white flex items-center justify-center transition-colors text-lg cursor-pointer">
+                &times;
+            </button>
+            <video id="modal-video-player" class="w-full h-full object-cover" controls>
+                <source src="https://strvid.nyc3.cdn.digitaloceanspaces.com/motionsite/nature_peace.mp4" type="video/mp4">
+            </video>
+        </div>
+    </div>
 
-        originalPositions[i * 3] = x;
-        originalPositions[i * 3 + 1] = y;
-        originalPositions[i * 3 + 2] = z;
+    <!-- SEAMLESS DUAL-VIDEO LOOP ENGINE SCRIPT -->
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const videoUrl = "https://strvid.nyc3.cdn.digitaloceanspaces.com/motionsite/nature_peace.mp4";
+            const video1 = document.getElementById('video1');
+            const video2 = document.getElementById('video2');
 
-        colors[i * 3] = baseColor.r;
-        colors[i * 3 + 1] = baseColor.g;
-        colors[i * 3 + 2] = baseColor.b;
-      }
+            video1.src = videoUrl;
+            video2.src = videoUrl;
 
-      const particleGeometry = new THREE.BufferGeometry();
-      particleGeometry.setAttribute('position', new THREE.BufferAttribute(positions, 3));
-      particleGeometry.setAttribute('color', new THREE.BufferAttribute(colors, 3));
+            let currentVid = video1;
+            let nextVid = video2;
+            let isCrossfading = false;
+            const targetPlaybackRate = 0.5;
 
-      const particleMaterial = new THREE.PointsMaterial({
-        size: 0.5,
-        vertexColors: true,
-        transparent: true,
-        opacity: 0.25,
-        blending: THREE.AdditiveBlending
-      });
+            currentVid.playbackRate = targetPlaybackRate;
+            nextVid.playbackRate = targetPlaybackRate;
 
-      const particleSystem = new THREE.Points(particleGeometry, particleMaterial);
-      scene.add(particleSystem);
+            currentVid.play().catch(e => console.log('Autoplay handled:', e));
 
-      // Energy Lines (530 Z-moving dashed lines)
-      const lineCount = 530;
-      const lineGeometry = new THREE.BufferGeometry();
-      const linePositions = new Float32Array(lineCount * 6);
+            function checkVideoLoop() {
+                if (currentVid.duration && !isCrossfading) {
+                    const remainingTime = (currentVid.duration - currentVid.currentTime) / currentVid.playbackRate;
 
-      for (let i = 0; i < lineCount; i++) {
-        const x = (Math.random() - 0.5) * 140;
-        const y = (Math.random() - 0.5) * 90;
-        const zStart = (Math.random() - 0.5) * 100;
-        const length = 5 + Math.random() * 15;
+                    if (remainingTime <= 2.0 && remainingTime > 0) {
+                        isCrossfading = true;
 
-        linePositions[i * 6] = x;
-        linePositions[i * 6 + 1] = y;
-        linePositions[i * 6 + 2] = zStart;
+                        nextVid.currentTime = 0;
+                        nextVid.playbackRate = targetPlaybackRate;
+                        nextVid.play().then(() => {
+                            nextVid.classList.remove('opacity-0');
+                            nextVid.classList.add('opacity-100');
+                            currentVid.classList.remove('opacity-100');
+                            currentVid.classList.add('opacity-0');
 
-        linePositions[i * 6 + 3] = x;
-        linePositions[i * 6 + 4] = y;
-        linePositions[i * 6 + 5] = zStart - length;
-      }
+                            setTimeout(() => {
+                                currentVid.pause();
+                                currentVid.currentTime = 0;
+                                
+                                // Swap video references
+                                const temp = currentVid;
+                                currentVid = nextVid;
+                                nextVid = temp;
+                                isCrossfading = false;
+                            }, 2000);
+                        }).catch(err => {
+                            isCrossfading = false;
+                        });
+                    }
+                }
+                requestAnimationFrame(checkVideoLoop);
+            }
 
-      lineGeometry.setAttribute('position', new THREE.BufferAttribute(linePositions, 3));
-      const lineMaterial = new THREE.LineBasicMaterial({
-        color: 0x88aaff,
-        transparent: true,
-        opacity: 0.20
-      });
+            requestAnimationFrame(checkVideoLoop);
 
-      const lineSystem = new THREE.LineSegments(lineGeometry, lineMaterial);
-      scene.add(lineSystem);
+            // Mobile Menu Toggle
+            const mobileMenuToggle = document.getElementById('mobile-menu-toggle');
+            const mobileDrawer = document.getElementById('mobile-drawer');
 
-      // Mouse Intersection & Repulsion
-      const mouse = new THREE.Vector2(-9999, -9999);
-      const targetMouse = new THREE.Vector2(-9999, -9999);
+            if (mobileMenuToggle && mobileDrawer) {
+                mobileMenuToggle.addEventListener('click', () => {
+                    mobileDrawer.classList.toggle('hidden');
+                    mobileDrawer.classList.toggle('flex');
+                });
+            }
 
-      window.addEventListener('mousemove', (e) => {
-        targetMouse.x = (e.clientX / window.innerWidth) * 2 - 1;
-        targetMouse.y = -(e.clientY / window.innerHeight) * 2 + 1;
-      });
+            // Video Modal Controls
+            const openModalBtn = document.getElementById('open-video-modal-btn');
+            const closeModalBtn = document.getElementById('close-video-modal-btn');
+            const videoModal = document.getElementById('video-modal');
+            const modalVideoPlayer = document.getElementById('modal-video-player');
 
-      window.addEventListener('resize', () => {
-        camera.aspect = window.innerWidth / window.innerHeight;
-        camera.updateProjectionMatrix();
-        renderer.setSize(window.innerWidth, window.innerHeight);
-      });
+            if (openModalBtn && videoModal) {
+                openModalBtn.addEventListener('click', () => {
+                    videoModal.classList.remove('hidden');
+                    videoModal.classList.add('flex');
+                    modalVideoPlayer.play();
+                });
 
-      // Animation Loop
-      function animateThree() {
-        requestAnimationFrame(animateThree);
+                closeModalBtn.addEventListener('click', () => {
+                    videoModal.classList.add('hidden');
+                    videoModal.classList.remove('flex');
+                    modalVideoPlayer.pause();
+                });
 
-        mouse.x += (targetMouse.x - mouse.x) * 0.1;
-        mouse.y += (targetMouse.y - mouse.y) * 0.1;
-
-        // Convert 2D mouse to 3D space at z=0
-        const mouse3D = new THREE.Vector3(mouse.x * 50, mouse.y * 30, 0);
-
-        const posAttr = particleGeometry.attributes.position;
-        const colorAttr = particleGeometry.attributes.color;
-
-        for (let i = 0; i < particleCount; i++) {
-          const px = posAttr.array[i * 3];
-          const py = posAttr.array[i * 3 + 1];
-          const pz = posAttr.array[i * 3 + 2];
-
-          const ox = originalPositions[i * 3];
-          const oy = originalPositions[i * 3 + 1];
-          const oz = originalPositions[i * 3 + 2];
-
-          const dx = px - mouse3D.x;
-          const dy = py - mouse3D.y;
-          const dz = pz - mouse3D.z;
-          const dist = Math.sqrt(dx * dx + dy * dy + dz * dz);
-
-          if (dist < 20) {
-            const force = (1 - dist / 20) * 0.04;
-            posAttr.array[i * 3] += dx * force;
-            posAttr.array[i * 3 + 1] += dy * force;
-
-            // Interpolate color towards #CCFF00
-            const mix = (1 - dist / 20) * 0.4;
-            colorAttr.array[i * 3] = THREE.MathUtils.lerp(baseColor.r, accentColor.r, mix);
-            colorAttr.array[i * 3 + 1] = THREE.MathUtils.lerp(baseColor.g, accentColor.g, mix);
-            colorAttr.array[i * 3 + 2] = THREE.MathUtils.lerp(baseColor.b, accentColor.b, mix);
-          } else {
-            // Spring return
-            posAttr.array[i * 3] += (ox - px) * 0.05;
-            posAttr.array[i * 3 + 1] += (oy - py) * 0.05;
-            posAttr.array[i * 3 + 2] += (oz - pz) * 0.05;
-
-            colorAttr.array[i * 3] += (baseColor.r - colorAttr.array[i * 3]) * 0.05;
-            colorAttr.array[i * 3 + 1] += (baseColor.g - colorAttr.array[i * 3 + 1]) * 0.05;
-            colorAttr.array[i * 3 + 2] += (baseColor.b - colorAttr.array[i * 3 + 2]) * 0.05;
-          }
-        }
-
-        posAttr.needsUpdate = true;
-        colorAttr.needsUpdate = true;
-
-        // Move energy lines forward in Z space
-        const linePos = lineGeometry.attributes.position;
-        for (let i = 0; i < lineCount; i++) {
-          linePos.array[i * 6 + 2] += 0.3;
-          linePos.array[i * 6 + 5] += 0.3;
-
-          if (linePos.array[i * 6 + 2] > 50) {
-            linePos.array[i * 6 + 2] -= 100;
-            linePos.array[i * 6 + 5] -= 100;
-          }
-        }
-        linePos.needsUpdate = true;
-
-        renderer.render(scene, camera);
-      }
-      animateThree();
-
-
-      // =========================================================
-      // 2. Scramble Text Headline Engine (PURPOSE / IMPACT / INTENT)
-      // =========================================================
-      const words = ["PURPOSE", "IMPACT", "INTENT"];
-      let wordIndex = 0;
-      const scrambleElement = document.getElementById('scramble-word');
-      const chars = "ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789!@#$%^&*";
-
-      function scrambleToWord(targetWord) {
-        let iteration = 0;
-        const totalIterations = targetWord.length * 3;
-
-        const scrambleInterval = setInterval(() => {
-          scrambleElement.innerText = targetWord
-            .split("")
-            .map((letter, index) => {
-              if (index < iteration / 3) {
-                return targetWord[index];
-              }
-              return chars[Math.floor(Math.random() * chars.length)];
-            })
-            .join("");
-
-          if (iteration >= totalIterations) {
-            clearInterval(scrambleInterval);
-            scrambleElement.innerText = targetWord;
-          }
-
-          iteration += 1;
-        }, 35);
-      }
-
-      setInterval(() => {
-        wordIndex = (wordIndex + 1) % words.length;
-        scrambleToWord(words[wordIndex]);
-      }, 4000);
-
-
-      // =========================================================
-      // 3. Typewriter Bio Looping Engine (Remounts every 7s)
-      // =========================================================
-      const bioText = "I'm Ansh — a freelance UI/UX designer crafting bold, high-contrast digital experiences that are intuitive, impactful, and built to stand out.";
-      const bioElement = document.getElementById('typewriter-bio-content');
-      const cursorElement = document.getElementById('typewriter-cursor');
-
-      function startTypewriterBio() {
-        bioElement.textContent = "";
-        if (cursorElement) cursorElement.style.display = "inline-block";
-
-        let charIdx = 0;
-        const typeInterval = setInterval(() => {
-          if (charIdx < bioText.length) {
-            bioElement.textContent += bioText.charAt(charIdx);
-            charIdx++;
-          } else {
-            clearInterval(typeInterval);
-          }
-        }, 25);
-      }
-
-      startTypewriterBio();
-      setInterval(startTypewriterBio, 7000);
-
-
-      // =========================================================
-      // 4. InfoDrawer Controls
-      // =========================================================
-      const drawer = document.getElementById('info-drawer');
-      const openBtn = document.getElementById('open-drawer-btn');
-      const closeBtn = document.getElementById('close-drawer-btn');
-      const archiveLink = document.getElementById('open-drawer-archive');
-      const processLink = document.getElementById('open-drawer-process');
-      const labsLink = document.getElementById('open-drawer-labs');
-
-      function openDrawer() {
-        drawer.classList.remove('translate-x-full');
-      }
-
-      function closeDrawer() {
-        drawer.classList.add('translate-x-full');
-      }
-
-      if (openBtn) openBtn.addEventListener('click', openDrawer);
-      if (closeBtn) closeBtn.addEventListener('click', closeDrawer);
-      if (archiveLink) archiveLink.addEventListener('click', openDrawer);
-      if (processLink) processLink.addEventListener('click', openDrawer);
-      if (labsLink) labsLink.addEventListener('click', openDrawer);
-
-    });
-  </script>
-
+                videoModal.addEventListener('click', (e) => {
+                    if (e.target === videoModal) {
+                        videoModal.classList.add('hidden');
+                        videoModal.classList.remove('flex');
+                        modalVideoPlayer.pause();
+                    }
+                });
+            }
+        });
+    </script>
 </body>
 </html>
