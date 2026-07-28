@@ -1,10 +1,10 @@
 <!DOCTYPE html>
-<html lang="en" class="dark">
+<html lang="en">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <meta name="description" content="Velorah® — Where dreams rise through the silence. Digital spaces for sharp focus and inspired work.">
-  <title>Velorah®</title>
+  <meta name="description" content="Aethera® — Beyond silence, we build the eternal. Building platforms for brilliant minds, fearless makers, and thoughtful souls.">
+  <title>Aethera®</title>
 
   <!-- Google Fonts: Instrument Serif & Inter -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -15,28 +15,16 @@
   <script src="https://cdn.tailwindcss.com"></script>
   <script>
     tailwind.config = {
-      darkMode: 'class',
       theme: {
         extend: {
           colors: {
-            background: 'hsl(var(--background))',
-            foreground: 'hsl(var(--foreground))',
-            muted: {
-              DEFAULT: 'hsl(var(--muted))',
-              foreground: 'hsl(var(--muted-foreground))',
-            },
-            primary: {
-              DEFAULT: 'hsl(var(--primary))',
-              foreground: 'hsl(var(--primary-foreground))',
-            },
-            secondary: 'hsl(var(--secondary))',
-            accent: 'hsl(var(--accent))',
-            border: 'hsl(var(--border))',
-            input: 'hsl(var(--input))',
+            brandBlack: '#000000',
+            brandGray: '#6F6F6F',
+            brandWhite: '#FFFFFF',
           },
           fontFamily: {
-            display: ['var(--font-display)', 'serif'],
-            body: ['var(--font-body)', 'sans-serif'],
+            display: ['"Instrument Serif"', 'Georgia', 'serif'],
+            body: ['"Inter"', 'sans-serif'],
           }
         }
       }
@@ -44,130 +32,153 @@
   </script>
 
   <style>
-    :root {
-      --font-display: 'Instrument Serif', serif;
-      --font-body: 'Inter', sans-serif;
-
-      --background: 201 100% 13%;
-      --foreground: 0 0% 100%;
-      --muted-foreground: 240 4% 66%;
-      --primary: 0 0% 100%;
-      --primary-foreground: 0 0% 4%;
-      --secondary: 0 0% 10%;
-      --muted: 0 0% 10%;
-      --accent: 0 0% 10%;
-      --border: 0 0% 18%;
-      --input: 0 0% 18%;
-    }
-
     body {
-      background-color: hsl(var(--background));
-      color: hsl(var(--foreground));
-      font-family: var(--font-body);
+      background-color: #FFFFFF;
+      color: #000000;
+      font-family: 'Inter', sans-serif;
       min-height: 100vh;
       margin: 0;
       padding: 0;
       overflow-x: hidden;
     }
 
-    /* Liquid Glass Effect */
-    .liquid-glass {
-      background: rgba(255, 255, 255, 0.01);
-      background-blend-mode: luminosity;
-      backdrop-filter: blur(4px);
-      -webkit-backdrop-filter: blur(4px);
-      border: none;
-      box-shadow: inset 0 1px 1px rgba(255, 255, 255, 0.1);
-      position: relative;
-      overflow: hidden;
-      transition: transform 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+    /* Video Fade Transition */
+    .video-fade {
+      transition: opacity 0.5s ease-in-out;
+      will-change: opacity;
     }
 
-    .liquid-glass::before {
-      content: '';
-      position: absolute;
-      inset: 0;
-      border-radius: inherit;
-      padding: 1.4px;
-      background: linear-gradient(180deg,
-        rgba(255,255,255,0.45) 0%, rgba(255,255,255,0.15) 20%,
-        rgba(255,255,255,0) 40%, rgba(255,255,255,0) 60%,
-        rgba(255,255,255,0.15) 80%, rgba(255,255,255,0.45) 100%);
-      -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
-      -webkit-mask-composite: xor;
-      mask-composite: exclude;
-      pointer-events: none;
-    }
-
-    /* Animations */
+    /* Keyframes & Animations */
     @keyframes fade-rise {
-      from { opacity: 0; transform: translateY(24px); }
-      to { opacity: 1; transform: translateY(0); }
+      from {
+        opacity: 0;
+        transform: translateY(20px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
     }
 
-    .animate-fade-rise { animation: fade-rise 0.8s ease-out both; }
-    .animate-fade-rise-delay { animation: fade-rise 0.8s ease-out 0.2s both; }
-    .animate-fade-rise-delay-2 { animation: fade-rise 0.8s ease-out 0.4s both; }
+    .animate-fade-rise {
+      animation: fade-rise 0.8s ease-out both;
+    }
+
+    .animate-fade-rise-delay {
+      animation: fade-rise 0.8s ease-out 0.2s both;
+    }
+
+    .animate-fade-rise-delay-2 {
+      animation: fade-rise 0.8s ease-out 0.4s both;
+    }
   </style>
 </head>
-<body class="relative min-h-screen flex flex-col justify-between antialiased">
+<body class="relative min-h-screen w-full overflow-hidden bg-white">
 
-  <!-- Fullscreen Video Background -->
-  <video 
-    autoplay 
-    loop 
-    muted 
-    playsinline 
-    class="absolute inset-0 w-full h-full object-cover z-0"
-    src="https://d8j0ntlcm91z4.cloudfront.net/user_38xzZboKViGWJOttwIXH07lWA1P/hf_20260314_131748_f2ca2a28-fed7-44c8-b9a9-bd9acdd5ec31.mp4"
-  ></video>
+  <!-- Background Video Layer (z-0) -->
+  <div class="absolute inset-x-0 bottom-0 top-[300px] z-0 overflow-hidden pointer-events-none">
+    <video 
+      id="bg-video" 
+      autoplay 
+      muted 
+      playsinline 
+      class="video-fade absolute inset-0 w-full h-full object-cover opacity-0"
+      src="https://d8j0ntlcm91z4.cloudfront.net/user_38xzZboKViGWJOttwIXH07lWA1P/hf_20260328_083109_283f3553-e28f-428b-a723-d639c617eb2b.mp4"
+    ></video>
+    <!-- Gradient Overlays: absolute inset-0 bg-gradient-to-b from-white via-transparent to-white -->
+    <div class="absolute inset-0 bg-gradient-to-b from-white via-transparent to-white z-0 pointer-events-none"></div>
+  </div>
 
-  <!-- Navigation Bar -->
-  <header class="relative z-10 flex flex-row items-center justify-between px-8 py-6 max-w-7xl mx-auto w-full">
+  <!-- Navigation Bar (z-10) -->
+  <header class="relative z-10 flex justify-between items-center px-8 py-6 max-w-7xl mx-auto w-full">
     <!-- Logo -->
-    <a href="#" class="text-3xl tracking-tight text-foreground" style="font-family: 'Instrument Serif', serif;">
-      Velorah<sup class="text-xs">®</sup>
+    <a href="#" class="text-3xl tracking-tight font-display text-brandBlack" style="font-family: 'Instrument Serif', serif; color: #000000;">
+      Aethera<sup class="text-xs font-sans">®</sup>
     </a>
 
-    <!-- Nav Links (hidden on mobile, md:flex) -->
-    <nav class="hidden md:flex items-center space-x-8">
-      <a href="#" class="text-sm text-foreground transition-colors font-medium">Home</a>
-      <a href="#" class="text-sm text-muted-foreground hover:text-foreground transition-colors font-medium">Studio</a>
-      <a href="#" class="text-sm text-muted-foreground hover:text-foreground transition-colors font-medium">About</a>
-      <a href="#" class="text-sm text-muted-foreground hover:text-foreground transition-colors font-medium">Journal</a>
-      <a href="#" class="text-sm text-muted-foreground hover:text-foreground transition-colors font-medium">Reach Us</a>
+    <!-- Menu items (hidden on mobile, md:flex) -->
+    <nav class="hidden md:flex items-center space-x-8 text-sm">
+      <a href="#" class="transition-colors font-medium text-brandBlack" style="color: #000000;">Home</a>
+      <a href="#" class="transition-colors font-medium text-brandGray hover:text-brandBlack" style="color: #6F6F6F;">Studio</a>
+      <a href="#" class="transition-colors font-medium text-brandGray hover:text-brandBlack" style="color: #6F6F6F;">About</a>
+      <a href="#" class="transition-colors font-medium text-brandGray hover:text-brandBlack" style="color: #6F6F6F;">Journal</a>
+      <a href="#" class="transition-colors font-medium text-brandGray hover:text-brandBlack" style="color: #6F6F6F;">Reach Us</a>
     </nav>
 
     <!-- CTA Button -->
-    <button class="liquid-glass rounded-full px-6 py-2.5 text-sm text-foreground hover:scale-[1.03] transition-transform">
+    <button class="rounded-full px-6 py-2.5 text-sm bg-brandBlack text-white hover:scale-[1.03] transition-transform duration-200 cursor-pointer" style="background-color: #000000; color: #FFFFFF;">
       Begin Journey
     </button>
   </header>
 
-  <!-- Hero Section -->
-  <main class="relative z-10 flex flex-col items-center justify-center text-center px-6 pt-32 pb-40 py-[90px] my-auto">
-    <!-- H1 Heading -->
+  <!-- Hero Section (z-10) -->
+  <main class="relative z-10 flex flex-col items-center justify-center text-center px-6 pb-40" style="padding-top: calc(8rem - 75px);">
+    
+    <!-- Headline -->
     <h1 
-      class="text-5xl sm:text-7xl md:text-8xl leading-[0.95] tracking-[-2.46px] max-w-7xl font-normal text-foreground animate-fade-rise"
-      style="font-family: 'Instrument Serif', serif;"
+      class="text-5xl sm:text-7xl md:text-8xl max-w-7xl font-normal text-brandBlack animate-fade-rise"
+      style="font-family: 'Instrument Serif', serif; color: #000000; line-height: 0.95; letter-spacing: -2.46px;"
     >
-      Where <em class="not-italic text-muted-foreground">dreams</em> rise <em class="not-italic text-muted-foreground">through the silence.</em>
+      Beyond <em class="italic font-normal" style="color: #6F6F6F;">silence,</em> we build <em class="italic font-normal" style="color: #6F6F6F;">the eternal.</em>
     </h1>
 
-    <!-- Subtext -->
-    <p class="text-muted-foreground text-base sm:text-lg max-w-2xl mt-8 leading-relaxed animate-fade-rise-delay">
-      We're designing tools for deep thinkers, bold creators, and quiet rebels. Amid the chaos, we build digital spaces for sharp focus and inspired work.
+    <!-- Description -->
+    <p class="text-base sm:text-lg max-w-2xl mt-8 leading-relaxed animate-fade-rise-delay" style="color: #6F6F6F;">
+      Building platforms for brilliant minds, fearless makers, and thoughtful souls. Through the noise, we craft digital havens for deep work and pure flows.
     </p>
 
     <!-- Hero CTA Button -->
-    <button class="liquid-glass rounded-full px-14 py-5 text-base text-foreground mt-12 hover:scale-[1.03] cursor-pointer animate-fade-rise-delay-2">
+    <button class="rounded-full px-14 py-5 text-base mt-12 text-white bg-brandBlack hover:scale-[1.03] transition-transform duration-200 cursor-pointer animate-fade-rise-delay-2" style="background-color: #000000; color: #FFFFFF;">
       Begin Journey
     </button>
+
   </main>
 
-  <!-- Footer placeholder to keep layout centered -->
-  <footer class="relative z-10 py-4 text-center text-xs text-muted-foreground/40">
-  </footer>
+  <!-- Custom Fade In / Fade Out Video Loop Controller Script -->
+  <script>
+    document.addEventListener('DOMContentLoaded', () => {
+      const video = document.getElementById('bg-video');
+      if (!video) return;
+
+      let isResetting = false;
+
+      function updateVideoFade() {
+        if (video.duration && !isResetting) {
+          const currentTime = video.currentTime;
+          const duration = video.duration;
+          const fadeDuration = 0.5;
+
+          if (currentTime < fadeDuration) {
+            // Fade in over 0.5s at start (opacity 0 to 1)
+            const opacity = currentTime / fadeDuration;
+            video.style.opacity = Math.min(1, Math.max(0, opacity));
+          } else if (duration - currentTime <= fadeDuration) {
+            // Fade out over 0.5s before end (opacity 1 to 0)
+            const opacity = (duration - currentTime) / fadeDuration;
+            video.style.opacity = Math.min(1, Math.max(0, opacity));
+          } else {
+            video.style.opacity = '1';
+          }
+        }
+        requestAnimationFrame(updateVideoFade);
+      }
+
+      video.addEventListener('ended', () => {
+        isResetting = true;
+        video.style.opacity = '0';
+        setTimeout(() => {
+          video.currentTime = 0;
+          video.play().then(() => {
+            isResetting = false;
+          }).catch(e => console.log('Autoplay error:', e));
+        }, 100);
+      });
+
+      // Initial autoplay start
+      video.play().catch(e => console.log('Autoplay play error:', e));
+      requestAnimationFrame(updateVideoFade);
+    });
+  </script>
 
 </body>
 </html>
