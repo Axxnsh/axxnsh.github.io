@@ -1,15 +1,15 @@
 <!DOCTYPE html>
-<html lang="en" class="scroll-smooth">
+<html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" content="CALL ME IF YOU GET LOST | ID GENERATOR — Get your official traveler passport & custom CMIYGL ID card. Created by Ansh.">
+    <meta name="description" content="CALL ME IF YOU GET LOST | ID GENERATOR — Get your official traveler passport & license card. Created by Ansh.">
     <title>CALL ME IF YOU GET LOST | ID GENERATOR</title>
 
     <!-- Google Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Anton&family=Courier+Prime:ital,wght@0,400;0,700;1,400&family=Dancing+Script:wght@600;700&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Courier+Prime:ital,wght@0,400;0,700;1,400;1,700&family=Caveat:wght@600;700&family=Special+Elite&family=Plus+Jakarta+Sans:wght@400;600;700&display=swap" rel="stylesheet">
 
     <!-- FontAwesome Icons -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
@@ -21,19 +21,15 @@
             theme: {
                 extend: {
                     fontFamily: {
-                        display: ['Anton', 'sans-serif'],
-                        mono: ['"Courier Prime"', 'Courier', 'monospace'],
-                        cursive: ['"Dancing Script"', 'cursive'],
+                        typewriter: ['"Courier Prime"', '"Special Elite"', 'Courier', 'monospace'],
+                        cursive: ['Caveat', 'cursive'],
                         sans: ['"Plus Jakarta Sans"', 'sans-serif'],
                     },
                     colors: {
-                        cmiyglBeige: '#EBE3D3',
-                        cmiyglCardBg: '#F3EDE2',
-                        cmiyglPink: '#E8C3C8',
-                        cmiyglBlue: '#C5D6E8',
-                        cmiyglGreen: '#D2E3D8',
-                        cmiyglDark: '#1E1D1B',
-                        cmiyglAccent: '#A63A2B',
+                        pastelBg: '#F8F1E5',
+                        cmiyglCyan: '#55C5D8',
+                        cmiyglCyanHover: '#3FB0C3',
+                        cardPaper: '#EFE7D5',
                     }
                 }
             }
@@ -42,183 +38,237 @@
 
     <style>
         body {
-            background-color: #121110;
-            background-image: 
-                radial-gradient(circle at 50% 0%, rgba(166, 58, 43, 0.15), transparent 70%),
-                radial-gradient(circle at 0% 100%, rgba(235, 227, 211, 0.05), transparent 50%);
-            color: #EBE3D3;
-            font-family: 'Plus Jakarta Sans', sans-serif;
-            min-height: 100vh;
-        }
-
-        /* Textured Paper Overlay Effect */
-        .vintage-paper {
-            background-color: #F3EDE2;
-            background-image: radial-gradient(#1E1D1B 0.5px, transparent 0.5px), radial-gradient(#1E1D1B 0.5px, #F3EDE2 0.5px);
-            background-size: 20px 20px;
-            background-position: 0 0, 10px 10px;
-            opacity: 0.98;
-        }
-
-        /* 3D Card Hover Perspective */
-        .card-perspective {
-            perspective: 1000px;
-        }
-
-        .card-inner {
-            transition: transform 0.2s cubic-bezier(0.1, 0.9, 0.2, 1);
-            transform-style: preserve-3d;
-        }
-
-        /* Custom Input Styles */
-        .cmiygl-input {
-            background: #1E1D1B;
-            border: 1px solid rgba(235, 227, 211, 0.2);
-            color: #EBE3D3;
+            background-color: #F8F1E5;
             font-family: 'Courier Prime', monospace;
-            text-transform: uppercase;
-            transition: all 0.2s ease;
+            min-height: 100vh;
+            overflow-x: hidden;
+            position: relative;
         }
 
-        .cmiygl-input:focus {
-            border-color: #A63A2B;
+        /* SVG Pastel Star Background Elements */
+        .bg-star {
+            position: absolute;
+            z-index: 0;
+            pointer-events: none;
+            opacity: 0.85;
+        }
+
+        /* Star Borders Around the Card */
+        .star-border {
+            user-select: none;
+            font-size: 14px;
+            color: #26231E;
+        }
+
+        /* Editable Input Fields styled like vintage typewriter text on dotted lines */
+        .card-input {
+            background: transparent;
+            border: none;
+            border-bottom: 1.5px dotted #5C5549;
+            color: #1A1815;
+            font-family: 'Caveat', cursive;
+            font-size: 24px;
+            font-weight: 700;
             outline: none;
-            box-shadow: 0 0 0 3px rgba(166, 58, 43, 0.3);
+            padding: 0 4px;
+            transition: border-color 0.2s;
         }
 
-        /* Custom Scrollbar */
-        ::-webkit-scrollbar {
-            width: 8px;
+        .card-input:focus {
+            border-bottom-color: #55C5D8;
+            background: rgba(85, 197, 216, 0.08);
         }
-        ::-webkit-scrollbar-track {
-            background: #121110;
+
+        .card-input-typewriter {
+            background: transparent;
+            border: none;
+            color: #1A1815;
+            font-family: 'Courier Prime', monospace;
+            font-weight: 700;
+            font-size: 15px;
+            outline: none;
         }
-        ::-webkit-scrollbar-thumb {
-            background: #33312E;
-            border-radius: 4px;
+
+        /* Diagonal Stamp Effect */
+        .cmiygl-stamp {
+            transform: rotate(-12deg);
+            mix-blend-mode: multiply;
+            opacity: 0.75;
+            pointer-events: none;
         }
-        ::-webkit-scrollbar-thumb:hover {
-            background: #A63A2B;
+
+        /* Drop shadow for vintage card */
+        .vintage-card-shadow {
+            box-shadow: 
+                0 20px 40px -15px rgba(60, 50, 35, 0.25),
+                0 0 0 1px rgba(60, 50, 35, 0.15);
         }
     </style>
 </head>
-<body class="flex flex-col justify-between antialiased selection:bg-[#A63A2B] selection:text-white">
+<body class="flex flex-col justify-between items-center min-h-screen p-4 sm:p-8 select-none">
 
-    <!-- TOP ANNOUNCEMENT BANNER -->
-    <div class="bg-[#A63A2B] text-white text-xs font-mono py-2 px-4 text-center tracking-widest font-bold uppercase flex items-center justify-center gap-3 shadow-md">
-        <span>★ OFFICIAL TRAVELER PASSPORT GENERATOR ★</span>
-        <span class="hidden sm:inline">&bull;</span>
-        <span class="hidden sm:inline">CALL ME IF YOU GET LOST</span>
-    </div>
+    <!-- BACKGROUND PASTEL STARS -->
+    <svg class="bg-star -top-20 -left-20 w-96 h-96 text-[#F6BAC3]" fill="currentColor" viewBox="0 0 24 24">
+        <path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/>
+    </svg>
 
-    <!-- MAIN CONTAINER -->
-    <main class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 w-full flex-1 flex flex-col justify-center">
+    <svg class="bg-star top-10 left-1/3 w-80 h-80 text-[#C1E7D5]" fill="currentColor" viewBox="0 0 24 24">
+        <path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/>
+    </svg>
+
+    <svg class="bg-star -top-10 -right-20 w-96 h-96 text-[#A0D8EE]" fill="currentColor" viewBox="0 0 24 24">
+        <path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/>
+    </svg>
+
+    <svg class="bg-star -bottom-20 -left-10 w-[420px] h-[420px] text-[#E8C86A]" fill="currentColor" viewBox="0 0 24 24">
+        <path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/>
+    </svg>
+
+    <svg class="bg-star -bottom-20 -right-20 w-[450px] h-[450px] text-[#E8C86A]" fill="currentColor" viewBox="0 0 24 24">
+        <path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/>
+    </svg>
+
+    <!-- TOP HEADER -->
+    <header class="relative z-10 w-full max-w-4xl text-center my-4">
+        <h1 class="text-xs font-bold tracking-widest text-[#5C5549] uppercase mb-1">
+            ★ OFFICIAL CALL ME IF YOU GET LOST TRAVELER LICENSE ★
+        </h1>
+    </header>
+
+    <!-- CENTER CMIYGL VINTAGE PASSPORT CARD -->
+    <main class="relative z-10 w-full max-w-[860px] mx-auto my-auto">
         
-        <!-- HEADER TITLE -->
-        <div class="text-center space-y-3 mb-10">
-            <div class="inline-block px-4 py-1 rounded-full bg-[#1E1D1B] border border-[#A63A2B]/40 text-[#EBE3D3] text-xs font-mono tracking-widest uppercase shadow">
-                COLUMBIA RECORDS &bull; CMIYGL GENERATOR
-            </div>
-            <h1 class="font-display text-4xl sm:text-6xl md:text-7xl font-normal tracking-tight text-[#EBE3D3] uppercase drop-shadow-lg">
-                CALL ME IF YOU GET LOST
-            </h1>
-            <p class="text-sm sm:text-base font-mono text-[#EBE3D3]/70 uppercase tracking-wider">
-                GET YOUR PASSPORT AND <span class="text-[#A63A2B] font-bold">#CALLMEIFYOUGETLOST</span>
-            </p>
-        </div>
-
-        <!-- GENERATOR GRID: FORM CONTROLS (LEFT) + LIVE ID CANVAS (RIGHT) -->
-        <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 items-start">
+        <!-- CARD CONTAINER WITH STAR BORDER -->
+        <div id="cmiygl-card" class="relative w-full bg-[#EFE7D5] border-2 border-[#332E27] rounded-[32px] p-4 sm:p-6 vintage-card-shadow transition-transform">
             
-            <!-- LEFT COLUMN: CONTROLS & INPUT FORM -->
-            <div class="lg:col-span-5 bg-[#181715] border border-[#EBE3D3]/15 p-6 sm:p-8 rounded-2xl shadow-2xl space-y-6">
+            <!-- TOP STAR BORDER ROW -->
+            <div class="star-border flex justify-between items-center mb-3 px-2">
+                <span>★</span><span>★</span><span>★</span><span>★</span><span>★</span><span>★</span><span>★</span><span>★</span><span>★</span><span>★</span><span>★</span><span>★</span><span>★</span><span>★</span><span>★</span><span>★</span><span>★</span><span>★</span><span>★</span><span>★</span>
+            </div>
+
+            <!-- CARD CONTENT GRID: PHOTO COLUMN (LEFT) + LICENSE DATA (RIGHT) -->
+            <div class="grid grid-cols-1 md:grid-cols-12 gap-6 items-start px-2">
                 
-                <div class="flex items-center justify-between border-b border-[#EBE3D3]/10 pb-4">
-                    <h2 class="font-mono text-lg font-bold text-[#EBE3D3] uppercase flex items-center gap-2">
-                        <i class="fa-solid fa-id-card text-[#A63A2B]"></i> Traveler Information
-                    </h2>
-                    <button id="randomize-btn" class="text-xs font-mono text-[#EBE3D3]/60 hover:text-[#A63A2B] transition-colors flex items-center gap-1 cursor-pointer">
-                        <i class="fa-solid fa-shuffle"></i> Randomize
-                    </button>
+                <!-- LEFT COLUMN: PHOTO FRAME & ACTION BUTTONS -->
+                <div class="md:col-span-5 flex flex-col items-center space-y-3">
+                    
+                    <!-- Photo Box Frame -->
+                    <div id="photo-frame-container" class="relative w-full aspect-[4/5] bg-[#E5DCC8] border-2 border-[#332E27] rounded-sm p-1.5 flex flex-col justify-between items-center shadow-inner group">
+                        
+                        <!-- Photo Display Area -->
+                        <div class="relative w-full h-full bg-[#DFD5BF] border border-[#5C5549]/40 overflow-hidden flex items-center justify-center cursor-pointer">
+                            <img id="card-photo-img" src="ansh_profile.jpg" alt="Traveler Photo" class="w-full h-full object-cover block">
+                            
+                            <!-- Submit Photo Overlay Button -->
+                            <label for="photo-input" class="absolute inset-0 bg-black/40 group-hover:bg-black/60 transition-colors flex flex-col items-center justify-center text-white cursor-pointer p-4 text-center">
+                                <i class="fa-solid fa-camera text-3xl mb-2"></i>
+                                <span class="font-bold text-lg leading-tight drop-shadow">Submit Photo</span>
+                                <span class="text-[11px] opacity-80 mt-1">Click to change picture</span>
+                            </label>
+                            <input type="file" id="photo-input" accept="image/*" class="hidden">
+                        </div>
+
+                        <!-- Caption -->
+                        <div class="text-[10px] font-bold text-[#403B33] uppercase tracking-wider mt-1 text-center">
+                            Photograph of Authorized traveler
+                        </div>
+                    </div>
+
+                    <!-- TWO CYAN PILL BUTTONS -->
+                    <div class="w-full flex items-center gap-3 pt-1">
+                        <!-- Select Color Preset Button -->
+                        <button id="select-color-btn" class="flex-1 py-2 px-3 bg-[#55C5D8] hover:bg-[#3FB0C3] text-white text-xs font-bold uppercase tracking-wider rounded-full shadow border border-[#3A9BAA] transition-transform active:scale-95 flex items-center justify-center gap-1.5 cursor-pointer">
+                            <i class="fa-solid fa-palette text-xs"></i> Select Color
+                        </button>
+
+                        <!-- Get Your ID Download Button -->
+                        <button id="get-id-btn" class="flex-1 py-2 px-3 bg-[#55C5D8] hover:bg-[#3FB0C3] text-white text-xs font-bold uppercase tracking-wider rounded-full shadow border border-[#3A9BAA] transition-transform active:scale-95 flex items-center justify-center gap-1.5 cursor-pointer">
+                            <i class="fa-solid fa-download text-xs"></i> Get Your ID
+                        </button>
+                    </div>
+
                 </div>
 
-                <div class="space-y-4 text-xs font-mono">
+                <!-- RIGHT COLUMN: PERMANENT LICENSE OF TRAVEL DATA -->
+                <div class="md:col-span-7 flex flex-col justify-between h-full space-y-3 text-[#26231E]">
                     
-                    <!-- Full Name -->
-                    <div>
-                        <label class="block mb-1 text-[#EBE3D3]/70 uppercase tracking-wider font-bold">Full Name (Traveler)</label>
-                        <input type="text" id="input-name" value="ANSH ROY" placeholder="E.G. ANSH ROY / TYLER BAUDELAIRE" class="w-full px-3 py-2.5 rounded-lg cmiygl-input text-sm">
-                    </div>
-
-                    <!-- Date of Birth & Place of Issue Grid -->
-                    <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
-                        <div>
-                            <label class="block mb-1 text-[#EBE3D3]/70 uppercase tracking-wider font-bold">Date of Birth</label>
-                            <input type="text" id="input-dob" value="03.06.1991" placeholder="MM.DD.YYYY" class="w-full px-3 py-2.5 rounded-lg cmiygl-input">
+                    <!-- Top Header Text & License No -->
+                    <div class="text-right space-y-0.5 border-b border-[#332E27]/20 pb-2">
+                        <div class="text-[11px] font-bold tracking-wider text-[#4A443A] uppercase">
+                            PERMANENT LICENSE OF TRAVEL
                         </div>
-                        <div>
-                            <label class="block mb-1 text-[#EBE3D3]/70 uppercase tracking-wider font-bold">Place of Issue</label>
-                            <input type="text" id="input-place" value="LOS ANGELES, CA" placeholder="CITY, COUNTRY" class="w-full px-3 py-2.5 rounded-lg cmiygl-input">
+                        <div class="text-sm font-bold tracking-widest text-[#1A1815]">
+                            NO. <input type="text" id="input-licenseno" value="TTC6252021" class="card-input-typewriter w-36 text-right uppercase">
                         </div>
                     </div>
 
-                    <!-- Issued Date & Expiry Date Grid -->
-                    <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
-                        <div>
-                            <label class="block mb-1 text-[#EBE3D3]/70 uppercase tracking-wider font-bold">Date of Issue</label>
-                            <input type="text" id="input-issued" value="06.25.2021" placeholder="MM.DD.YYYY" class="w-full px-3 py-2.5 rounded-lg cmiygl-input">
+                    <!-- Dotted Form Lines -->
+                    <div class="space-y-2 text-xs font-bold">
+                        
+                        <!-- Name Field -->
+                        <div class="flex items-baseline justify-between gap-2">
+                            <span class="text-[#4A443A] shrink-0">Issued to . . . . . . . . . . . . . . .</span>
+                            <input type="text" id="input-name" value="Ansh" placeholder="Name" class="card-input flex-1 text-right">
                         </div>
-                        <div>
-                            <label class="block mb-1 text-[#EBE3D3]/70 uppercase tracking-wider font-bold">Expires</label>
-                            <input type="text" id="input-expires" value="06.25.2031" placeholder="MM.DD.YYYY" class="w-full px-3 py-2.5 rounded-lg cmiygl-input">
+
+                        <!-- Date of Birth Field -->
+                        <div class="flex items-baseline justify-between gap-2">
+                            <span class="text-[#4A443A] shrink-0">Date of birth . . . . . . . . . . .</span>
+                            <input type="text" id="input-dob" value="Date of Birth" placeholder="Date of Birth" class="card-input flex-1 text-right">
                         </div>
+
+                        <!-- Place of Issue Field -->
+                        <div class="flex items-baseline justify-between gap-2">
+                            <span class="text-[#4A443A] shrink-0">Place of issue . . . . . . . . . . .</span>
+                            <input type="text" id="input-location" value="Location" placeholder="Location" class="card-input flex-1 text-right">
+                        </div>
+
+                        <!-- Date of Issue Field -->
+                        <div class="flex items-baseline justify-between gap-2">
+                            <span class="text-[#4A443A] shrink-0">Date of issue . . . . . .</span>
+                            <input type="text" id="input-issuedate" value="06 / 25 / 2021" placeholder="MM / DD / YYYY" class="card-input flex-1 text-right">
+                        </div>
+
                     </div>
 
-                    <!-- ID Number & Sex Grid -->
-                    <div class="grid grid-cols-1 sm:grid-cols-3 gap-4">
-                        <div class="sm:col-span-2">
-                            <label class="block mb-1 text-[#EBE3D3]/70 uppercase tracking-wider font-bold">ID / License No.</label>
-                            <input type="text" id="input-idno" value="854-1991-CMIYGL" placeholder="ID NUMBER" class="w-full px-3 py-2.5 rounded-lg cmiygl-input">
+                    <!-- LEGAL TEXT & CYAN STAMP OVERLAY CONTAINER -->
+                    <div class="relative py-2 border-t border-b border-[#332E27]/20 my-1">
+                        
+                        <!-- OFFICIAL CYAN OVAL STAMP OVERLAY -->
+                        <div id="stamp-seal" class="cmiygl-stamp absolute inset-0 m-auto w-64 h-24 border-4 border-[#35ABC1] rounded-[50%] flex flex-col items-center justify-center text-center p-2 shadow-sm pointer-events-none">
+                            <div class="text-[#35ABC1] font-extrabold text-xl tracking-tighter leading-none uppercase drop-shadow-sm">
+                                CALL ME
+                            </div>
+                            <div class="text-[#35ABC1] font-extrabold text-lg tracking-widest leading-none uppercase">
+                                IF YOU GET LOST
+                            </div>
                         </div>
-                        <div>
-                            <label class="block mb-1 text-[#EBE3D3]/70 uppercase tracking-wider font-bold">Sex</label>
-                            <select id="input-sex" class="w-full px-3 py-2.5 rounded-lg cmiygl-input cursor-pointer">
-                                <option value="M">M</option>
-                                <option value="F">F</option>
-                                <option value="X">X</option>
-                            </select>
+
+                        <!-- Legal Paragraph 1 -->
+                        <div class="space-y-0.5 text-[10px] leading-tight text-[#3A352D] relative z-10">
+                            <div class="font-bold uppercase tracking-wider text-[#1A1815]">LICENSE OF TRAVEL</div>
+                            <p>
+                                This is to Certify that the person named and described above is permitted to travel and explore freely unless detained by law.
+                            </p>
                         </div>
+
+                        <!-- Legal Paragraph 2 -->
+                        <div class="space-y-0.5 text-[10px] leading-tight text-[#3A352D] mt-2 relative z-10">
+                            <div class="font-bold uppercase tracking-wider text-[#1A1815]">IMPORTANT</div>
+                            <p>
+                                The holder of this license wrote, composed, and arranged all songs within the attached record, unless stated otherwise.
+                            </p>
+                        </div>
+
                     </div>
 
-                    <!-- Signature Text -->
-                    <div>
-                        <label class="block mb-1 text-[#EBE3D3]/70 uppercase tracking-wider font-bold">Cursive Signature</label>
-                        <input type="text" id="input-signature" value="Ansh Roy" placeholder="YOUR SIGNATURE" class="w-full px-3 py-2.5 rounded-lg cmiygl-input">
-                    </div>
-
-                    <!-- Photo Upload -->
-                    <div>
-                        <label class="block mb-1 text-[#EBE3D3]/70 uppercase tracking-wider font-bold">Upload Passport Photo</label>
-                        <div class="flex items-center gap-3">
-                            <input type="file" id="photo-upload" accept="image/*" class="hidden">
-                            <label for="photo-upload" class="flex-1 px-4 py-2.5 bg-[#1E1D1B] border border-[#EBE3D3]/20 hover:border-[#A63A2B] rounded-lg text-center text-[#EBE3D3] cursor-pointer transition-colors flex items-center justify-center gap-2">
-                                <i class="fa-solid fa-camera text-[#A63A2B]"></i> Select Photo File
-                            </label>
-                            <button id="reset-photo-btn" class="px-3 py-2.5 bg-[#1E1D1B] border border-[#EBE3D3]/20 text-[#EBE3D3]/70 hover:text-white rounded-lg cursor-pointer" title="Reset Default Photo">
-                                <i class="fa-solid fa-rotate-left"></i>
-                            </button>
+                    <!-- SIGNATURE FIELD -->
+                    <div class="flex flex-col items-end pt-1">
+                        <div class="w-64 border-b-2 border-dotted border-[#332E27] text-right pr-2">
+                            <input type="text" id="input-signature" value="SIGN HERE" placeholder="SIGN HERE" class="card-input w-full text-right">
                         </div>
-                    </div>
-
-                    <!-- Card Color Theme -->
-                    <div>
-                        <label class="block mb-2 text-[#EBE3D3]/70 uppercase tracking-wider font-bold">Card Theme Preset</label>
-                        <div class="grid grid-cols-5 gap-2">
-                            <button class="theme-btn w-full h-8 rounded-lg bg-[#EBE3D3] border-2 border-white shadow hover:scale-105 transition-transform" data-[#EBE3D3] data-color="#F3EDE2" title="Classic Beige"></button>
-                            <button class="theme-btn w-full h-8 rounded-lg bg-[#E8C3C8] border border-white/30 hover:scale-105 transition-transform" data-color="#E8C3C8" title="Baudelaire Pink"></button>
-                            <button class="theme-btn w-full h-8 rounded-lg bg-[#C5D6E8] border border-white/30 hover:scale-105 transition-transform" data-color="#C5D6E8" title="Ocean Blue"></button>
-                            <button class="theme-btn w-full h-8 rounded-lg bg-[#D2E3D8] border border-white/30 hover:scale-105 transition-transform" data-color="#D2E3D8" title="Lumberjack Green"></button>
-                            <button class="theme-btn w-full h-8 rounded-lg bg-[#2A2926] border border-white/30 hover:scale-105 transition-transform" data-color="#2A2926" title="Midnight Dark"></button>
+                        <div class="text-[9px] font-bold text-[#5C5549] uppercase tracking-wider mt-1 pr-2">
+                            Signature of Authorized traveler
                         </div>
                     </div>
 
@@ -226,36 +276,9 @@
 
             </div>
 
-            <!-- RIGHT COLUMN: LIVE CANVAS PREVIEW & DOWNLOAD CONTROLS -->
-            <div class="lg:col-span-7 flex flex-col items-center justify-center space-y-6">
-                
-                <!-- Live Canvas Card Container -->
-                <div class="w-full flex justify-center card-perspective">
-                    <div id="card-wrapper" class="card-inner relative w-full max-w-[620px] aspect-[1.58/1] rounded-2xl shadow-2xl overflow-hidden border-4 border-[#1E1D1B] bg-[#F3EDE2]">
-                        <canvas id="id-canvas" width="1000" height="633" class="w-full h-full object-contain block"></canvas>
-                    </div>
-                </div>
-
-                <!-- DOWNLOAD & ACTION BUTTONS -->
-                <div class="w-full max-w-[620px] flex flex-col sm:flex-row items-center gap-4">
-                    <!-- Download PNG Button -->
-                    <button id="download-btn" class="w-full sm:flex-1 py-4 bg-[#A63A2B] hover:bg-[#852E22] text-white font-mono text-sm font-bold uppercase tracking-wider rounded-xl shadow-xl transition-all flex items-center justify-center gap-3 cursor-pointer group hover:scale-[1.02]">
-                        <i class="fa-solid fa-download text-base group-hover:bounce"></i>
-                        <span>Download CMIYGL ID Card (HD)</span>
-                    </button>
-
-                    <!-- Copy / Share Button -->
-                    <button id="share-btn" class="w-full sm:w-auto px-6 py-4 bg-[#1E1D1B] hover:bg-[#2A2926] text-[#EBE3D3] border border-[#EBE3D3]/20 font-mono text-sm font-bold uppercase tracking-wider rounded-xl transition-all flex items-center justify-center gap-2 cursor-pointer">
-                        <i class="fa-solid fa-share-nodes text-[#A63A2B]"></i>
-                        <span>Share</span>
-                    </button>
-                </div>
-
-                <!-- Instructions Note -->
-                <p class="text-xs font-mono text-[#EBE3D3]/50 text-center max-w-md">
-                    * Instant high-resolution render. Click download to get your custom traveler ID card ready to share on Instagram & X!
-                </p>
-
+            <!-- BOTTOM STAR BORDER ROW -->
+            <div class="star-border flex justify-between items-center mt-3 px-2">
+                <span>★</span><span>★</span><span>★</span><span>★</span><span>★</span><span>★</span><span>★</span><span>★</span><span>★</span><span>★</span><span>★</span><span>★</span><span>★</span><span>★</span><span>★</span><span>★</span><span>★</span><span>★</span><span>★</span><span>★</span>
             </div>
 
         </div>
@@ -263,344 +286,210 @@
     </main>
 
     <!-- FOOTER -->
-    <footer class="bg-[#121110] border-t border-[#EBE3D3]/10 py-6 px-6 text-center text-xs font-mono text-[#EBE3D3]/50 mt-12">
-        <div class="max-w-7xl mx-auto flex flex-col sm:flex-row items-center justify-between gap-4">
-            <div>
-                Created by <a href="https://ansh.com" target="_blank" class="text-[#EBE3D3] font-bold underline hover:text-[#A63A2B]">Ansh.com</a> &bull; Inspired by Tyler, The Creator
-            </div>
-            <div>
-                Published live on <a href="https://axxnsh.github.io" class="text-[#EBE3D3] font-bold underline hover:text-[#A63A2B]">axxnsh.github.io</a> &bull; &copy; 2026 Ansh
-            </div>
-        </div>
+    <footer class="relative z-10 text-center text-xs font-bold text-[#5C5549] my-4">
+        Created by <a href="https://ansh.com" target="_blank" class="text-[#1A1815] underline hover:text-[#55C5D8]">Ansh.com</a> &bull; Published live on <a href="https://axxnsh.github.io" class="text-[#1A1815] underline hover:text-[#55C5D8]">axxnsh.github.io</a>
     </footer>
 
-    <!-- REAL-TIME CANVAS ID RENDER ENGINE SCRIPT -->
+    <!-- HIDDEN RENDER CANVAS FOR HIGH-RES PNG DOWNLOAD ENGINE -->
+    <canvas id="export-canvas" width="1200" height="760" class="hidden"></canvas>
+
+    <!-- JAVASCRIPT CONTROLS & DOWNLOAD ENGINE -->
     <script>
         document.addEventListener('DOMContentLoaded', () => {
-
-            const canvas = document.getElementById('id-canvas');
-            const ctx = canvas.getContext('2d');
+            
+            const cardPhotoImg = document.getElementById('card-photo-img');
+            const photoInput = document.getElementById('photo-input');
+            const selectColorBtn = document.getElementById('select-color-btn');
+            const getIdBtn = document.getElementById('get-id-btn');
+            const stampSeal = document.getElementById('stamp-seal');
+            const cmiyglCard = document.getElementById('cmiygl-card');
 
             // Inputs
             const inputName = document.getElementById('input-name');
             const inputDob = document.getElementById('input-dob');
-            const inputPlace = document.getElementById('input-place');
-            const inputIssued = document.getElementById('input-issued');
-            const inputExpires = document.getElementById('input-expires');
-            const inputIdNo = document.getElementById('input-idno');
-            const inputSex = document.getElementById('input-sex');
+            const inputLocation = document.getElementById('input-location');
+            const inputIssuedate = document.getElementById('input-issuedate');
+            const inputLicenseno = document.getElementById('input-licenseno');
             const inputSignature = document.getElementById('input-signature');
-            const photoUpload = document.getElementById('photo-upload');
-            const resetPhotoBtn = document.getElementById('reset-photo-btn');
-            const randomizeBtn = document.getElementById('randomize-btn');
-            const downloadBtn = document.getElementById('download-btn');
-            const shareBtn = document.getElementById('share-btn');
-            const themeBtns = document.querySelectorAll('.theme-btn');
 
-            let currentThemeBg = '#F3EDE2';
-            let userPhotoImg = null;
+            // Color presets cycle: Cyan, Pink, Mint Green, Gold Yellow, Vintage Brown
+            const stampColors = ['#35ABC1', '#E87A90', '#3EAE82', '#D9A128', '#8B4513'];
+            const cardBgs = ['#EFE7D5', '#F5E6E8', '#E6F3ED', '#FAF3E0', '#EAE3D2'];
+            let colorIndex = 0;
 
-            // Load default photo
-            const defaultPhoto = new Image();
-            defaultPhoto.crossOrigin = 'Anonymous';
-            defaultPhoto.src = 'ansh_profile.jpg';
-            defaultPhoto.onload = () => {
-                userPhotoImg = defaultPhoto;
-                renderIDCard();
-            };
+            selectColorBtn.addEventListener('click', () => {
+                colorIndex = (colorIndex + 1) % stampColors.length;
+                const newColor = stampColors[colorIndex];
+                const newBg = cardBgs[colorIndex];
 
-            // Custom photo upload
-            photoUpload.addEventListener('change', (e) => {
+                // Update Stamp color & card bg
+                stampSeal.style.borderColor = newColor;
+                stampSeal.querySelectorAll('div').forEach(el => el.style.color = newColor);
+                cmiyglCard.style.backgroundColor = newBg;
+            });
+
+            // Photo File Upload
+            photoInput.addEventListener('change', (e) => {
                 const file = e.target.files[0];
                 if (file) {
                     const reader = new FileReader();
                     reader.onload = (event) => {
-                        const img = new Image();
-                        img.onload = () => {
-                            userPhotoImg = img;
-                            renderIDCard();
-                        };
-                        img.src = event.target.result;
+                        cardPhotoImg.src = event.target.result;
                     };
                     reader.readAsDataURL(file);
                 }
             });
 
-            resetPhotoBtn.addEventListener('click', () => {
-                userPhotoImg = defaultPhoto;
-                renderIDCard();
-            });
+            // HD ID Card Export Download Engine (Using HTML5 Canvas 1200x760)
+            getIdBtn.addEventListener('click', () => {
+                const canvas = document.getElementById('export-canvas');
+                const ctx = canvas.getContext('2d');
+                const W = 1200;
+                const H = 760;
 
-            // Theme selector
-            themeBtns.forEach(btn => {
-                btn.addEventListener('click', () => {
-                    currentThemeBg = btn.getAttribute('data-color');
-                    renderIDCard();
-                });
-            });
-
-            // Randomize generator
-            const names = ["ANSH ROY", "TYLER BAUDELAIRE", "SIR BAUDELAIRE", "LUMBERJACK ANSH", "ALEXANDER ROY"];
-            const places = ["LOS ANGELES, CA", "NEW DELHI, IN", "GENEVA, SWITZERLAND", "PARIS, FRANCE", "TOKYO, JAPAN"];
-            
-            randomizeBtn.addEventListener('click', () => {
-                inputName.value = names[Math.floor(Math.random() * names.length)];
-                inputPlace.value = places[Math.floor(Math.random() * places.length)];
-                inputIdNo.value = `${Math.floor(100 + Math.random() * 900)}-1991-CMIYGL`;
-                inputSignature.value = inputName.value.split(" ")[0] + " " + inputName.value.split(" ")[1];
-                renderIDCard();
-            });
-
-            // Re-render on input changes
-            [inputName, inputDob, inputPlace, inputIssued, inputExpires, inputIdNo, inputSex, inputSignature].forEach(input => {
-                input.addEventListener('input', renderIDCard);
-            });
-
-            // CORE RENDER FUNCTION FOR CMIYGL ID CARD (1000x633 CANVAS)
-            function renderIDCard() {
-                const W = 1000;
-                const H = 633;
-
-                // 1. Background Fill
-                ctx.fillStyle = currentThemeBg;
+                // 1. Fill Card Background
+                ctx.fillStyle = cmiyglCard.style.backgroundColor || '#EFE7D5';
                 ctx.fillRect(0, 0, W, H);
 
                 // Vintage paper texture dots
-                ctx.fillStyle = "rgba(30, 29, 27, 0.04)";
-                for (let x = 0; x < W; x += 12) {
-                    for (let y = 0; y < H; y += 12) {
-                        if ((x + y) % 24 === 0) ctx.fillRect(x, y, 2, 2);
+                ctx.fillStyle = "rgba(40, 35, 25, 0.03)";
+                for (let x = 0; x < W; x += 10) {
+                    for (let y = 0; y < H; y += 10) {
+                        if ((x + y) % 20 === 0) ctx.fillRect(x, y, 2, 2);
                     }
                 }
 
-                // 2. Outer Border Frame
-                ctx.strokeStyle = "#1E1D1B";
-                ctx.lineWidth = 14;
-                ctx.strokeRect(16, 16, W - 32, H - 32);
+                // 2. Outer Border & Stars
+                ctx.strokeStyle = "#332E27";
+                ctx.lineWidth = 6;
+                ctx.strokeRect(20, 20, W - 40, H - 40);
 
-                ctx.lineWidth = 3;
-                ctx.strokeRect(28, 28, W - 56, H - 56);
-
-                // 3. Top Header Banner: CALL ME IF YOU GET LOST
-                ctx.fillStyle = "#A63A2B";
-                ctx.fillRect(32, 32, W - 64, 75);
-
-                ctx.fillStyle = "#FFFFFF";
-                ctx.font = "bold 44px Anton, sans-serif";
+                // Top & Bottom Star Rows
+                ctx.fillStyle = "#26231E";
+                ctx.font = "bold 20px 'Courier Prime', monospace";
                 ctx.textAlign = "center";
-                ctx.fillText("CALL ME IF YOU GET LOST", W / 2, 85);
+                for (let i = 0; i < 22; i++) {
+                    const x = 55 + i * 51;
+                    ctx.fillText("★", x, 50);
+                    ctx.fillText("★", x, H - 35);
+                }
 
-                // Sub Header Line
-                ctx.fillStyle = "#1E1D1B";
-                ctx.font = "bold 14px 'Courier Prime', monospace";
-                ctx.fillText("TRAVELER PASSPORT & OFFICIAL LICENSE ID", W / 2, 126);
+                // 3. Photo Frame (Left)
+                const px = 70, py = 90, pw = 400, ph = 500;
+                ctx.fillStyle = "#E5DCC8";
+                ctx.fillRect(px, py, pw, ph);
+                ctx.strokeStyle = "#332E27";
+                ctx.lineWidth = 4;
+                ctx.strokeRect(px, py, pw, ph);
 
+                // Draw Photo image inside photo frame
+                if (cardPhotoImg && cardPhotoImg.complete) {
+                    ctx.drawImage(cardPhotoImg, px + 10, py + 10, pw - 20, ph - 50);
+                }
+
+                ctx.fillStyle = "#403B33";
+                ctx.font = "bold 13px 'Courier Prime', monospace";
+                ctx.textAlign = "center";
+                ctx.fillText("PHOTOGRAPH OF AUTHORIZED TRAVELER", px + pw/2, py + ph - 16);
+
+                // 4. Right Side Text Details
+                const rx = 520;
+                ctx.textAlign = "right";
+                ctx.fillStyle = "#4A443A";
+                ctx.font = "bold 16px 'Courier Prime', monospace";
+                ctx.fillText("PERMANENT LICENSE OF TRAVEL", W - 70, 110);
+
+                ctx.fillStyle = "#1A1815";
+                ctx.font = "bold 22px 'Courier Prime', monospace";
+                ctx.fillText("NO. " + (inputLicenseno.value || "TTC6252021").toUpperCase(), W - 70, 140);
+
+                // Line Divider
                 ctx.beginPath();
-                ctx.moveTo(32, 134);
-                ctx.lineTo(W - 32, 134);
-                ctx.lineWidth = 3;
-                ctx.strokeStyle = "#1E1D1B";
+                ctx.moveTo(rx, 155);
+                ctx.lineTo(W - 70, 155);
+                ctx.strokeStyle = "rgba(51, 46, 39, 0.3)";
+                ctx.lineWidth = 2;
                 ctx.stroke();
 
-                // 4. Photo Frame (Left Side)
-                const photoX = 60;
-                const photoY = 160;
-                const photoW = 280;
-                const photoH = 360;
+                // Fields
+                function drawLine(label, val, y) {
+                    ctx.textAlign = "left";
+                    ctx.fillStyle = "#4A443A";
+                    ctx.font = "bold 16px 'Courier Prime', monospace";
+                    ctx.fillText(label, rx, y);
 
-                ctx.fillStyle = "#EBE3D3";
-                ctx.fillRect(photoX, photoY, photoW, photoH);
-                ctx.strokeStyle = "#1E1D1B";
-                ctx.lineWidth = 4;
-                ctx.strokeRect(photoX, photoY, photoW, photoH);
-
-                if (userPhotoImg) {
-                    // Draw user image centered & object-fit cover
-                    const imgAspect = userPhotoImg.width / userPhotoImg.height;
-                    const frameAspect = photoW / photoH;
-                    let renderW = photoW;
-                    let renderH = photoH;
-                    let offsetX = 0;
-                    let offsetY = 0;
-
-                    if (imgAspect > frameAspect) {
-                        renderW = photoH * imgAspect;
-                        offsetX = -(renderW - photoW) / 2;
-                    } else {
-                        renderH = photoW / imgAspect;
-                        offsetY = -(renderH - photoH) / 2;
-                    }
-
-                    ctx.save();
-                    ctx.beginPath();
-                    ctx.rect(photoX, photoY, photoW, photoH);
-                    ctx.clip();
-                    ctx.drawImage(userPhotoImg, photoX + offsetX, photoY + offsetY, renderW, renderH);
-                    ctx.restore();
-                } else {
-                    ctx.fillStyle = "#1E1D1B";
-                    ctx.font = "18px 'Courier Prime', monospace";
-                    ctx.textAlign = "center";
-                    ctx.fillText("[ NO PHOTO ]", photoX + photoW / 2, photoY + photoH / 2);
+                    ctx.textAlign = "right";
+                    ctx.fillStyle = "#1A1815";
+                    ctx.font = "bold 32px 'Caveat', cursive";
+                    ctx.fillText(val || "", W - 70, y + 4);
                 }
 
-                // Inner Photo Border Line
-                ctx.strokeStyle = "#1E1D1B";
-                ctx.lineWidth = 2;
-                ctx.strokeRect(photoX + 8, photoY + 8, photoW - 16, photoH - 16);
+                drawLine("Issued to . . . . . . . . . . . . . . .", inputName.value || "Ansh", 200);
+                drawLine("Date of birth . . . . . . . . . . .", inputDob.value || "Date of Birth", 250);
+                drawLine("Place of issue . . . . . . . . . . .", inputLocation.value || "Location", 300);
+                drawLine("Date of issue . . . . . .", inputIssuedate.value || "06 / 25 / 2021", 350);
 
-                // 5. Passport Details Form Fields (Right Side)
-                const fieldStartX = 370;
+                // Legal Paragraphs
                 ctx.textAlign = "left";
+                ctx.fillStyle = "#1A1815";
+                ctx.font = "bold 14px 'Courier Prime', monospace";
+                ctx.fillText("LICENSE OF TRAVEL", rx, 415);
 
-                function drawField(label, val, yPos, valSize = 22) {
-                    ctx.fillStyle = "rgba(30, 29, 27, 0.65)";
-                    ctx.font = "bold 13px 'Courier Prime', monospace";
-                    ctx.fillText(label.toUpperCase(), fieldStartX, yPos);
+                ctx.fillStyle = "#3A352D";
+                ctx.font = "13px 'Courier Prime', monospace";
+                ctx.fillText("This is to Certify that the person named and described above is permitted", rx, 435);
+                ctx.fillText("to travel and explore freely unless detained by law.", rx, 452);
 
-                    ctx.fillStyle = "#1E1D1B";
-                    ctx.font = `bold ${valSize}px 'Courier Prime', monospace`;
-                    ctx.fillText((val || "").toUpperCase(), fieldStartX, yPos + valSize + 2);
+                ctx.fillStyle = "#1A1815";
+                ctx.font = "bold 14px 'Courier Prime', monospace";
+                ctx.fillText("IMPORTANT", rx, 485);
 
-                    ctx.beginPath();
-                    ctx.moveTo(fieldStartX, yPos + valSize + 10);
-                    ctx.lineTo(W - 60, yPos + valSize + 10);
-                    ctx.lineWidth = 1.5;
-                    ctx.strokeStyle = "rgba(30, 29, 27, 0.3)";
-                    ctx.stroke();
-                }
+                ctx.fillStyle = "#3A352D";
+                ctx.font = "13px 'Courier Prime', monospace";
+                ctx.fillText("The holder of this license wrote, composed, and arranged all songs within", rx, 505);
+                ctx.fillText("the attached record, unless stated otherwise.", rx, 522);
 
-                drawField("NAME OF TRAVELER", inputName.value || "ANSH ROY", 165, 26);
-                drawField("DATE OF BIRTH", inputDob.value || "03.06.1991", 240, 20);
-                drawField("PLACE OF ISSUE", inputPlace.value || "LOS ANGELES, CA", 305, 20);
-
-                // Issued Date & Expires Date Side-by-side
-                ctx.fillStyle = "rgba(30, 29, 27, 0.65)";
-                ctx.font = "bold 13px 'Courier Prime', monospace";
-                ctx.fillText("ISSUED", fieldStartX, 370);
-                ctx.fillText("EXPIRES", fieldStartX + 260, 370);
-
-                ctx.fillStyle = "#1E1D1B";
-                ctx.font = "bold 20px 'Courier Prime', monospace";
-                ctx.fillText((inputIssued.value || "06.25.2021").toUpperCase(), fieldStartX, 395);
-                ctx.fillText((inputExpires.value || "06.25.2031").toUpperCase(), fieldStartX + 260, 395);
-
-                ctx.beginPath();
-                ctx.moveTo(fieldStartX, 404);
-                ctx.lineTo(W - 60, 404);
-                ctx.lineWidth = 1.5;
-                ctx.strokeStyle = "rgba(30, 29, 27, 0.3)";
-                ctx.stroke();
-
-                // License No. & Sex Side-by-side
-                ctx.fillStyle = "rgba(30, 29, 27, 0.65)";
-                ctx.font = "bold 13px 'Courier Prime', monospace";
-                ctx.fillText("LICENSE / ID NO.", fieldStartX, 432);
-                ctx.fillText("SEX", fieldStartX + 360, 432);
-
-                ctx.fillStyle = "#1E1D1B";
-                ctx.font = "bold 20px 'Courier Prime', monospace";
-                ctx.fillText((inputIdNo.value || "854-1991-CMIYGL").toUpperCase(), fieldStartX, 457);
-                ctx.fillText((inputSex.value || "M").toUpperCase(), fieldStartX + 360, 457);
-
-                ctx.beginPath();
-                ctx.moveTo(fieldStartX, 466);
-                ctx.lineTo(W - 60, 466);
-                ctx.lineWidth = 1.5;
-                ctx.strokeStyle = "rgba(30, 29, 27, 0.3)";
-                ctx.stroke();
-
-                // 6. Cursive Signature (Bottom Right)
-                ctx.fillStyle = "rgba(30, 29, 27, 0.65)";
-                ctx.font = "bold 12px 'Courier Prime', monospace";
-                ctx.fillText("TRAVELER SIGNATURE", fieldStartX, 492);
-
-                ctx.fillStyle = "#162846"; // Blue Ink color
-                ctx.font = "34px 'Dancing Script', cursive";
-                ctx.fillText(inputSignature.value || "Ansh Roy", fieldStartX + 20, 532);
-
-                // 7. Official Circular Vintage Stamp Overlay
+                // 5. Cyan Oval Stamp Overlay
                 ctx.save();
-                ctx.translate(W - 170, H - 150);
-                ctx.rotate(-15 * Math.PI / 180);
-
-                ctx.strokeStyle = "rgba(166, 58, 43, 0.65)"; // Stamp Red
-                ctx.lineWidth = 4;
+                ctx.translate(rx + 300, 460);
+                ctx.rotate(-12 * Math.PI / 180);
+                
+                ctx.strokeStyle = stampColors[colorIndex];
+                ctx.lineWidth = 6;
                 ctx.beginPath();
-                ctx.arc(0, 0, 65, 0, Math.PI * 2);
+                ctx.ellipse(0, 0, 180, 70, 0, 0, Math.PI * 2);
                 ctx.stroke();
 
-                ctx.lineWidth = 2;
-                ctx.beginPath();
-                ctx.arc(0, 0, 58, 0, Math.PI * 2);
-                ctx.stroke();
-
-                ctx.fillStyle = "rgba(166, 58, 43, 0.75)";
-                ctx.font = "bold 11px Anton, sans-serif";
+                ctx.fillStyle = stampColors[colorIndex];
+                ctx.font = "extrabold 32px 'Anton', sans-serif";
                 ctx.textAlign = "center";
-                ctx.fillText("CALL ME IF YOU GET LOST", 0, -25);
-                ctx.fillText("★ OFFICIAL PERMIT ★", 0, 0);
-                ctx.fillText("COLUMBIA RECORDS", 0, 25);
+                ctx.fillText("CALL ME", 0, -5);
+                ctx.font = "extrabold 26px 'Anton', sans-serif";
+                ctx.fillText("IF YOU GET LOST", 0, 25);
                 ctx.restore();
 
-                // 8. Footer Strip: Created by Ansh.com & Passport Number
-                ctx.fillStyle = "#1E1D1B";
-                ctx.fillRect(32, H - 75, W - 64, 43);
-
-                ctx.fillStyle = "#EBE3D3";
-                ctx.font = "bold 14px 'Courier Prime', monospace";
-                ctx.textAlign = "left";
-                ctx.fillText("PASSPORT NO: CMIYGL-" + (inputIdNo.value || "854-1991").replace(/[^A-Z0-9]/gi, "").toUpperCase(), 50, H - 48);
-
+                // 6. Signature
                 ctx.textAlign = "right";
-                ctx.fillText("CREATED BY ANSH.COM", W - 50, H - 48);
+                ctx.fillStyle = "#1A1815";
+                ctx.font = "bold 38px 'Caveat', cursive";
+                ctx.fillText(inputSignature.value || "SIGN HERE", W - 70, 630);
 
-            }
+                ctx.beginPath();
+                ctx.moveTo(W - 400, 642);
+                ctx.lineTo(W - 70, 642);
+                ctx.lineWidth = 2;
+                ctx.strokeStyle = "#332E27";
+                ctx.stroke();
 
-            // Initial render
-            setTimeout(renderIDCard, 300);
+                ctx.fillStyle = "#5C5549";
+                ctx.font = "bold 12px 'Courier Prime', monospace";
+                ctx.fillText("Signature of Authorized traveler", W - 70, 660);
 
-            // 3D Card Hover Perspective Effect
-            const cardWrapper = document.getElementById('card-wrapper');
-            cardWrapper.addEventListener('mousemove', (e) => {
-                const rect = cardWrapper.getBoundingClientRect();
-                const x = e.clientX - rect.left - rect.width / 2;
-                const y = e.clientY - rect.top - rect.height / 2;
-                cardWrapper.style.transform = `rotateY(${x / 25}deg) rotateX(${-y / 25}deg) scale(1.02)`;
-            });
-
-            cardWrapper.addEventListener('mouseleave', () => {
-                cardWrapper.style.transform = 'rotateY(0deg) rotateX(0deg) scale(1)';
-            });
-
-            // One-Click HD Download Button
-            downloadBtn.addEventListener('click', () => {
-                const dataURL = canvas.toDataURL('image/png');
+                // Download File Trigger
                 const link = document.createElement('a');
-                const filename = `CMIYGL_ID_${(inputName.value || "ANSH").replace(/\s+/g, '_')}.png`;
-                link.download = filename;
-                link.href = dataURL;
+                link.download = `CMIYGL_License_${(inputName.value || "Traveler").replace(/\s+/g, '_')}.png`;
+                link.href = canvas.toDataURL('image/png');
                 link.click();
-            });
-
-            // Share / Copy Canvas Image
-            shareBtn.addEventListener('click', async () => {
-                canvas.toBlob(async (blob) => {
-                    if (navigator.share && navigator.canShare && navigator.canShare({ files: [new File([blob], 'CMIYGL_ID.png', { type: 'image/png' })] })) {
-                        try {
-                            await navigator.share({
-                                title: 'My CMIYGL Traveler ID',
-                                text: 'Check out my custom Call Me If You Get Lost traveler passport ID!',
-                                files: [new File([blob], 'CMIYGL_ID.png', { type: 'image/png' })]
-                            });
-                        } catch (err) {
-                            console.log('Share canceled:', err);
-                        }
-                    } else {
-                        // Fallback: Copy to clipboard or trigger download
-                        downloadBtn.click();
-                    }
-                });
             });
 
         });
