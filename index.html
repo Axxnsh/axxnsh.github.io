@@ -6,10 +6,10 @@
     <meta name="description" content="CALL ME IF YOU GET LOST | ID GENERATOR — Get your official traveler passport & license card. Created by Ansh.">
     <title>CALL ME IF YOU GET LOST | ID GENERATOR</title>
 
-    <!-- Google Fonts -->
+    <!-- Google Fonts: Courier Prime for typewriter labels & Architects Daughter / Kalam / Caveat for handwritten values -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Courier+Prime:ital,wght@0,400;0,700;1,400;1,700&family=Caveat:wght@600;700&family=Special+Elite&family=Plus+Jakarta+Sans:wght@400;600;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Architects+Daughter&family=Courier+Prime:ital,wght@0,400;0,700;1,400;1,700&family=Kalam:wght@400;700&family=Plus+Jakarta+Sans:wght@700;800&display=swap" rel="stylesheet">
 
     <!-- FontAwesome Icons -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
@@ -21,15 +21,15 @@
             theme: {
                 extend: {
                     fontFamily: {
-                        typewriter: ['"Courier Prime"', '"Special Elite"', 'Courier', 'monospace'],
-                        cursive: ['Caveat', 'cursive'],
+                        typewriter: ['"Courier Prime"', 'Courier', 'monospace'],
+                        handwritten: ['"Architects Daughter"', '"Kalam"', 'cursive'],
                         sans: ['"Plus Jakarta Sans"', 'sans-serif'],
                     },
                     colors: {
                         pastelBg: '#F8F1E5',
-                        cmiyglCyan: '#55C5D8',
-                        cmiyglCyanHover: '#3FB0C3',
-                        cardPaper: '#EFE7D5',
+                        cmiyglCyan: '#44C6DA',
+                        cmiyglCyanHover: '#33B3C7',
+                        cardBg: '#EFE7D2',
                     }
                 }
             }
@@ -45,7 +45,7 @@
             position: relative;
         }
 
-        /* SVG Pastel Star Background Elements */
+        /* SVG Background Stars */
         .bg-star {
             position: absolute;
             z-index: 0;
@@ -53,55 +53,60 @@
             opacity: 0.85;
         }
 
-        /* Star Borders Around the Card */
-        .star-border {
+        /* Bold Black Edge Stars */
+        .edge-star {
+            font-size: 26px;
+            font-weight: 900;
+            color: #1A1815;
+            line-height: 1;
             user-select: none;
-            font-size: 14px;
-            color: #26231E;
         }
 
-        /* Editable Input Fields styled like vintage typewriter text on dotted lines */
-        .card-input {
+        /* Vintage Card Container with Rounded Corners and Aged Texture */
+        .vintage-card {
+            background-color: #EFE7D2;
+            background-image: 
+                radial-gradient(circle at 10% 20%, rgba(139, 115, 85, 0.08) 0%, transparent 40%),
+                radial-gradient(circle at 90% 80%, rgba(139, 115, 85, 0.12) 0%, transparent 50%),
+                radial-gradient(#1A1815 0.3px, transparent 0.3px);
+            background-size: 100% 100%, 100% 100%, 16px 16px;
+            box-shadow: 0 25px 50px -12px rgba(60, 50, 35, 0.25);
+        }
+
+        /* Handwritten Input Fields on Dotted Lines */
+        .handwritten-input {
             background: transparent;
             border: none;
-            border-bottom: 1.5px dotted #5C5549;
-            color: #1A1815;
-            font-family: 'Caveat', cursive;
-            font-size: 24px;
+            color: #11100F;
+            font-family: 'Architects Daughter', 'Kalam', cursive;
+            font-size: 26px;
             font-weight: 700;
             outline: none;
             padding: 0 4px;
-            transition: border-color 0.2s;
+            transition: color 0.2s;
         }
 
-        .card-input:focus {
-            border-bottom-color: #55C5D8;
-            background: rgba(85, 197, 216, 0.08);
+        .handwritten-input::placeholder {
+            color: #11100F;
+            opacity: 0.9;
         }
 
-        .card-input-typewriter {
+        .typewriter-input {
             background: transparent;
             border: none;
-            color: #1A1815;
+            color: #11100F;
             font-family: 'Courier Prime', monospace;
+            font-size: 16px;
             font-weight: 700;
-            font-size: 15px;
             outline: none;
         }
 
         /* Diagonal Stamp Effect */
         .cmiygl-stamp {
-            transform: rotate(-12deg);
+            transform: rotate(-10deg);
             mix-blend-mode: multiply;
             opacity: 0.75;
             pointer-events: none;
-        }
-
-        /* Drop shadow for vintage card */
-        .vintage-card-shadow {
-            box-shadow: 
-                0 20px 40px -15px rgba(60, 50, 35, 0.25),
-                0 0 0 1px rgba(60, 50, 35, 0.15);
         }
     </style>
 </head>
@@ -129,132 +134,138 @@
     </svg>
 
     <!-- TOP HEADER -->
-    <header class="relative z-10 w-full max-w-4xl text-center my-4">
-        <h1 class="text-xs font-bold tracking-widest text-[#5C5549] uppercase mb-1">
-            ★ OFFICIAL CALL ME IF YOU GET LOST TRAVELER LICENSE ★
+    <header class="relative z-10 w-full max-w-4xl text-center my-2">
+        <h1 class="text-xs font-bold tracking-widest text-[#5C5549] uppercase">
+            ★ CALL ME IF YOU GET LOST | PASSPORT LICENSE GENERATOR ★
         </h1>
     </header>
 
     <!-- CENTER CMIYGL VINTAGE PASSPORT CARD -->
-    <main class="relative z-10 w-full max-w-[860px] mx-auto my-auto">
+    <main class="relative z-10 w-full max-w-[880px] mx-auto my-auto">
         
-        <!-- CARD CONTAINER WITH STAR BORDER -->
-        <div id="cmiygl-card" class="relative w-full bg-[#EFE7D5] border-2 border-[#332E27] rounded-[32px] p-4 sm:p-6 vintage-card-shadow transition-transform">
+        <!-- CARD CONTAINER WITH BOLD BLACK STARS BORDER -->
+        <div id="cmiygl-card" class="relative w-full vintage-card border-2 border-[#1A1815] rounded-[36px] p-4 sm:p-6 transition-colors">
             
-            <!-- TOP STAR BORDER ROW -->
-            <div class="star-border flex justify-between items-center mb-3 px-2">
-                <span>★</span><span>★</span><span>★</span><span>★</span><span>★</span><span>★</span><span>★</span><span>★</span><span>★</span><span>★</span><span>★</span><span>★</span><span>★</span><span>★</span><span>★</span><span>★</span><span>★</span><span>★</span><span>★</span><span>★</span>
+            <!-- TOP BOLD BLACK STARS ROW (15 STARS) -->
+            <div class="flex justify-between items-center mb-4 px-2">
+                <span class="edge-star">★</span><span class="edge-star">★</span><span class="edge-star">★</span><span class="edge-star">★</span><span class="edge-star">★</span><span class="edge-star">★</span><span class="edge-star">★</span><span class="edge-star">★</span><span class="edge-star">★</span><span class="edge-star">★</span><span class="edge-star">★</span><span class="edge-star">★</span><span class="edge-star">★</span><span class="edge-star">★</span><span class="edge-star">★</span>
             </div>
 
             <!-- CARD CONTENT GRID: PHOTO COLUMN (LEFT) + LICENSE DATA (RIGHT) -->
-            <div class="grid grid-cols-1 md:grid-cols-12 gap-6 items-start px-2">
+            <div class="grid grid-cols-1 md:grid-cols-12 gap-6 items-stretch px-3">
                 
                 <!-- LEFT COLUMN: PHOTO FRAME & ACTION BUTTONS -->
-                <div class="md:col-span-5 flex flex-col items-center space-y-3">
+                <div class="md:col-span-5 flex flex-col justify-between items-center space-y-3">
                     
                     <!-- Photo Box Frame -->
-                    <div id="photo-frame-container" class="relative w-full aspect-[4/5] bg-[#E5DCC8] border-2 border-[#332E27] rounded-sm p-1.5 flex flex-col justify-between items-center shadow-inner group">
+                    <div class="relative w-full aspect-[1/1.05] bg-[#E8DFCA] border-2 border-[#1A1815] p-1 flex flex-col justify-between items-center shadow-sm">
                         
-                        <!-- Photo Display Area -->
-                        <div class="relative w-full h-full bg-[#DFD5BF] border border-[#5C5549]/40 overflow-hidden flex items-center justify-center cursor-pointer">
-                            <img id="card-photo-img" src="ansh_profile.jpg" alt="Traveler Photo" class="w-full h-full object-cover block">
+                        <!-- Photo Display Area: Default EMPTY with "Submit Photo" -->
+                        <div id="photo-dropzone" class="relative w-full flex-1 bg-[#E1D6BE] border border-[#1A1815]/40 flex flex-col items-center justify-center cursor-pointer overflow-hidden group">
                             
-                            <!-- Submit Photo Overlay Button -->
-                            <label for="photo-input" class="absolute inset-0 bg-black/40 group-hover:bg-black/60 transition-colors flex flex-col items-center justify-center text-white cursor-pointer p-4 text-center">
-                                <i class="fa-solid fa-camera text-3xl mb-2"></i>
-                                <span class="font-bold text-lg leading-tight drop-shadow">Submit Photo</span>
-                                <span class="text-[11px] opacity-80 mt-1">Click to change picture</span>
-                            </label>
-                            <input type="file" id="photo-input" accept="image/*" class="hidden">
+                            <!-- Placeholder Text (Shown when no image selected) -->
+                            <div id="photo-placeholder" class="flex flex-col items-center justify-center text-center p-4">
+                                <span class="font-sans font-extrabold text-2xl sm:text-3xl text-[#1A1815] tracking-tight">
+                                    Submit Photo
+                                </span>
+                            </div>
+
+                            <!-- Uploaded Image (Hidden by default) -->
+                            <img id="card-photo-img" src="" alt="Uploaded Traveler Photo" class="hidden absolute inset-0 w-full h-full object-cover">
+                            
+                            <!-- Click to Upload File Input -->
+                            <input type="file" id="photo-input" accept="image/*" class="absolute inset-0 opacity-0 cursor-pointer w-full h-full z-20">
                         </div>
 
-                        <!-- Caption -->
-                        <div class="text-[10px] font-bold text-[#403B33] uppercase tracking-wider mt-1 text-center">
-                            Photograph of Authorized traveler
+                        <!-- Caption at bottom right -->
+                        <div class="w-full text-right pr-1 pt-1">
+                            <span class="text-[10px] font-bold text-[#3A352D] font-typewriter tracking-tight">
+                                Photograph of Authorized traveler
+                            </span>
                         </div>
                     </div>
 
                     <!-- TWO CYAN PILL BUTTONS -->
                     <div class="w-full flex items-center gap-3 pt-1">
-                        <!-- Select Color Preset Button -->
-                        <button id="select-color-btn" class="flex-1 py-2 px-3 bg-[#55C5D8] hover:bg-[#3FB0C3] text-white text-xs font-bold uppercase tracking-wider rounded-full shadow border border-[#3A9BAA] transition-transform active:scale-95 flex items-center justify-center gap-1.5 cursor-pointer">
-                            <i class="fa-solid fa-palette text-xs"></i> Select Color
+                        <!-- Select Color Button -->
+                        <button id="select-color-btn" class="flex-1 py-2 px-3 bg-[#44C6DA] hover:bg-[#33B3C7] text-white font-sans font-bold text-xs uppercase tracking-wider rounded-full shadow border border-[#33B0C4] active:scale-95 transition-all cursor-pointer">
+                            SELECT COLOR
                         </button>
 
-                        <!-- Get Your ID Download Button -->
-                        <button id="get-id-btn" class="flex-1 py-2 px-3 bg-[#55C5D8] hover:bg-[#3FB0C3] text-white text-xs font-bold uppercase tracking-wider rounded-full shadow border border-[#3A9BAA] transition-transform active:scale-95 flex items-center justify-center gap-1.5 cursor-pointer">
-                            <i class="fa-solid fa-download text-xs"></i> Get Your ID
+                        <!-- Get Your ID Button -->
+                        <button id="get-id-btn" class="flex-1 py-2 px-3 bg-[#44C6DA] hover:bg-[#33B3C7] text-white font-sans font-bold text-xs uppercase tracking-wider rounded-full shadow border border-[#33B0C4] active:scale-95 transition-all cursor-pointer">
+                            GET YOUR ID
                         </button>
                     </div>
 
                 </div>
 
                 <!-- RIGHT COLUMN: PERMANENT LICENSE OF TRAVEL DATA -->
-                <div class="md:col-span-7 flex flex-col justify-between h-full space-y-3 text-[#26231E]">
+                <div class="md:col-span-7 flex flex-col justify-between space-y-3 text-[#1A1815]">
                     
                     <!-- Top Header Text & License No -->
-                    <div class="text-right space-y-0.5 border-b border-[#332E27]/20 pb-2">
-                        <div class="text-[11px] font-bold tracking-wider text-[#4A443A] uppercase">
+                    <div class="text-right space-y-0.5">
+                        <div class="text-[12px] font-bold tracking-wider text-[#1A1815] uppercase font-typewriter">
                             PERMANENT LICENSE OF TRAVEL
                         </div>
-                        <div class="text-sm font-bold tracking-widest text-[#1A1815]">
-                            NO. <input type="text" id="input-licenseno" value="TTC6252021" class="card-input-typewriter w-36 text-right uppercase">
+                        <div class="text-base font-extrabold tracking-wider text-[#1A1815] font-typewriter">
+                            NO. <input type="text" id="input-licenseno" value="TTC6252021" class="typewriter-input w-36 text-right font-extrabold uppercase">
                         </div>
                     </div>
 
                     <!-- Dotted Form Lines -->
-                    <div class="space-y-2 text-xs font-bold">
+                    <div class="space-y-2 text-sm font-bold font-typewriter">
                         
                         <!-- Name Field -->
-                        <div class="flex items-baseline justify-between gap-2">
-                            <span class="text-[#4A443A] shrink-0">Issued to . . . . . . . . . . . . . . .</span>
-                            <input type="text" id="input-name" value="Ansh" placeholder="Name" class="card-input flex-1 text-right">
+                        <div class="flex items-baseline justify-between gap-1 border-b border-dotted border-[#1A1815]/60 pb-0.5">
+                            <span class="text-[#1A1815] shrink-0">Issued to. . . . . . . . . . . . . . . .</span>
+                            <input type="text" id="input-name" value="Name" placeholder="Name" class="handwritten-input flex-1 text-right">
                         </div>
 
                         <!-- Date of Birth Field -->
-                        <div class="flex items-baseline justify-between gap-2">
-                            <span class="text-[#4A443A] shrink-0">Date of birth . . . . . . . . . . .</span>
-                            <input type="text" id="input-dob" value="Date of Birth" placeholder="Date of Birth" class="card-input flex-1 text-right">
+                        <div class="flex items-baseline justify-between gap-1 border-b border-dotted border-[#1A1815]/60 pb-0.5">
+                            <span class="text-[#1A1815] shrink-0">Date of birth . . . . . . . . . . .</span>
+                            <input type="text" id="input-dob" value="Date of Birth" placeholder="Date of Birth" class="handwritten-input flex-1 text-right">
                         </div>
 
                         <!-- Place of Issue Field -->
-                        <div class="flex items-baseline justify-between gap-2">
-                            <span class="text-[#4A443A] shrink-0">Place of issue . . . . . . . . . . .</span>
-                            <input type="text" id="input-location" value="Location" placeholder="Location" class="card-input flex-1 text-right">
+                        <div class="flex items-baseline justify-between gap-1 border-b border-dotted border-[#1A1815]/60 pb-0.5">
+                            <span class="text-[#1A1815] shrink-0">Place of issue . . . . . . . . . . .</span>
+                            <input type="text" id="input-location" value="Location" placeholder="Location" class="handwritten-input flex-1 text-right">
                         </div>
 
                         <!-- Date of Issue Field -->
-                        <div class="flex items-baseline justify-between gap-2">
-                            <span class="text-[#4A443A] shrink-0">Date of issue . . . . . .</span>
-                            <input type="text" id="input-issuedate" value="06 / 25 / 2021" placeholder="MM / DD / YYYY" class="card-input flex-1 text-right">
+                        <div class="flex items-baseline justify-between gap-1 border-b border-dotted border-[#1A1815]/60 pb-0.5">
+                            <span class="text-[#1A1815] shrink-0">Date of issue . . . . . .</span>
+                            <input type="text" id="input-issuedate" value="06/25/2021" placeholder="06/25/2021" class="handwritten-input flex-1 text-right">
                         </div>
 
                     </div>
 
                     <!-- LEGAL TEXT & CYAN STAMP OVERLAY CONTAINER -->
-                    <div class="relative py-2 border-t border-b border-[#332E27]/20 my-1">
+                    <div class="relative py-1 my-1">
                         
                         <!-- OFFICIAL CYAN OVAL STAMP OVERLAY -->
-                        <div id="stamp-seal" class="cmiygl-stamp absolute inset-0 m-auto w-64 h-24 border-4 border-[#35ABC1] rounded-[50%] flex flex-col items-center justify-center text-center p-2 shadow-sm pointer-events-none">
-                            <div class="text-[#35ABC1] font-extrabold text-xl tracking-tighter leading-none uppercase drop-shadow-sm">
+                        <div id="stamp-seal" class="cmiygl-stamp absolute inset-0 m-auto w-72 h-24 border-[5px] border-[#44C6DA] rounded-[50%] flex flex-col items-center justify-center text-center p-2 pointer-events-none">
+                            <div class="text-[#44C6DA] font-sans font-black text-2xl tracking-tight leading-none uppercase">
                                 CALL ME
                             </div>
-                            <div class="text-[#35ABC1] font-extrabold text-lg tracking-widest leading-none uppercase">
+                            <div class="text-[#44C6DA] font-sans font-black text-xl tracking-wider leading-none uppercase">
                                 IF YOU GET LOST
                             </div>
                         </div>
 
                         <!-- Legal Paragraph 1 -->
-                        <div class="space-y-0.5 text-[10px] leading-tight text-[#3A352D] relative z-10">
-                            <div class="font-bold uppercase tracking-wider text-[#1A1815]">LICENSE OF TRAVEL</div>
+                        <div class="space-y-0.5 text-[11px] leading-tight text-[#1A1815] font-typewriter relative z-10">
+                            <div class="font-bold uppercase tracking-wider">LICENSE OF TRAVEL</div>
                             <p>
                                 This is to Certify that the person named and described above is permitted to travel and explore freely unless detained by law.
                             </p>
                         </div>
 
                         <!-- Legal Paragraph 2 -->
-                        <div class="space-y-0.5 text-[10px] leading-tight text-[#3A352D] mt-2 relative z-10">
-                            <div class="font-bold uppercase tracking-wider text-[#1A1815]">IMPORTANT</div>
+                        <div class="space-y-0.5 text-[11px] leading-tight text-[#1A1815] font-typewriter mt-2 relative z-10">
+                            <div class="font-bold uppercase tracking-wider">IMPORTANT</div>
                             <p>
                                 The holder of this license wrote, composed, and arranged all songs within the attached record, unless stated otherwise.
                             </p>
@@ -264,10 +275,10 @@
 
                     <!-- SIGNATURE FIELD -->
                     <div class="flex flex-col items-end pt-1">
-                        <div class="w-64 border-b-2 border-dotted border-[#332E27] text-right pr-2">
-                            <input type="text" id="input-signature" value="SIGN HERE" placeholder="SIGN HERE" class="card-input w-full text-right">
+                        <div class="w-full border-b border-dotted border-[#1A1815]/70 text-right pr-2">
+                            <input type="text" id="input-signature" value="SIGN HERE" placeholder="SIGN HERE" class="handwritten-input w-full text-right font-bold text-2xl">
                         </div>
-                        <div class="text-[9px] font-bold text-[#5C5549] uppercase tracking-wider mt-1 pr-2">
+                        <div class="text-[10px] font-bold text-[#1A1815] font-typewriter uppercase tracking-wider mt-0.5 pr-2">
                             Signature of Authorized traveler
                         </div>
                     </div>
@@ -276,9 +287,9 @@
 
             </div>
 
-            <!-- BOTTOM STAR BORDER ROW -->
-            <div class="star-border flex justify-between items-center mt-3 px-2">
-                <span>★</span><span>★</span><span>★</span><span>★</span><span>★</span><span>★</span><span>★</span><span>★</span><span>★</span><span>★</span><span>★</span><span>★</span><span>★</span><span>★</span><span>★</span><span>★</span><span>★</span><span>★</span><span>★</span><span>★</span>
+            <!-- BOTTOM BOLD BLACK STARS ROW (15 STARS) -->
+            <div class="flex justify-between items-center mt-4 px-2">
+                <span class="edge-star">★</span><span class="edge-star">★</span><span class="edge-star">★</span><span class="edge-star">★</span><span class="edge-star">★</span><span class="edge-star">★</span><span class="edge-star">★</span><span class="edge-star">★</span><span class="edge-star">★</span><span class="edge-star">★</span><span class="edge-star">★</span><span class="edge-star">★</span><span class="edge-star">★</span><span class="edge-star">★</span><span class="edge-star">★</span>
             </div>
 
         </div>
@@ -286,18 +297,19 @@
     </main>
 
     <!-- FOOTER -->
-    <footer class="relative z-10 text-center text-xs font-bold text-[#5C5549] my-4">
-        Created by <a href="https://ansh.com" target="_blank" class="text-[#1A1815] underline hover:text-[#55C5D8]">Ansh.com</a> &bull; Published live on <a href="https://axxnsh.github.io" class="text-[#1A1815] underline hover:text-[#55C5D8]">axxnsh.github.io</a>
+    <footer class="relative z-10 text-center text-xs font-bold text-[#5C5549] font-typewriter my-3">
+        Created by <a href="https://ansh.com" target="_blank" class="text-[#1A1815] underline hover:text-[#44C6DA]">Ansh.com</a> &bull; Published live on <a href="https://axxnsh.github.io" class="text-[#1A1815] underline hover:text-[#44C6DA]">axxnsh.github.io</a>
     </footer>
 
     <!-- HIDDEN RENDER CANVAS FOR HIGH-RES PNG DOWNLOAD ENGINE -->
-    <canvas id="export-canvas" width="1200" height="760" class="hidden"></canvas>
+    <canvas id="export-canvas" width="1200" height="780" class="hidden"></canvas>
 
     <!-- JAVASCRIPT CONTROLS & DOWNLOAD ENGINE -->
     <script>
         document.addEventListener('DOMContentLoaded', () => {
             
             const cardPhotoImg = document.getElementById('card-photo-img');
+            const photoPlaceholder = document.getElementById('photo-placeholder');
             const photoInput = document.getElementById('photo-input');
             const selectColorBtn = document.getElementById('select-color-btn');
             const getIdBtn = document.getElementById('get-id-btn');
@@ -312,9 +324,9 @@
             const inputLicenseno = document.getElementById('input-licenseno');
             const inputSignature = document.getElementById('input-signature');
 
-            // Color presets cycle: Cyan, Pink, Mint Green, Gold Yellow, Vintage Brown
-            const stampColors = ['#35ABC1', '#E87A90', '#3EAE82', '#D9A128', '#8B4513'];
-            const cardBgs = ['#EFE7D5', '#F5E6E8', '#E6F3ED', '#FAF3E0', '#EAE3D2'];
+            // Color presets cycle: Cyan, Pink, Mint Green, Gold Yellow, Retro Sepia
+            const stampColors = ['#44C6DA', '#E87A90', '#3EAE82', '#D9A128', '#8B4513'];
+            const cardBgs = ['#EFE7D2', '#F5E6E8', '#E6F3ED', '#FAF3E0', '#EAE3D2'];
             let colorIndex = 0;
 
             selectColorBtn.addEventListener('click', () => {
@@ -335,155 +347,168 @@
                     const reader = new FileReader();
                     reader.onload = (event) => {
                         cardPhotoImg.src = event.target.result;
+                        cardPhotoImg.classList.remove('hidden');
+                        photoPlaceholder.classList.add('hidden');
                     };
                     reader.readAsDataURL(file);
                 }
             });
 
-            // HD ID Card Export Download Engine (Using HTML5 Canvas 1200x760)
+            // HD ID Card Export Download Engine (Using HTML5 Canvas 1200x780)
             getIdBtn.addEventListener('click', () => {
                 const canvas = document.getElementById('export-canvas');
                 const ctx = canvas.getContext('2d');
                 const W = 1200;
-                const H = 760;
+                const H = 780;
 
                 // 1. Fill Card Background
-                ctx.fillStyle = cmiyglCard.style.backgroundColor || '#EFE7D5';
+                ctx.fillStyle = cmiyglCard.style.backgroundColor || '#EFE7D2';
                 ctx.fillRect(0, 0, W, H);
 
                 // Vintage paper texture dots
-                ctx.fillStyle = "rgba(40, 35, 25, 0.03)";
+                ctx.fillStyle = "rgba(26, 24, 21, 0.03)";
                 for (let x = 0; x < W; x += 10) {
                     for (let y = 0; y < H; y += 10) {
                         if ((x + y) % 20 === 0) ctx.fillRect(x, y, 2, 2);
                     }
                 }
 
-                // 2. Outer Border & Stars
-                ctx.strokeStyle = "#332E27";
-                ctx.lineWidth = 6;
-                ctx.strokeRect(20, 20, W - 40, H - 40);
+                // 2. Outer Border & Bold Black Stars
+                ctx.strokeStyle = "#1A1815";
+                ctx.lineWidth = 5;
+                ctx.strokeRect(18, 18, W - 36, H - 36);
 
-                // Top & Bottom Star Rows
-                ctx.fillStyle = "#26231E";
-                ctx.font = "bold 20px 'Courier Prime', monospace";
+                // Top & Bottom Bold Star Rows
+                ctx.fillStyle = "#1A1815";
+                ctx.font = "900 36px 'Courier Prime', monospace";
                 ctx.textAlign = "center";
-                for (let i = 0; i < 22; i++) {
-                    const x = 55 + i * 51;
-                    ctx.fillText("★", x, 50);
-                    ctx.fillText("★", x, H - 35);
+                for (let i = 0; i < 15; i++) {
+                    const x = 75 + i * 75;
+                    ctx.fillText("★", x, 55);
+                    ctx.fillText("★", x, H - 25);
                 }
 
                 // 3. Photo Frame (Left)
-                const px = 70, py = 90, pw = 400, ph = 500;
-                ctx.fillStyle = "#E5DCC8";
+                const px = 70, py = 90, pw = 420, ph = 520;
+                ctx.fillStyle = "#E8DFCA";
                 ctx.fillRect(px, py, pw, ph);
-                ctx.strokeStyle = "#332E27";
+                ctx.strokeStyle = "#1A1815";
                 ctx.lineWidth = 4;
                 ctx.strokeRect(px, py, pw, ph);
 
-                // Draw Photo image inside photo frame
-                if (cardPhotoImg && cardPhotoImg.complete) {
-                    ctx.drawImage(cardPhotoImg, px + 10, py + 10, pw - 20, ph - 50);
+                // Draw Photo image if uploaded, or "Submit Photo" placeholder
+                if (cardPhotoImg && !cardPhotoImg.classList.contains('hidden') && cardPhotoImg.complete && cardPhotoImg.src) {
+                    ctx.drawImage(cardPhotoImg, px + 8, py + 8, pw - 16, ph - 45);
+                } else {
+                    ctx.fillStyle = "#E1D6BE";
+                    ctx.fillRect(px + 8, py + 8, pw - 16, ph - 45);
+                    ctx.fillStyle = "#1A1815";
+                    ctx.font = "800 34px 'Plus Jakarta Sans', sans-serif";
+                    ctx.textAlign = "center";
+                    ctx.fillText("Submit Photo", px + pw/2, py + ph/2 - 10);
                 }
 
-                ctx.fillStyle = "#403B33";
+                ctx.fillStyle = "#3A352D";
                 ctx.font = "bold 13px 'Courier Prime', monospace";
-                ctx.textAlign = "center";
-                ctx.fillText("PHOTOGRAPH OF AUTHORIZED TRAVELER", px + pw/2, py + ph - 16);
+                ctx.textAlign = "right";
+                ctx.fillText("Photograph of Authorized traveler", px + pw - 10, py + ph - 14);
 
                 // 4. Right Side Text Details
-                const rx = 520;
+                const rx = 530;
                 ctx.textAlign = "right";
-                ctx.fillStyle = "#4A443A";
+                ctx.fillStyle = "#1A1815";
                 ctx.font = "bold 16px 'Courier Prime', monospace";
-                ctx.fillText("PERMANENT LICENSE OF TRAVEL", W - 70, 110);
+                ctx.fillText("PERMANENT LICENSE OF TRAVEL", W - 70, 115);
 
                 ctx.fillStyle = "#1A1815";
                 ctx.font = "bold 22px 'Courier Prime', monospace";
-                ctx.fillText("NO. " + (inputLicenseno.value || "TTC6252021").toUpperCase(), W - 70, 140);
+                ctx.fillText("NO. " + (inputLicenseno.value || "TTC6252021").toUpperCase(), W - 70, 145);
 
-                // Line Divider
-                ctx.beginPath();
-                ctx.moveTo(rx, 155);
-                ctx.lineTo(W - 70, 155);
-                ctx.strokeStyle = "rgba(51, 46, 39, 0.3)";
-                ctx.lineWidth = 2;
-                ctx.stroke();
-
-                // Fields
+                // Dotted Lines and Handwritten Values
                 function drawLine(label, val, y) {
                     ctx.textAlign = "left";
-                    ctx.fillStyle = "#4A443A";
-                    ctx.font = "bold 16px 'Courier Prime', monospace";
+                    ctx.fillStyle = "#1A1815";
+                    ctx.font = "bold 17px 'Courier Prime', monospace";
                     ctx.fillText(label, rx, y);
 
+                    // Dotted line under text
+                    ctx.beginPath();
+                    ctx.setLineDash([3, 4]);
+                    ctx.moveTo(rx, y + 8);
+                    ctx.lineTo(W - 70, y + 8);
+                    ctx.strokeStyle = "rgba(26, 24, 21, 0.6)";
+                    ctx.lineWidth = 1.5;
+                    ctx.stroke();
+                    ctx.setLineDash([]); // Reset line dash
+
                     ctx.textAlign = "right";
-                    ctx.fillStyle = "#1A1815";
-                    ctx.font = "bold 32px 'Caveat', cursive";
-                    ctx.fillText(val || "", W - 70, y + 4);
+                    ctx.fillStyle = "#11100F";
+                    ctx.font = "700 34px 'Architects Daughter', cursive";
+                    ctx.fillText(val || "", W - 70, y + 2);
                 }
 
-                drawLine("Issued to . . . . . . . . . . . . . . .", inputName.value || "Ansh", 200);
-                drawLine("Date of birth . . . . . . . . . . .", inputDob.value || "Date of Birth", 250);
-                drawLine("Place of issue . . . . . . . . . . .", inputLocation.value || "Location", 300);
-                drawLine("Date of issue . . . . . .", inputIssuedate.value || "06 / 25 / 2021", 350);
+                drawLine("Issued to. . . . . . . . . . . . . . . .", inputName.value || "Name", 205);
+                drawLine("Date of birth . . . . . . . . . . .", inputDob.value || "Date of Birth", 260);
+                drawLine("Place of issue . . . . . . . . . . .", inputLocation.value || "Location", 315);
+                drawLine("Date of issue . . . . . .", inputIssuedate.value || "06/25/2021", 370);
 
                 // Legal Paragraphs
                 ctx.textAlign = "left";
                 ctx.fillStyle = "#1A1815";
-                ctx.font = "bold 14px 'Courier Prime', monospace";
-                ctx.fillText("LICENSE OF TRAVEL", rx, 415);
-
-                ctx.fillStyle = "#3A352D";
-                ctx.font = "13px 'Courier Prime', monospace";
-                ctx.fillText("This is to Certify that the person named and described above is permitted", rx, 435);
-                ctx.fillText("to travel and explore freely unless detained by law.", rx, 452);
+                ctx.font = "bold 15px 'Courier Prime', monospace";
+                ctx.fillText("LICENSE OF TRAVEL", rx, 435);
 
                 ctx.fillStyle = "#1A1815";
-                ctx.font = "bold 14px 'Courier Prime', monospace";
-                ctx.fillText("IMPORTANT", rx, 485);
+                ctx.font = "14px 'Courier Prime', monospace";
+                ctx.fillText("This is to Certify that the person named and described", rx, 456);
+                ctx.fillText("above is permitted to travel and explore freely unless detained by law.", rx, 474);
 
-                ctx.fillStyle = "#3A352D";
-                ctx.font = "13px 'Courier Prime', monospace";
-                ctx.fillText("The holder of this license wrote, composed, and arranged all songs within", rx, 505);
-                ctx.fillText("the attached record, unless stated otherwise.", rx, 522);
+                ctx.fillStyle = "#1A1815";
+                ctx.font = "bold 15px 'Courier Prime', monospace";
+                ctx.fillText("IMPORTANT", rx, 508);
+
+                ctx.fillStyle = "#1A1815";
+                ctx.font = "14px 'Courier Prime', monospace";
+                ctx.fillText("The holder of this license wrote, composed, and arranged", rx, 528);
+                ctx.fillText("all songs within the attached record, unless stated otherwise.", rx, 546);
 
                 // 5. Cyan Oval Stamp Overlay
                 ctx.save();
-                ctx.translate(rx + 300, 460);
-                ctx.rotate(-12 * Math.PI / 180);
+                ctx.translate(rx + 310, 485);
+                ctx.rotate(-10 * Math.PI / 180);
                 
                 ctx.strokeStyle = stampColors[colorIndex];
-                ctx.lineWidth = 6;
+                ctx.lineWidth = 7;
                 ctx.beginPath();
-                ctx.ellipse(0, 0, 180, 70, 0, 0, Math.PI * 2);
+                ctx.ellipse(0, 0, 190, 72, 0, 0, Math.PI * 2);
                 ctx.stroke();
 
                 ctx.fillStyle = stampColors[colorIndex];
-                ctx.font = "extrabold 32px 'Anton', sans-serif";
+                ctx.font = "900 36px 'Plus Jakarta Sans', sans-serif";
                 ctx.textAlign = "center";
-                ctx.fillText("CALL ME", 0, -5);
-                ctx.font = "extrabold 26px 'Anton', sans-serif";
-                ctx.fillText("IF YOU GET LOST", 0, 25);
+                ctx.fillText("CALL ME", 0, -4);
+                ctx.font = "900 28px 'Plus Jakarta Sans', sans-serif";
+                ctx.fillText("IF YOU GET LOST", 0, 26);
                 ctx.restore();
 
                 // 6. Signature
                 ctx.textAlign = "right";
-                ctx.fillStyle = "#1A1815";
-                ctx.font = "bold 38px 'Caveat', cursive";
-                ctx.fillText(inputSignature.value || "SIGN HERE", W - 70, 630);
+                ctx.fillStyle = "#11100F";
+                ctx.font = "700 38px 'Architects Daughter', cursive";
+                ctx.fillText(inputSignature.value || "SIGN HERE", W - 70, 650);
 
                 ctx.beginPath();
-                ctx.moveTo(W - 400, 642);
-                ctx.lineTo(W - 70, 642);
-                ctx.lineWidth = 2;
-                ctx.strokeStyle = "#332E27";
+                ctx.setLineDash([3, 4]);
+                ctx.moveTo(rx, 660);
+                ctx.lineTo(W - 70, 660);
+                ctx.lineWidth = 1.5;
+                ctx.strokeStyle = "rgba(26, 24, 21, 0.7)";
                 ctx.stroke();
+                ctx.setLineDash([]);
 
-                ctx.fillStyle = "#5C5549";
-                ctx.font = "bold 12px 'Courier Prime', monospace";
-                ctx.fillText("Signature of Authorized traveler", W - 70, 660);
+                ctx.fillStyle = "#1A1815";
+                ctx.font = "bold 13px 'Courier Prime', monospace";
+                ctx.fillText("Signature of Authorized traveler", W - 70, 680);
 
                 // Download File Trigger
                 const link = document.createElement('a');
