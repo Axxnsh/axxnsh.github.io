@@ -3,14 +3,14 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" content="Ansh — Find Peace in Every Journey. Curated travel experiences that connect you with nature, culture, and yourself.">
-    <title>Ansh — Find Peace in Every Journey</title>
-    
-    <!-- Google Fonts: Cormorant Garamond & Plus Jakarta Sans -->
+    <meta name="description" content="CALL ME IF YOU GET LOST | ID GENERATOR — Get your official traveler passport & custom CMIYGL ID card. Created by Ansh.">
+    <title>CALL ME IF YOU GET LOST | ID GENERATOR</title>
+
+    <!-- Google Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;0,700;1,400&family=Plus+Jakarta+Sans:wght@300;400;500;600;700&display=swap" rel="stylesheet">
-    
+    <link href="https://fonts.googleapis.com/css2?family=Anton&family=Courier+Prime:ital,wght@0,400;0,700;1,400&family=Dancing+Script:wght@600;700&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+
     <!-- FontAwesome Icons -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
 
@@ -21,295 +21,590 @@
             theme: {
                 extend: {
                     fontFamily: {
-                        serif: ['"Cormorant Garamond"', 'Georgia', 'serif'],
+                        display: ['Anton', 'sans-serif'],
+                        mono: ['"Courier Prime"', 'Courier', 'monospace'],
+                        cursive: ['"Dancing Script"', 'cursive'],
                         sans: ['"Plus Jakarta Sans"', 'sans-serif'],
                     },
-                    keyframes: {
-                        scrollDot: {
-                            '0%': { transform: 'translateY(0)', opacity: '1' },
-                            '50%': { transform: 'translateY(8px)', opacity: '0.4' },
-                            '100%': { transform: 'translateY(0)', opacity: '1' },
-                        },
-                        fadeInUp: {
-                            '0%': { opacity: '0', transform: 'translateY(20px)' },
-                            '100%': { opacity: '1', transform: 'translateY(0)' },
-                        }
-                    },
-                    animation: {
-                        'scroll-dot': 'scrollDot 2s infinite',
-                        'fade-in-up': 'fadeInUp 0.8s cubic-bezier(0.16, 1, 0.3, 1) forwards',
+                    colors: {
+                        cmiyglBeige: '#EBE3D3',
+                        cmiyglCardBg: '#F3EDE2',
+                        cmiyglPink: '#E8C3C8',
+                        cmiyglBlue: '#C5D6E8',
+                        cmiyglGreen: '#D2E3D8',
+                        cmiyglDark: '#1E1D1B',
+                        cmiyglAccent: '#A63A2B',
                     }
                 }
             }
         }
     </script>
+
     <style>
-        .video-layer {
-            transition: opacity 2000ms ease-in-out;
-            will-change: opacity;
+        body {
+            background-color: #121110;
+            background-image: 
+                radial-gradient(circle at 50% 0%, rgba(166, 58, 43, 0.15), transparent 70%),
+                radial-gradient(circle at 0% 100%, rgba(235, 227, 211, 0.05), transparent 50%);
+            color: #EBE3D3;
+            font-family: 'Plus Jakarta Sans', sans-serif;
+            min-height: 100vh;
+        }
+
+        /* Textured Paper Overlay Effect */
+        .vintage-paper {
+            background-color: #F3EDE2;
+            background-image: radial-gradient(#1E1D1B 0.5px, transparent 0.5px), radial-gradient(#1E1D1B 0.5px, #F3EDE2 0.5px);
+            background-size: 20px 20px;
+            background-position: 0 0, 10px 10px;
+            opacity: 0.98;
+        }
+
+        /* 3D Card Hover Perspective */
+        .card-perspective {
+            perspective: 1000px;
+        }
+
+        .card-inner {
+            transition: transform 0.2s cubic-bezier(0.1, 0.9, 0.2, 1);
+            transform-style: preserve-3d;
+        }
+
+        /* Custom Input Styles */
+        .cmiygl-input {
+            background: #1E1D1B;
+            border: 1px solid rgba(235, 227, 211, 0.2);
+            color: #EBE3D3;
+            font-family: 'Courier Prime', monospace;
+            text-transform: uppercase;
+            transition: all 0.2s ease;
+        }
+
+        .cmiygl-input:focus {
+            border-color: #A63A2B;
+            outline: none;
+            box-shadow: 0 0 0 3px rgba(166, 58, 43, 0.3);
+        }
+
+        /* Custom Scrollbar */
+        ::-webkit-scrollbar {
+            width: 8px;
+        }
+        ::-webkit-scrollbar-track {
+            background: #121110;
+        }
+        ::-webkit-scrollbar-thumb {
+            background: #33312E;
+            border-radius: 4px;
+        }
+        ::-webkit-scrollbar-thumb:hover {
+            background: #A63A2B;
         }
     </style>
 </head>
-<body class="bg-stone-100 text-emerald-950 font-sans antialiased overflow-x-hidden min-h-screen flex flex-col justify-between relative">
+<body class="flex flex-col justify-between antialiased selection:bg-[#A63A2B] selection:text-white">
 
-    <!-- SEAMLESS DUAL-VIDEO BACKGROUND CROSSFADE ENGINE -->
-    <div class="relative min-h-screen flex flex-col justify-between overflow-hidden">
-        <div class="absolute inset-0 z-0 overflow-hidden pointer-events-none">
-            <video id="video1" class="video-layer absolute inset-0 w-full h-full object-cover opacity-100" muted playsinline preload="auto"></video>
-            <video id="video2" class="video-layer absolute inset-0 w-full h-full object-cover opacity-0" muted playsinline preload="auto"></video>
-            
-            <!-- Soft Background Overlay -->
-            <div class="absolute inset-0 bg-gradient-to-b from-white/50 via-white/20 to-transparent z-10"></div>
-        </div>
+    <!-- TOP ANNOUNCEMENT BANNER -->
+    <div class="bg-[#A63A2B] text-white text-xs font-mono py-2 px-4 text-center tracking-widest font-bold uppercase flex items-center justify-center gap-3 shadow-md">
+        <span>★ OFFICIAL TRAVELER PASSPORT GENERATOR ★</span>
+        <span class="hidden sm:inline">&bull;</span>
+        <span class="hidden sm:inline">CALL ME IF YOU GET LOST</span>
+    </div>
 
-        <!-- 1. HEADER NAVIGATION BAR -->
-        <header class="relative z-20 w-full max-w-7xl mx-auto px-6 lg:px-12 py-6 flex items-center justify-between">
-            <!-- Left Logo: Ansh -->
-            <a href="#" class="flex items-center gap-3 group">
-                <div class="w-10 h-10 rounded-full bg-emerald-950 flex items-center justify-center text-white shadow-md group-hover:scale-105 transition-transform duration-300">
-                    <svg class="w-5 h-5 fill-current" viewBox="0 0 24 24">
-                        <path d="M14 6l-3.8 5.7 2.3 3.4L18 6l6 14H0l6-9 3.5 5.2L14 6z"/>
-                    </svg>
-                </div>
-                <span class="font-serif text-2xl lg:text-3xl font-semibold tracking-wide text-emerald-950">Ansh</span>
-            </a>
-
-            <!-- Center Nav Links (Desktop) -->
-            <nav class="hidden md:flex items-center space-x-8 text-sm font-medium tracking-wide">
-                <a href="#home" class="relative py-1 text-emerald-950 font-semibold after:content-[''] after:absolute after:bottom-0 after:left-0 after:w-full after:h-[2px] after:bg-emerald-950">Home</a>
-                <a href="#destinations" class="text-emerald-900 hover:text-emerald-950 transition-colors">Destinations</a>
-                <a href="#experiences" class="text-emerald-900 hover:text-emerald-950 transition-colors">Experiences</a>
-                <a href="#sustainability" class="text-emerald-900 hover:text-emerald-950 transition-colors">Sustainability</a>
-                <a href="#about" class="text-emerald-900 hover:text-emerald-950 transition-colors">About Us</a>
-                <a href="mailto:maybeansh@gmail.com" class="text-emerald-900 hover:text-emerald-950 transition-colors">Contact</a>
-            </nav>
-
-            <!-- Right Action -->
-            <div class="flex items-center gap-4">
-                <a href="mailto:maybeansh@gmail.com" class="hidden sm:inline-flex items-center justify-center px-6 py-2.5 rounded-full text-xs font-semibold uppercase tracking-wider text-emerald-950 border border-emerald-900/30 bg-white/50 hover:bg-emerald-950 hover:text-white backdrop-blur-md transition-all duration-300 shadow-sm">
-                    Plan Your Escape
-                </a>
-                <button id="mobile-menu-toggle" class="md:hidden text-emerald-950 focus:outline-none p-2 rounded-lg bg-white/40 backdrop-blur-md" aria-label="Toggle Navigation Menu">
-                    <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"/>
-                    </svg>
-                </button>
+    <!-- MAIN CONTAINER -->
+    <main class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 w-full flex-1 flex flex-col justify-center">
+        
+        <!-- HEADER TITLE -->
+        <div class="text-center space-y-3 mb-10">
+            <div class="inline-block px-4 py-1 rounded-full bg-[#1E1D1B] border border-[#A63A2B]/40 text-[#EBE3D3] text-xs font-mono tracking-widest uppercase shadow">
+                COLUMBIA RECORDS &bull; CMIYGL GENERATOR
             </div>
-        </header>
-
-        <!-- Mobile Drawer Overlay -->
-        <div id="mobile-drawer" class="hidden md:hidden fixed inset-x-0 top-20 z-30 p-6 bg-white/90 backdrop-blur-xl border-b border-emerald-900/10 shadow-2xl flex-col gap-4 text-center">
-            <a href="#home" class="text-emerald-950 font-bold py-2">Home</a>
-            <a href="#destinations" class="text-emerald-900 font-medium py-2">Destinations</a>
-            <a href="#experiences" class="text-emerald-900 font-medium py-2">Experiences</a>
-            <a href="#sustainability" class="text-emerald-900 font-medium py-2">Sustainability</a>
-            <a href="mailto:maybeansh@gmail.com" class="mt-2 inline-flex justify-center px-6 py-3 rounded-full text-xs font-semibold uppercase tracking-wider text-white bg-emerald-950">Plan Your Escape</a>
+            <h1 class="font-display text-4xl sm:text-6xl md:text-7xl font-normal tracking-tight text-[#EBE3D3] uppercase drop-shadow-lg">
+                CALL ME IF YOU GET LOST
+            </h1>
+            <p class="text-sm sm:text-base font-mono text-[#EBE3D3]/70 uppercase tracking-wider">
+                GET YOUR PASSPORT AND <span class="text-[#A63A2B] font-bold">#CALLMEIFYOUGETLOST</span>
+            </p>
         </div>
 
-        <!-- 2. MAIN HERO CONTENT (Center Aligned) -->
-        <main class="relative z-20 w-full max-w-7xl mx-auto px-6 lg:px-12 my-auto py-12 flex flex-col items-center justify-center text-center">
-            <div class="max-w-3xl mx-auto space-y-6 flex flex-col items-center animate-fade-in-up">
+        <!-- GENERATOR GRID: FORM CONTROLS (LEFT) + LIVE ID CANVAS (RIGHT) -->
+        <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 items-start">
+            
+            <!-- LEFT COLUMN: CONTROLS & INPUT FORM -->
+            <div class="lg:col-span-5 bg-[#181715] border border-[#EBE3D3]/15 p-6 sm:p-8 rounded-2xl shadow-2xl space-y-6">
                 
-                <!-- Sub-tagline -->
-                <div class="flex items-center justify-center gap-3">
-                    <span class="w-2.5 h-2.5 rounded-full bg-emerald-700 animate-pulse"></span>
-                    <span class="text-xs sm:text-sm font-bold tracking-[0.3em] uppercase text-emerald-900">Discover. Explore. Belong.</span>
-                </div>
-
-                <!-- Main Headline -->
-                <h1 class="font-serif text-5xl sm:text-6xl md:text-7xl lg:text-8xl font-medium leading-[1.05] tracking-tight text-emerald-950 text-center">
-                    Find Peace in <br>
-                    <span class="italic font-normal">Every Journey</span>
-                </h1>
-
-                <!-- Accent Line & Subtitle Paragraph -->
-                <div class="pt-2 flex flex-col items-center">
-                    <div class="w-16 h-[1.5px] bg-emerald-900/30 mb-6 mx-auto"></div>
-                    <p class="text-base sm:text-lg text-emerald-900/90 font-medium leading-relaxed max-w-xl text-center">
-                        Curated travel experiences that connect you with nature, culture, and yourself.
-                    </p>
-                </div>
-
-                <!-- Action Buttons -->
-                <div class="pt-4 flex flex-wrap items-center justify-center gap-4 sm:gap-6">
-                    <!-- Primary CTA -->
-                    <a href="#destinations" class="inline-flex items-center gap-3 px-7 py-3.5 rounded-full text-sm font-medium text-white bg-emerald-950 hover:bg-emerald-900 border border-emerald-800/50 shadow-xl transition-all duration-300 group">
-                        <span>Explore Destinations</span>
-                        <svg class="w-4 h-4 text-teal-300 group-hover:translate-x-1.5 transition-transform duration-300" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3"/>
-                        </svg>
-                    </a>
-
-                    <!-- Secondary CTA -->
-                    <button id="open-video-modal-btn" class="inline-flex items-center gap-3 px-6 py-3.5 rounded-full text-sm font-medium text-emerald-950 bg-white/70 hover:bg-white border border-emerald-900/20 backdrop-blur-md shadow-md transition-all duration-300 hover:-translate-y-0.5 cursor-pointer">
-                        <span class="w-6 h-6 rounded-full bg-emerald-950 text-white flex items-center justify-center">
-                            <svg class="w-3 h-3 ml-0.5 fill-current" viewBox="0 0 24 24">
-                                <path d="M8 5v14l11-7z"/>
-                            </svg>
-                        </span>
-                        <span>Watch Video</span>
+                <div class="flex items-center justify-between border-b border-[#EBE3D3]/10 pb-4">
+                    <h2 class="font-mono text-lg font-bold text-[#EBE3D3] uppercase flex items-center gap-2">
+                        <i class="fa-solid fa-id-card text-[#A63A2B]"></i> Traveler Information
+                    </h2>
+                    <button id="randomize-btn" class="text-xs font-mono text-[#EBE3D3]/60 hover:text-[#A63A2B] transition-colors flex items-center gap-1 cursor-pointer">
+                        <i class="fa-solid fa-shuffle"></i> Randomize
                     </button>
                 </div>
-            </div>
-        </main>
 
-        <!-- 3. BOTTOM SCROLL INDICATOR -->
-        <div class="relative z-20 w-full max-w-7xl mx-auto px-6 lg:px-12 pb-4 pt-4 flex flex-col items-center justify-center">
-            <span class="text-[10px] uppercase font-bold tracking-[0.25em] text-emerald-900">SCROLL TO EXPLORE</span>
-            <div class="w-[1px] h-4 bg-emerald-900/30 my-1"></div>
-            <div class="w-4 h-6 rounded-full border border-emerald-950/60 flex justify-center pt-1">
-                <div class="w-[2px] h-1.5 bg-emerald-950 rounded-full animate-scroll-dot"></div>
-            </div>
-        </div>
+                <div class="space-y-4 text-xs font-mono">
+                    
+                    <!-- Full Name -->
+                    <div>
+                        <label class="block mb-1 text-[#EBE3D3]/70 uppercase tracking-wider font-bold">Full Name (Traveler)</label>
+                        <input type="text" id="input-name" value="ANSH ROY" placeholder="E.G. ANSH ROY / TYLER BAUDELAIRE" class="w-full px-3 py-2.5 rounded-lg cmiygl-input text-sm">
+                    </div>
 
-        <!-- 4. PERFECTLY MERGED PHOTO + CREATOR FOOTER -->
-        <footer class="relative z-20 w-full border-t border-emerald-900/10 bg-white/60 backdrop-blur-md py-8 px-6 lg:px-12 text-emerald-950">
-            <div class="max-w-7xl mx-auto flex flex-col sm:flex-row items-center justify-between gap-6 text-center sm:text-left">
+                    <!-- Date of Birth & Place of Issue Grid -->
+                    <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                        <div>
+                            <label class="block mb-1 text-[#EBE3D3]/70 uppercase tracking-wider font-bold">Date of Birth</label>
+                            <input type="text" id="input-dob" value="03.06.1991" placeholder="MM.DD.YYYY" class="w-full px-3 py-2.5 rounded-lg cmiygl-input">
+                        </div>
+                        <div>
+                            <label class="block mb-1 text-[#EBE3D3]/70 uppercase tracking-wider font-bold">Place of Issue</label>
+                            <input type="text" id="input-place" value="LOS ANGELES, CA" placeholder="CITY, COUNTRY" class="w-full px-3 py-2.5 rounded-lg cmiygl-input">
+                        </div>
+                    </div>
+
+                    <!-- Issued Date & Expiry Date Grid -->
+                    <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                        <div>
+                            <label class="block mb-1 text-[#EBE3D3]/70 uppercase tracking-wider font-bold">Date of Issue</label>
+                            <input type="text" id="input-issued" value="06.25.2021" placeholder="MM.DD.YYYY" class="w-full px-3 py-2.5 rounded-lg cmiygl-input">
+                        </div>
+                        <div>
+                            <label class="block mb-1 text-[#EBE3D3]/70 uppercase tracking-wider font-bold">Expires</label>
+                            <input type="text" id="input-expires" value="06.25.2031" placeholder="MM.DD.YYYY" class="w-full px-3 py-2.5 rounded-lg cmiygl-input">
+                        </div>
+                    </div>
+
+                    <!-- ID Number & Sex Grid -->
+                    <div class="grid grid-cols-1 sm:grid-cols-3 gap-4">
+                        <div class="sm:col-span-2">
+                            <label class="block mb-1 text-[#EBE3D3]/70 uppercase tracking-wider font-bold">ID / License No.</label>
+                            <input type="text" id="input-idno" value="854-1991-CMIYGL" placeholder="ID NUMBER" class="w-full px-3 py-2.5 rounded-lg cmiygl-input">
+                        </div>
+                        <div>
+                            <label class="block mb-1 text-[#EBE3D3]/70 uppercase tracking-wider font-bold">Sex</label>
+                            <select id="input-sex" class="w-full px-3 py-2.5 rounded-lg cmiygl-input cursor-pointer">
+                                <option value="M">M</option>
+                                <option value="F">F</option>
+                                <option value="X">X</option>
+                            </select>
+                        </div>
+                    </div>
+
+                    <!-- Signature Text -->
+                    <div>
+                        <label class="block mb-1 text-[#EBE3D3]/70 uppercase tracking-wider font-bold">Cursive Signature</label>
+                        <input type="text" id="input-signature" value="Ansh Roy" placeholder="YOUR SIGNATURE" class="w-full px-3 py-2.5 rounded-lg cmiygl-input">
+                    </div>
+
+                    <!-- Photo Upload -->
+                    <div>
+                        <label class="block mb-1 text-[#EBE3D3]/70 uppercase tracking-wider font-bold">Upload Passport Photo</label>
+                        <div class="flex items-center gap-3">
+                            <input type="file" id="photo-upload" accept="image/*" class="hidden">
+                            <label for="photo-upload" class="flex-1 px-4 py-2.5 bg-[#1E1D1B] border border-[#EBE3D3]/20 hover:border-[#A63A2B] rounded-lg text-center text-[#EBE3D3] cursor-pointer transition-colors flex items-center justify-center gap-2">
+                                <i class="fa-solid fa-camera text-[#A63A2B]"></i> Select Photo File
+                            </label>
+                            <button id="reset-photo-btn" class="px-3 py-2.5 bg-[#1E1D1B] border border-[#EBE3D3]/20 text-[#EBE3D3]/70 hover:text-white rounded-lg cursor-pointer" title="Reset Default Photo">
+                                <i class="fa-solid fa-rotate-left"></i>
+                            </button>
+                        </div>
+                    </div>
+
+                    <!-- Card Color Theme -->
+                    <div>
+                        <label class="block mb-2 text-[#EBE3D3]/70 uppercase tracking-wider font-bold">Card Theme Preset</label>
+                        <div class="grid grid-cols-5 gap-2">
+                            <button class="theme-btn w-full h-8 rounded-lg bg-[#EBE3D3] border-2 border-white shadow hover:scale-105 transition-transform" data-[#EBE3D3] data-color="#F3EDE2" title="Classic Beige"></button>
+                            <button class="theme-btn w-full h-8 rounded-lg bg-[#E8C3C8] border border-white/30 hover:scale-105 transition-transform" data-color="#E8C3C8" title="Baudelaire Pink"></button>
+                            <button class="theme-btn w-full h-8 rounded-lg bg-[#C5D6E8] border border-white/30 hover:scale-105 transition-transform" data-color="#C5D6E8" title="Ocean Blue"></button>
+                            <button class="theme-btn w-full h-8 rounded-lg bg-[#D2E3D8] border border-white/30 hover:scale-105 transition-transform" data-color="#D2E3D8" title="Lumberjack Green"></button>
+                            <button class="theme-btn w-full h-8 rounded-lg bg-[#2A2926] border border-white/30 hover:scale-105 transition-transform" data-color="#2A2926" title="Midnight Dark"></button>
+                        </div>
+                    </div>
+
+                </div>
+
+            </div>
+
+            <!-- RIGHT COLUMN: LIVE CANVAS PREVIEW & DOWNLOAD CONTROLS -->
+            <div class="lg:col-span-7 flex flex-col items-center justify-center space-y-6">
                 
-                <!-- Left Side: Ansh Profile Photo & Creator Info -->
-                <div class="flex items-center gap-4">
-                    <!-- Photo Avatar -->
-                    <div class="relative shrink-0">
-                        <img src="ansh_profile.jpg" alt="Ansh Profile Photo" class="w-16 h-16 sm:w-20 sm:h-20 rounded-full object-cover shadow-xl border-2 border-white ring-2 ring-emerald-950/20">
-                        <span class="absolute bottom-0 right-0 w-4 h-4 rounded-full bg-teal-400 border-2 border-white shadow" title="Available"></span>
-                    </div>
-
-                    <!-- Creator Details -->
-                    <div class="space-y-1">
-                        <div class="font-serif text-2xl font-semibold tracking-wide flex items-center gap-2">
-                            <span>Created by <a href="https://ansh.com" target="_blank" class="underline hover:text-emerald-700">Ansh.com</a></span>
-                            <i class="fa-solid fa-circle-check text-emerald-800 text-sm" title="Verified Creator"></i>
-                        </div>
-                        <div class="text-xs sm:text-sm font-medium text-emerald-900/80 flex flex-wrap justify-center sm:justify-start gap-x-3 gap-y-1">
-                            <span>Gmail: <a href="mailto:maybeansh@gmail.com" class="font-semibold underline hover:text-emerald-700">maybeansh@gmail.com</a></span>
-                            <span class="hidden sm:inline text-emerald-900/30">&bull;</span>
-                            <span>Mob No.: <a href="tel:+919389984522" class="font-semibold underline hover:text-emerald-700">+91 9389984522</a></span>
-                            <span class="hidden sm:inline text-emerald-900/30">&bull;</span>
-                            <span>New Delhi, India</span>
-                        </div>
+                <!-- Live Canvas Card Container -->
+                <div class="w-full flex justify-center card-perspective">
+                    <div id="card-wrapper" class="card-inner relative w-full max-w-[620px] aspect-[1.58/1] rounded-2xl shadow-2xl overflow-hidden border-4 border-[#1E1D1B] bg-[#F3EDE2]">
+                        <canvas id="id-canvas" width="1000" height="633" class="w-full h-full object-contain block"></canvas>
                     </div>
                 </div>
 
-                <!-- Right Side: Social & Copyright -->
-                <div class="flex flex-col items-center sm:items-end gap-2">
-                    <a href="https://github.com/Axxnsh" target="_blank" class="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-emerald-950 text-white text-xs font-bold hover:bg-emerald-900 transition-colors shadow-md">
-                        <i class="fa-brands fa-github text-sm"></i> GitHub (@Axxnsh)
-                    </a>
-                    <div class="text-xs text-emerald-900/60 font-medium">
-                        &copy; 2026 Ansh. All rights reserved.
-                    </div>
+                <!-- DOWNLOAD & ACTION BUTTONS -->
+                <div class="w-full max-w-[620px] flex flex-col sm:flex-row items-center gap-4">
+                    <!-- Download PNG Button -->
+                    <button id="download-btn" class="w-full sm:flex-1 py-4 bg-[#A63A2B] hover:bg-[#852E22] text-white font-mono text-sm font-bold uppercase tracking-wider rounded-xl shadow-xl transition-all flex items-center justify-center gap-3 cursor-pointer group hover:scale-[1.02]">
+                        <i class="fa-solid fa-download text-base group-hover:bounce"></i>
+                        <span>Download CMIYGL ID Card (HD)</span>
+                    </button>
+
+                    <!-- Copy / Share Button -->
+                    <button id="share-btn" class="w-full sm:w-auto px-6 py-4 bg-[#1E1D1B] hover:bg-[#2A2926] text-[#EBE3D3] border border-[#EBE3D3]/20 font-mono text-sm font-bold uppercase tracking-wider rounded-xl transition-all flex items-center justify-center gap-2 cursor-pointer">
+                        <i class="fa-solid fa-share-nodes text-[#A63A2B]"></i>
+                        <span>Share</span>
+                    </button>
                 </div>
+
+                <!-- Instructions Note -->
+                <p class="text-xs font-mono text-[#EBE3D3]/50 text-center max-w-md">
+                    * Instant high-resolution render. Click download to get your custom traveler ID card ready to share on Instagram & X!
+                </p>
 
             </div>
-        </footer>
-    </div>
 
-    <!-- INTERACTIVE FULLSCREEN VIDEO MODAL -->
-    <div id="video-modal" class="fixed inset-0 z-50 bg-slate-950/90 backdrop-blur-xl hidden items-center justify-center p-4 sm:p-8">
-        <div class="relative w-full max-w-5xl aspect-video bg-black rounded-2xl overflow-hidden shadow-2xl border border-white/10">
-            <button id="close-video-modal-btn" class="absolute top-4 right-4 z-10 w-10 h-10 rounded-full bg-black/60 hover:bg-black text-white flex items-center justify-center transition-colors text-lg cursor-pointer">
-                &times;
-            </button>
-            <video id="modal-video-player" class="w-full h-full object-cover" controls>
-                <source src="https://strvid.nyc3.cdn.digitaloceanspaces.com/motionsite/nature_peace.mp4" type="video/mp4">
-            </video>
         </div>
-    </div>
 
-    <!-- SEAMLESS DUAL-VIDEO LOOP ENGINE SCRIPT -->
+    </main>
+
+    <!-- FOOTER -->
+    <footer class="bg-[#121110] border-t border-[#EBE3D3]/10 py-6 px-6 text-center text-xs font-mono text-[#EBE3D3]/50 mt-12">
+        <div class="max-w-7xl mx-auto flex flex-col sm:flex-row items-center justify-between gap-4">
+            <div>
+                Created by <a href="https://ansh.com" target="_blank" class="text-[#EBE3D3] font-bold underline hover:text-[#A63A2B]">Ansh.com</a> &bull; Inspired by Tyler, The Creator
+            </div>
+            <div>
+                Published live on <a href="https://axxnsh.github.io" class="text-[#EBE3D3] font-bold underline hover:text-[#A63A2B]">axxnsh.github.io</a> &bull; &copy; 2026 Ansh
+            </div>
+        </div>
+    </footer>
+
+    <!-- REAL-TIME CANVAS ID RENDER ENGINE SCRIPT -->
     <script>
         document.addEventListener('DOMContentLoaded', () => {
-            const videoUrl = "https://strvid.nyc3.cdn.digitaloceanspaces.com/motionsite/nature_peace.mp4";
-            const video1 = document.getElementById('video1');
-            const video2 = document.getElementById('video2');
 
-            video1.src = videoUrl;
-            video2.src = videoUrl;
+            const canvas = document.getElementById('id-canvas');
+            const ctx = canvas.getContext('2d');
 
-            let currentVid = video1;
-            let nextVid = video2;
-            let isCrossfading = false;
-            const targetPlaybackRate = 0.5;
+            // Inputs
+            const inputName = document.getElementById('input-name');
+            const inputDob = document.getElementById('input-dob');
+            const inputPlace = document.getElementById('input-place');
+            const inputIssued = document.getElementById('input-issued');
+            const inputExpires = document.getElementById('input-expires');
+            const inputIdNo = document.getElementById('input-idno');
+            const inputSex = document.getElementById('input-sex');
+            const inputSignature = document.getElementById('input-signature');
+            const photoUpload = document.getElementById('photo-upload');
+            const resetPhotoBtn = document.getElementById('reset-photo-btn');
+            const randomizeBtn = document.getElementById('randomize-btn');
+            const downloadBtn = document.getElementById('download-btn');
+            const shareBtn = document.getElementById('share-btn');
+            const themeBtns = document.querySelectorAll('.theme-btn');
 
-            currentVid.playbackRate = targetPlaybackRate;
-            nextVid.playbackRate = targetPlaybackRate;
+            let currentThemeBg = '#F3EDE2';
+            let userPhotoImg = null;
 
-            currentVid.play().catch(e => console.log('Autoplay handled:', e));
+            // Load default photo
+            const defaultPhoto = new Image();
+            defaultPhoto.crossOrigin = 'Anonymous';
+            defaultPhoto.src = 'ansh_profile.jpg';
+            defaultPhoto.onload = () => {
+                userPhotoImg = defaultPhoto;
+                renderIDCard();
+            };
 
-            function checkVideoLoop() {
-                if (currentVid.duration && !isCrossfading) {
-                    const remainingTime = (currentVid.duration - currentVid.currentTime) / currentVid.playbackRate;
+            // Custom photo upload
+            photoUpload.addEventListener('change', (e) => {
+                const file = e.target.files[0];
+                if (file) {
+                    const reader = new FileReader();
+                    reader.onload = (event) => {
+                        const img = new Image();
+                        img.onload = () => {
+                            userPhotoImg = img;
+                            renderIDCard();
+                        };
+                        img.src = event.target.result;
+                    };
+                    reader.readAsDataURL(file);
+                }
+            });
 
-                    if (remainingTime <= 2.0 && remainingTime > 0) {
-                        isCrossfading = true;
+            resetPhotoBtn.addEventListener('click', () => {
+                userPhotoImg = defaultPhoto;
+                renderIDCard();
+            });
 
-                        nextVid.currentTime = 0;
-                        nextVid.playbackRate = targetPlaybackRate;
-                        nextVid.play().then(() => {
-                            nextVid.classList.remove('opacity-0');
-                            nextVid.classList.add('opacity-100');
-                            currentVid.classList.remove('opacity-100');
-                            currentVid.classList.add('opacity-0');
+            // Theme selector
+            themeBtns.forEach(btn => {
+                btn.addEventListener('click', () => {
+                    currentThemeBg = btn.getAttribute('data-color');
+                    renderIDCard();
+                });
+            });
 
-                            setTimeout(() => {
-                                currentVid.pause();
-                                currentVid.currentTime = 0;
-                                
-                                // Swap video references
-                                const temp = currentVid;
-                                currentVid = nextVid;
-                                nextVid = temp;
-                                isCrossfading = false;
-                            }, 2000);
-                        }).catch(err => {
-                            isCrossfading = false;
-                        });
+            // Randomize generator
+            const names = ["ANSH ROY", "TYLER BAUDELAIRE", "SIR BAUDELAIRE", "LUMBERJACK ANSH", "ALEXANDER ROY"];
+            const places = ["LOS ANGELES, CA", "NEW DELHI, IN", "GENEVA, SWITZERLAND", "PARIS, FRANCE", "TOKYO, JAPAN"];
+            
+            randomizeBtn.addEventListener('click', () => {
+                inputName.value = names[Math.floor(Math.random() * names.length)];
+                inputPlace.value = places[Math.floor(Math.random() * places.length)];
+                inputIdNo.value = `${Math.floor(100 + Math.random() * 900)}-1991-CMIYGL`;
+                inputSignature.value = inputName.value.split(" ")[0] + " " + inputName.value.split(" ")[1];
+                renderIDCard();
+            });
+
+            // Re-render on input changes
+            [inputName, inputDob, inputPlace, inputIssued, inputExpires, inputIdNo, inputSex, inputSignature].forEach(input => {
+                input.addEventListener('input', renderIDCard);
+            });
+
+            // CORE RENDER FUNCTION FOR CMIYGL ID CARD (1000x633 CANVAS)
+            function renderIDCard() {
+                const W = 1000;
+                const H = 633;
+
+                // 1. Background Fill
+                ctx.fillStyle = currentThemeBg;
+                ctx.fillRect(0, 0, W, H);
+
+                // Vintage paper texture dots
+                ctx.fillStyle = "rgba(30, 29, 27, 0.04)";
+                for (let x = 0; x < W; x += 12) {
+                    for (let y = 0; y < H; y += 12) {
+                        if ((x + y) % 24 === 0) ctx.fillRect(x, y, 2, 2);
                     }
                 }
-                requestAnimationFrame(checkVideoLoop);
+
+                // 2. Outer Border Frame
+                ctx.strokeStyle = "#1E1D1B";
+                ctx.lineWidth = 14;
+                ctx.strokeRect(16, 16, W - 32, H - 32);
+
+                ctx.lineWidth = 3;
+                ctx.strokeRect(28, 28, W - 56, H - 56);
+
+                // 3. Top Header Banner: CALL ME IF YOU GET LOST
+                ctx.fillStyle = "#A63A2B";
+                ctx.fillRect(32, 32, W - 64, 75);
+
+                ctx.fillStyle = "#FFFFFF";
+                ctx.font = "bold 44px Anton, sans-serif";
+                ctx.textAlign = "center";
+                ctx.fillText("CALL ME IF YOU GET LOST", W / 2, 85);
+
+                // Sub Header Line
+                ctx.fillStyle = "#1E1D1B";
+                ctx.font = "bold 14px 'Courier Prime', monospace";
+                ctx.fillText("TRAVELER PASSPORT & OFFICIAL LICENSE ID", W / 2, 126);
+
+                ctx.beginPath();
+                ctx.moveTo(32, 134);
+                ctx.lineTo(W - 32, 134);
+                ctx.lineWidth = 3;
+                ctx.strokeStyle = "#1E1D1B";
+                ctx.stroke();
+
+                // 4. Photo Frame (Left Side)
+                const photoX = 60;
+                const photoY = 160;
+                const photoW = 280;
+                const photoH = 360;
+
+                ctx.fillStyle = "#EBE3D3";
+                ctx.fillRect(photoX, photoY, photoW, photoH);
+                ctx.strokeStyle = "#1E1D1B";
+                ctx.lineWidth = 4;
+                ctx.strokeRect(photoX, photoY, photoW, photoH);
+
+                if (userPhotoImg) {
+                    // Draw user image centered & object-fit cover
+                    const imgAspect = userPhotoImg.width / userPhotoImg.height;
+                    const frameAspect = photoW / photoH;
+                    let renderW = photoW;
+                    let renderH = photoH;
+                    let offsetX = 0;
+                    let offsetY = 0;
+
+                    if (imgAspect > frameAspect) {
+                        renderW = photoH * imgAspect;
+                        offsetX = -(renderW - photoW) / 2;
+                    } else {
+                        renderH = photoW / imgAspect;
+                        offsetY = -(renderH - photoH) / 2;
+                    }
+
+                    ctx.save();
+                    ctx.beginPath();
+                    ctx.rect(photoX, photoY, photoW, photoH);
+                    ctx.clip();
+                    ctx.drawImage(userPhotoImg, photoX + offsetX, photoY + offsetY, renderW, renderH);
+                    ctx.restore();
+                } else {
+                    ctx.fillStyle = "#1E1D1B";
+                    ctx.font = "18px 'Courier Prime', monospace";
+                    ctx.textAlign = "center";
+                    ctx.fillText("[ NO PHOTO ]", photoX + photoW / 2, photoY + photoH / 2);
+                }
+
+                // Inner Photo Border Line
+                ctx.strokeStyle = "#1E1D1B";
+                ctx.lineWidth = 2;
+                ctx.strokeRect(photoX + 8, photoY + 8, photoW - 16, photoH - 16);
+
+                // 5. Passport Details Form Fields (Right Side)
+                const fieldStartX = 370;
+                ctx.textAlign = "left";
+
+                function drawField(label, val, yPos, valSize = 22) {
+                    ctx.fillStyle = "rgba(30, 29, 27, 0.65)";
+                    ctx.font = "bold 13px 'Courier Prime', monospace";
+                    ctx.fillText(label.toUpperCase(), fieldStartX, yPos);
+
+                    ctx.fillStyle = "#1E1D1B";
+                    ctx.font = `bold ${valSize}px 'Courier Prime', monospace`;
+                    ctx.fillText((val || "").toUpperCase(), fieldStartX, yPos + valSize + 2);
+
+                    ctx.beginPath();
+                    ctx.moveTo(fieldStartX, yPos + valSize + 10);
+                    ctx.lineTo(W - 60, yPos + valSize + 10);
+                    ctx.lineWidth = 1.5;
+                    ctx.strokeStyle = "rgba(30, 29, 27, 0.3)";
+                    ctx.stroke();
+                }
+
+                drawField("NAME OF TRAVELER", inputName.value || "ANSH ROY", 165, 26);
+                drawField("DATE OF BIRTH", inputDob.value || "03.06.1991", 240, 20);
+                drawField("PLACE OF ISSUE", inputPlace.value || "LOS ANGELES, CA", 305, 20);
+
+                // Issued Date & Expires Date Side-by-side
+                ctx.fillStyle = "rgba(30, 29, 27, 0.65)";
+                ctx.font = "bold 13px 'Courier Prime', monospace";
+                ctx.fillText("ISSUED", fieldStartX, 370);
+                ctx.fillText("EXPIRES", fieldStartX + 260, 370);
+
+                ctx.fillStyle = "#1E1D1B";
+                ctx.font = "bold 20px 'Courier Prime', monospace";
+                ctx.fillText((inputIssued.value || "06.25.2021").toUpperCase(), fieldStartX, 395);
+                ctx.fillText((inputExpires.value || "06.25.2031").toUpperCase(), fieldStartX + 260, 395);
+
+                ctx.beginPath();
+                ctx.moveTo(fieldStartX, 404);
+                ctx.lineTo(W - 60, 404);
+                ctx.lineWidth = 1.5;
+                ctx.strokeStyle = "rgba(30, 29, 27, 0.3)";
+                ctx.stroke();
+
+                // License No. & Sex Side-by-side
+                ctx.fillStyle = "rgba(30, 29, 27, 0.65)";
+                ctx.font = "bold 13px 'Courier Prime', monospace";
+                ctx.fillText("LICENSE / ID NO.", fieldStartX, 432);
+                ctx.fillText("SEX", fieldStartX + 360, 432);
+
+                ctx.fillStyle = "#1E1D1B";
+                ctx.font = "bold 20px 'Courier Prime', monospace";
+                ctx.fillText((inputIdNo.value || "854-1991-CMIYGL").toUpperCase(), fieldStartX, 457);
+                ctx.fillText((inputSex.value || "M").toUpperCase(), fieldStartX + 360, 457);
+
+                ctx.beginPath();
+                ctx.moveTo(fieldStartX, 466);
+                ctx.lineTo(W - 60, 466);
+                ctx.lineWidth = 1.5;
+                ctx.strokeStyle = "rgba(30, 29, 27, 0.3)";
+                ctx.stroke();
+
+                // 6. Cursive Signature (Bottom Right)
+                ctx.fillStyle = "rgba(30, 29, 27, 0.65)";
+                ctx.font = "bold 12px 'Courier Prime', monospace";
+                ctx.fillText("TRAVELER SIGNATURE", fieldStartX, 492);
+
+                ctx.fillStyle = "#162846"; // Blue Ink color
+                ctx.font = "34px 'Dancing Script', cursive";
+                ctx.fillText(inputSignature.value || "Ansh Roy", fieldStartX + 20, 532);
+
+                // 7. Official Circular Vintage Stamp Overlay
+                ctx.save();
+                ctx.translate(W - 170, H - 150);
+                ctx.rotate(-15 * Math.PI / 180);
+
+                ctx.strokeStyle = "rgba(166, 58, 43, 0.65)"; // Stamp Red
+                ctx.lineWidth = 4;
+                ctx.beginPath();
+                ctx.arc(0, 0, 65, 0, Math.PI * 2);
+                ctx.stroke();
+
+                ctx.lineWidth = 2;
+                ctx.beginPath();
+                ctx.arc(0, 0, 58, 0, Math.PI * 2);
+                ctx.stroke();
+
+                ctx.fillStyle = "rgba(166, 58, 43, 0.75)";
+                ctx.font = "bold 11px Anton, sans-serif";
+                ctx.textAlign = "center";
+                ctx.fillText("CALL ME IF YOU GET LOST", 0, -25);
+                ctx.fillText("★ OFFICIAL PERMIT ★", 0, 0);
+                ctx.fillText("COLUMBIA RECORDS", 0, 25);
+                ctx.restore();
+
+                // 8. Footer Strip: Created by Ansh.com & Passport Number
+                ctx.fillStyle = "#1E1D1B";
+                ctx.fillRect(32, H - 75, W - 64, 43);
+
+                ctx.fillStyle = "#EBE3D3";
+                ctx.font = "bold 14px 'Courier Prime', monospace";
+                ctx.textAlign = "left";
+                ctx.fillText("PASSPORT NO: CMIYGL-" + (inputIdNo.value || "854-1991").replace(/[^A-Z0-9]/gi, "").toUpperCase(), 50, H - 48);
+
+                ctx.textAlign = "right";
+                ctx.fillText("CREATED BY ANSH.COM", W - 50, H - 48);
+
             }
 
-            requestAnimationFrame(checkVideoLoop);
+            // Initial render
+            setTimeout(renderIDCard, 300);
 
-            // Mobile Menu Toggle
-            const mobileMenuToggle = document.getElementById('mobile-menu-toggle');
-            const mobileDrawer = document.getElementById('mobile-drawer');
+            // 3D Card Hover Perspective Effect
+            const cardWrapper = document.getElementById('card-wrapper');
+            cardWrapper.addEventListener('mousemove', (e) => {
+                const rect = cardWrapper.getBoundingClientRect();
+                const x = e.clientX - rect.left - rect.width / 2;
+                const y = e.clientY - rect.top - rect.height / 2;
+                cardWrapper.style.transform = `rotateY(${x / 25}deg) rotateX(${-y / 25}deg) scale(1.02)`;
+            });
 
-            if (mobileMenuToggle && mobileDrawer) {
-                mobileMenuToggle.addEventListener('click', () => {
-                    mobileDrawer.classList.toggle('hidden');
-                    mobileDrawer.classList.toggle('flex');
-                });
-            }
+            cardWrapper.addEventListener('mouseleave', () => {
+                cardWrapper.style.transform = 'rotateY(0deg) rotateX(0deg) scale(1)';
+            });
 
-            // Video Modal Controls
-            const openModalBtn = document.getElementById('open-video-modal-btn');
-            const closeModalBtn = document.getElementById('close-video-modal-btn');
-            const videoModal = document.getElementById('video-modal');
-            const modalVideoPlayer = document.getElementById('modal-video-player');
+            // One-Click HD Download Button
+            downloadBtn.addEventListener('click', () => {
+                const dataURL = canvas.toDataURL('image/png');
+                const link = document.createElement('a');
+                const filename = `CMIYGL_ID_${(inputName.value || "ANSH").replace(/\s+/g, '_')}.png`;
+                link.download = filename;
+                link.href = dataURL;
+                link.click();
+            });
 
-            if (openModalBtn && videoModal) {
-                openModalBtn.addEventListener('click', () => {
-                    videoModal.classList.remove('hidden');
-                    videoModal.classList.add('flex');
-                    modalVideoPlayer.play();
-                });
-
-                closeModalBtn.addEventListener('click', () => {
-                    videoModal.classList.add('hidden');
-                    videoModal.classList.remove('flex');
-                    modalVideoPlayer.pause();
-                });
-
-                videoModal.addEventListener('click', (e) => {
-                    if (e.target === videoModal) {
-                        videoModal.classList.add('hidden');
-                        videoModal.classList.remove('flex');
-                        modalVideoPlayer.pause();
+            // Share / Copy Canvas Image
+            shareBtn.addEventListener('click', async () => {
+                canvas.toBlob(async (blob) => {
+                    if (navigator.share && navigator.canShare && navigator.canShare({ files: [new File([blob], 'CMIYGL_ID.png', { type: 'image/png' })] })) {
+                        try {
+                            await navigator.share({
+                                title: 'My CMIYGL Traveler ID',
+                                text: 'Check out my custom Call Me If You Get Lost traveler passport ID!',
+                                files: [new File([blob], 'CMIYGL_ID.png', { type: 'image/png' })]
+                            });
+                        } catch (err) {
+                            console.log('Share canceled:', err);
+                        }
+                    } else {
+                        // Fallback: Copy to clipboard or trigger download
+                        downloadBtn.click();
                     }
                 });
-            }
+            });
+
         });
     </script>
+
 </body>
 </html>
